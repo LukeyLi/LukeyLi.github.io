@@ -3,18 +3,25 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Hello World | Hexo</title>
+  <title>Java基础之面向对象 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <meta name="description" content="本篇为笔记贴，关于类和对象，包和访问控制权限，Object类，继承和多态">
+<meta name="keywords" content="Java,类和对象,Object,访问控制权限,继承和多态">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2017/08/20/hello-world/index.html">
+<meta property="og:title" content="Java基础之面向对象">
+<meta property="og:url" content="http://yoursite.com/2017/08/21/Java基础之面向对象 /index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
-<meta property="og:updated_time" content="2017-08-19T17:16:48.672Z">
+<meta property="og:description" content="本篇为笔记贴，关于类和对象，包和访问控制权限，Object类，继承和多态">
+<meta property="og:image" content="http://img.blog.csdn.net/20170903161323406?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjk3NDc2ODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170903161437167?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjk3NDc2ODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170903162004885?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjk3NDc2ODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170903174514148?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjk3NDc2ODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170903174736476?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjk3NDc2ODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2017-09-03T12:25:50.004Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="Java基础之面向对象">
+<meta name="twitter:description" content="本篇为笔记贴，关于类和对象，包和访问控制权限，Object类，继承和多态">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170903161323406?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjk3NDc2ODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -148,7 +155,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/博客/" style="font-size: 10px;">博客</a> <a href="/tags/历史/" style="font-size: 10px;">历史</a> <a href="/tags/基础/" style="font-size: 10px;">基础</a> <a href="/tags/建站/" style="font-size: 10px;">建站</a>
+                        <a href="/tags/Cookie/" style="font-size: 10px;">Cookie</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Object/" style="font-size: 10px;">Object</a> <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/reponse/" style="font-size: 10px;">reponse</a> <a href="/tags/request/" style="font-size: 10px;">request</a> <a href="/tags/session/" style="font-size: 10px;">session</a> <a href="/tags/会话/" style="font-size: 10px;">会话</a> <a href="/tags/历史/" style="font-size: 10px;">历史</a> <a href="/tags/基础/" style="font-size: 10px;">基础</a> <a href="/tags/字符串/" style="font-size: 10px;">字符串</a> <a href="/tags/数据类型/" style="font-size: 10px;">数据类型</a> <a href="/tags/方法和数组/" style="font-size: 10px;">方法和数组</a> <a href="/tags/流程控制/" style="font-size: 10px;">流程控制</a> <a href="/tags/类和对象/" style="font-size: 10px;">类和对象</a> <a href="/tags/继承和多态/" style="font-size: 10px;">继承和多态</a> <a href="/tags/访问控制权限/" style="font-size: 10px;">访问控制权限</a>
                     </div>
                 </section>
                 
@@ -228,11 +235,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Java基础之面向对象 " class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/08/20/hello-world/" class="article-date">
-      <time datetime="2017-08-19T17:16:48.672Z" itemprop="datePublished">2017-08-20</time>
+      <a href="/2017/08/21/Java基础之面向对象 /" class="article-date">
+      <time datetime="2017-08-21T11:12:16.000Z" itemprop="datePublished">2017-08-21</time>
 </a>
     </div>
   
@@ -245,7 +252,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Hello World
+      Java基础之面向对象
     </h1>
   
 
@@ -253,8 +260,16 @@
       
       <div class="article-info article-info-post">
         
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Java基础/">Java基础</a>
+    </div>
+
 
         
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Object/">Object</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/类和对象/">类和对象</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/继承和多态/">继承和多态</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/访问控制权限/">访问控制权限</a></li></ul>
+    </div>
+
         <div class="clearfix"></div>
       </div>
       
@@ -262,15 +277,13 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <pre><code>本篇整理个人以前笔记，有不足之处还望指出。
+</code></pre><h3 id="Object类"><a href="#Object类" class="headerlink" title="Object类"></a>Object类</h3><p><img src="http://img.blog.csdn.net/20170903161323406?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjk3NDc2ODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<h3 id="类和对象"><a href="#类和对象" class="headerlink" title="类和对象"></a>类和对象</h3><p><img src="http://img.blog.csdn.net/20170903161437167?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjk3NDc2ODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<h3 id="包和访问控制"><a href="#包和访问控制" class="headerlink" title="包和访问控制"></a>包和访问控制</h3><p><img src="http://img.blog.csdn.net/20170903162004885?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjk3NDc2ODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<h3 id="抽象类和接口"><a href="#抽象类和接口" class="headerlink" title="抽象类和接口"></a>抽象类和接口</h3><p><img src="http://img.blog.csdn.net/20170903174514148?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjk3NDc2ODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br>接口和抽象类的相同特征：<br>两者都不能实例化。它们都位于继承树的顶端，用于被其他类实现和继承。<br>两者都可包含抽象方法，留待子类去实现。</p>
+<p>接口和抽象类的差别：<br>接口类似于整个系统的总纲，它制定了系统各模块应遵循的标准。因此一个系统中的接口不应该经常改变。<br>抽象类作为系统中多个子类的父类，体现的是一种模板式设计。其相当于系统实现过程的中间产品，已有部分实现，但须进一步完善。<br>接口里只能包含抽象方法，而抽象类可以同时包含抽象方法和普通方法。<br>接口里不能定义静态方法，抽象类里可以。<br>接口里只能定义静态常量 Field，不能定义普通 Field；抽象类里二者均可定义。<br>接口里不包含构造器，抽象类里可以包含（供其子类调用进行初始化操作）。<br>接口里不能包含初始化块，抽象类可以。<br>一个类最多只能有一个直接父类，但可以直接实现多个接口。</p>
+<h3 id="继承和多态"><a href="#继承和多态" class="headerlink" title="继承和多态"></a>继承和多态</h3><p><img src="http://img.blog.csdn.net/20170903174736476?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjk3NDc2ODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
 
       
       
@@ -326,13 +339,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2017/08/20/hello-world/">Hello World</a></p>
+        <p><span>本文标题:</span><a href="/2017/08/21/Java基础之面向对象 /">Java基础之面向对象</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Lucky lee 的个人博客">Lucky lee</a></p>
-        <p><span>发布时间:</span>2017年08月20日 - 01时16分</p>
-        <p><span>最后更新:</span>2017年08月20日 - 01时16分</p>
+        <p><span>发布时间:</span>2017年08月21日 - 19时12分</p>
+        <p><span>最后更新:</span>2017年09月03日 - 20时25分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/08/20/hello-world/" title="Hello World">http://yoursite.com/2017/08/20/hello-world/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2017/08/20/hello-world/　　作者: Lucky lee" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/08/21/Java基础之面向对象 /" title="Java基础之面向对象">http://yoursite.com/2017/08/21/Java基础之面向对象 /</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2017/08/21/Java基础之面向对象 /　　作者: Lucky lee" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
@@ -345,15 +358,20 @@
 
 <nav id="article-nav">
   
-    <a href="/2017/08/21/Hexo搭建/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/08/21/Java基础之程序设计基础 /" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          gitHub搭建Hexo博客
+          Java基础之程序设计基础
         
       </div>
     </a>
   
+  
+    <a href="/2017/08/21/Servlet会话跟踪技术/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Servlet会话跟踪技术</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
   
 </nav>
 
@@ -362,7 +380,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Object类"><span class="toc-number">1.</span> <span class="toc-text">Object类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类和对象"><span class="toc-number">2.</span> <span class="toc-text">类和对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#包和访问控制"><span class="toc-number">3.</span> <span class="toc-text">包和访问控制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#抽象类和接口"><span class="toc-number">4.</span> <span class="toc-text">抽象类和接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#继承和多态"><span class="toc-number">5.</span> <span class="toc-text">继承和多态</span></a></li></ol>
 </div>
 <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
 
@@ -428,16 +446,18 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/08/21/Hexo搭建/" title="上一篇: gitHub搭建Hexo博客">
+            <a href="/2017/08/21/Java基础之程序设计基础 /" title="上一篇: Java基础之程序设计基础">
                 <i class="fa fa-angle-left"></i>
             </a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+            <a href="/2017/08/21/Servlet会话跟踪技术/" title="下一篇: Servlet会话跟踪技术">
+                <i class="fa fa-angle-right"></i>
+            </a>
         
     </div>
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/08/21/java基础/">Java基础之初识Java</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/21/Hexo搭建/">gitHub搭建Hexo博客</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/20/hello-world/">Hello World</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/09/03/Servlet中URL请求参数获取/">page</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/21/Java基础之程序设计基础 /">Java基础之程序设计基础</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/21/Java基础之面向对象 /">Java基础之面向对象</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/21/Servlet会话跟踪技术/">Servlet会话跟踪技术</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/21/java基础/">Java基础之初识Java</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/21/page-1/">Servlet中URL请求参数获取</a></li></ul>
     <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
     <script>
         $(".post-list").addClass("toc-article");
