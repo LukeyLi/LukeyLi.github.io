@@ -430,4 +430,4 @@
     $(document).on('ready.data-jarallax', function () {
         $('[data-jarallax]').jarallax();
     });
-}));</div></div>
+}));
