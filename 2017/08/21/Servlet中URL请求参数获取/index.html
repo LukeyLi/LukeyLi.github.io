@@ -3,24 +3,21 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Java基础之程序设计基础 | Hexo</title>
+  <title>Servlet中URL请求参数获取 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="本篇为笔记贴，JAVA数据类型，流程控制，方法和数组，字符串">
-<meta name="keywords" content="Java,流程控制,数据类型,方法和数组,字符串">
+  <meta name="description" content="本篇介绍servle请求参数获取与传递,整理记录自己的学习笔记">
+<meta name="keywords" content="Servlet,request,reponse">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java基础之程序设计基础">
-<meta property="og:url" content="http://yoursite.com/2017/08/21/Java基础之程序设计基础 /index.html">
+<meta property="og:title" content="Servlet中URL请求参数获取">
+<meta property="og:url" content="http://yoursite.com/2017/08/21/Servlet中URL请求参数获取/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="本篇为笔记贴，JAVA数据类型，流程控制，方法和数组，字符串">
-<meta property="og:image" content="http://img.blog.csdn.net/20170903154249595?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjk3NDc2ODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:image" content="http://img.blog.csdn.net/20170903154617480?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjk3NDc2ODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:image" content="http://img.blog.csdn.net/20170903160356620?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjk3NDc2ODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:image" content="http://img.blog.csdn.net/20170903160543550?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjk3NDc2ODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2017-09-03T12:31:04.095Z">
+<meta property="og:description" content="本篇介绍servle请求参数获取与传递,整理记录自己的学习笔记">
+<meta property="og:image" content="http://img.blog.csdn.net/20170903204351068?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjk3NDc2ODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2017-09-04T15:51:18.988Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java基础之程序设计基础">
-<meta name="twitter:description" content="本篇为笔记贴，JAVA数据类型，流程控制，方法和数组，字符串">
-<meta name="twitter:image" content="http://img.blog.csdn.net/20170903154249595?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjk3NDc2ODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta name="twitter:title" content="Servlet中URL请求参数获取">
+<meta name="twitter:description" content="本篇介绍servle请求参数获取与传递,整理记录自己的学习笔记">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170903204351068?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjk3NDc2ODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -234,10 +231,10 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-Java基础之程序设计基础 " class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Servlet中URL请求参数获取" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/08/21/Java基础之程序设计基础 /" class="article-date">
+      <a href="/2017/08/21/Servlet中URL请求参数获取/" class="article-date">
       <time datetime="2017-08-21T11:12:16.000Z" itemprop="datePublished">2017-08-21</time>
 </a>
     </div>
@@ -251,7 +248,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Java基础之程序设计基础
+      Servlet中URL请求参数获取
     </h1>
   
 
@@ -260,13 +257,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Java基础/">Java基础</a>
+    <a class="article-category-link" href="/categories/Servlet/">Servlet</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/字符串/">字符串</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据类型/">数据类型</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/方法和数组/">方法和数组</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/流程控制/">流程控制</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Servlet/">Servlet</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reponse/">reponse</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/request/">request</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -276,12 +273,10 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <pre><code>整理自己以前笔记专用，有不足之处还望指出
-</code></pre><h3 id="JAVA数据类型"><a href="#JAVA数据类型" class="headerlink" title="JAVA数据类型"></a>JAVA数据类型</h3><p><img src="http://img.blog.csdn.net/20170903154249595?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjk3NDc2ODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br>个人整理思维导图，所用工具XMind</p>
-<h3 id="流程控制"><a href="#流程控制" class="headerlink" title="流程控制"></a>流程控制</h3><p><img src="http://img.blog.csdn.net/20170903154617480?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjk3NDc2ODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-<h3 id="方法和数组"><a href="#方法和数组" class="headerlink" title="方法和数组"></a>方法和数组</h3><p><img src="http://img.blog.csdn.net/20170903160356620?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjk3NDc2ODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><p><img src="http://img.blog.csdn.net/20170903160543550?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjk3NDc2ODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-
+        <pre><code>&gt;本篇介绍servle请求参数获取,整理记录自己的学习笔记。
+</code></pre><p>   <img src="http://img.blog.csdn.net/20170903204351068?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjk3NDc2ODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述">                                                  </p>
+<p>//获取单一参数,request.getParameter()返回为一个String类型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">System.out.println(request.getParameter(&quot;name&quot;)+request.getParameter(&quot;password&quot;));</div><div class="line"></div><div class="line">       //request.getParameterNames()返回一个枚举类型</div><div class="line"></div><div class="line">       Enumeration&lt;String&gt; paramName = request.getParameterNames();</div><div class="line">      while (paramName.hasMoreElements()) &#123;</div><div class="line">            String string = (String) paramName.nextElement();</div><div class="line">            System.out.println(string+&quot;:&quot;+request.getParameter(string));</div><div class="line">        &#125;</div><div class="line"></div><div class="line">      //request.getParameterMap()返回一个Map&lt;String,String[]&gt;</div><div class="line"></div><div class="line">   Map&lt;String,String[]&gt; paramMap =request.getParameterMap();</div><div class="line">f or (String key : paramMap.keySet()) &#123;</div><div class="line">            System.out.println(key+&quot;:&quot;+Arrays.toString(paramMap.get(key)));</div><div class="line">        &#125;</div><div class="line"></div><div class="line">//获取多个同名参数值，多用于多选项获取。</div><div class="line">System.out.println(Arrays.toString(request.getParameterValues(&quot;name&quot;)));</div><div class="line"></div><div class="line">URL访问只能触发get请求，参数随URL携带</div><div class="line"></div><div class="line">post请求可以通过F orm的method选项来设定。post 的请求：参数不随URL携带。</div><div class="line"></div><div class="line">这边也记录下请求转发和重定向</div><div class="line"></div><div class="line">//请求转发,url不变。等于一次请求，服务器行为</div><div class="line">/     request.getRequestDispatcher(&quot;login.html&quot;).forward(request, response);</div><div class="line"></div><div class="line">//重定向-&gt;URL变化，等于发起了两次，客户端行为</div><div class="line">    response.sendRedirect(&quot;login.html&quot;);</div></pre></td></tr></table></figure>
       
       
         <div class="page-reward">
@@ -336,13 +331,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2017/08/21/Java基础之程序设计基础 /">Java基础之程序设计基础</a></p>
+        <p><span>本文标题:</span><a href="/2017/08/21/Servlet中URL请求参数获取/">Servlet中URL请求参数获取</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Lucky lee 的个人博客">Lucky lee</a></p>
         <p><span>发布时间:</span>2017年08月21日 - 19时12分</p>
-        <p><span>最后更新:</span>2017年09月03日 - 20时31分</p>
+        <p><span>最后更新:</span>2017年09月04日 - 23时51分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/08/21/Java基础之程序设计基础 /" title="Java基础之程序设计基础">http://yoursite.com/2017/08/21/Java基础之程序设计基础 /</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2017/08/21/Java基础之程序设计基础 /　　作者: Lucky lee" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/08/21/Servlet中URL请求参数获取/" title="Servlet中URL请求参数获取">http://yoursite.com/2017/08/21/Servlet中URL请求参数获取/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2017/08/21/Servlet中URL请求参数获取/　　作者: Lucky lee" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
@@ -355,9 +350,18 @@
 
 <nav id="article-nav">
   
+    <a href="/2017/08/21/Java基础之面向对象 /" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Java基础之面向对象
+        
+      </div>
+    </a>
   
-    <a href="/2017/08/21/Java基础之面向对象 /" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Java基础之面向对象</div>
+  
+    <a href="/2017/08/21/Servlet会话跟踪技术/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Servlet会话跟踪技术</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -368,7 +372,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#JAVA数据类型"><span class="toc-number">1.</span> <span class="toc-text">JAVA数据类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#流程控制"><span class="toc-number">2.</span> <span class="toc-text">流程控制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方法和数组"><span class="toc-number">3.</span> <span class="toc-text">方法和数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串"><span class="toc-number">4.</span> <span class="toc-text">字符串</span></a></li></ol>
+    
 </div>
 <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
 
@@ -434,11 +438,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+            <a href="/2017/08/21/Java基础之面向对象 /" title="上一篇: Java基础之面向对象">
+                <i class="fa fa-angle-left"></i>
+            </a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a href="/2017/08/21/Java基础之面向对象 /" title="下一篇: Java基础之面向对象">
+            <a href="/2017/08/21/Servlet会话跟踪技术/" title="下一篇: Servlet会话跟踪技术">
                 <i class="fa fa-angle-right"></i>
             </a>
         
