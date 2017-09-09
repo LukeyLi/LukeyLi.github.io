@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>使用git完成基本的版本控制 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="本篇为笔记贴，主要介绍git完成基本的版本控制">
+<meta name="keywords" content="git,版本控制">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用git完成基本的版本控制">
+<meta property="og:url" content="http://yoursite.com/2017/08/17/使用git完成基本版本的控制/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="本篇为笔记贴，主要介绍git完成基本的版本控制">
+<meta property="og:updated_time" content="2017-09-09T02:47:40.179Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用git完成基本的版本控制">
+<meta name="twitter:description" content="本篇为笔记贴，主要介绍git完成基本的版本控制">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+      <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          rootUrl: '/',
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/head.jpg" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/" title="Hi Mate">Lucky lee</a></h1>
+        </hgroup>
+
+        
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/../index.html">博客首页</a></li>
+                        
+                            <li><a href="/resume">个人简历</a></li>
+                        
+                            <li><a href="/about">留言打卡</a></li>
+                        
+                            <li><a href="/FrontEndGuide">前端导航</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=f0dLS01PTkZNSj8ODlEcEBI" title="mail">mail</a>
+                            
+                                <a class="fl github" target="_blank" href="https://github.com/LukeyLi" title="github">github</a>
+                            
+                                <a class="fl zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+                            
+                                <a class="fl weibo" target="_blank" href="#" title="weibo">weibo</a>
+                            
+                                <a class="fl google" target="_blank" href="#" title="google">google</a>
+                            
+                                <a class="fl twitter" target="_blank" href="#" title="twitter">twitter</a>
+                            
+                                <a class="fl linkedin" target="_blank" href="#" title="linkedin">linkedin</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/Cookie/" style="font-size: 10px;">Cookie</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaEE/" style="font-size: 10px;">JavaEE</a> <a href="/tags/Json详解/" style="font-size: 10px;">Json详解</a> <a href="/tags/Object/" style="font-size: 10px;">Object</a> <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/XML/" style="font-size: 10px;">XML</a> <a href="/tags/exception/" style="font-size: 10px;">exception</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/reponse/" style="font-size: 10px;">reponse</a> <a href="/tags/request/" style="font-size: 10px;">request</a> <a href="/tags/servlet/" style="font-size: 15px;">servlet</a> <a href="/tags/session/" style="font-size: 10px;">session</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/会话/" style="font-size: 10px;">会话</a> <a href="/tags/分支/" style="font-size: 10px;">分支</a> <a href="/tags/历史/" style="font-size: 10px;">历史</a> <a href="/tags/反射机制/" style="font-size: 10px;">反射机制</a> <a href="/tags/基础/" style="font-size: 10px;">基础</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/字符串/" style="font-size: 10px;">字符串</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/数据类型/" style="font-size: 10px;">数据类型</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/方法和数组/" style="font-size: 10px;">方法和数组</a> <a href="/tags/注解/" style="font-size: 10px;">注解</a> <a href="/tags/流程控制/" style="font-size: 10px;">流程控制</a> <a href="/tags/测试/" style="font-size: 10px;">测试</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/类和对象/" style="font-size: 10px;">类和对象</a> <a href="/tags/继承和多态/" style="font-size: 10px;">继承和多态</a> <a href="/tags/网络编程/" style="font-size: 10px;">网络编程</a> <a href="/tags/访问控制权限/" style="font-size: 10px;">访问控制权限</a> <a href="/tags/集合和泛型/" style="font-size: 10px;">集合和泛型</a>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://github.com/LukeyLi/Lee.github.io">name</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">爱健身、爱运动、爱交友、爱旅行、喜欢接触新鲜事物、迎接新的挑战，更爱游离于错综复杂的编码与逻辑中</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="Me">Lucky lee</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/head.jpg" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="Me">Lucky lee</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/../index.html">博客首页</a></li>
+                
+                    <li><a href="/resume">个人简历</a></li>
+                
+                    <li><a href="/about">留言打卡</a></li>
+                
+                    <li><a href="/FrontEndGuide">前端导航</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=f0dLS01PTkZNSj8ODlEcEBI" title="mail">mail</a>
+                    
+                        <a class="github" target="_blank" href="https://github.com/LukeyLi" title="github">github</a>
+                    
+                        <a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+                    
+                        <a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+                    
+                        <a class="google" target="_blank" href="#" title="google">google</a>
+                    
+                        <a class="twitter" target="_blank" href="#" title="twitter">twitter</a>
+                    
+                        <a class="linkedin" target="_blank" href="#" title="linkedin">linkedin</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-使用git完成基本版本的控制" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/08/17/使用git完成基本版本的控制/" class="article-date">
+      <time datetime="2017-08-17T11:12:16.000Z" itemprop="datePublished">2017-08-17</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      使用git完成基本的版本控制
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/git/">git</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/版本控制/">版本控制</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <blockquote>
+<p>Git为目前世界上先进的分布式版本控制系统。学习git是为了维护代码的版本，希望网络上有一份永久的存储，这样我们可以将代代码退回到历史版本，和别人协作。</p>
+<p>##配置</p>
+<p>###用户信息<br>git第一件事情设置自己的用户名与邮件地址。Git的提交会使用这些信息，并且它会写入到你的每一次提交中，不可更改：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git config --global user.name “zhangsan”</div><div class="line">git config --global user.email 邮箱</div></pre></td></tr></table></figure>
+<p>如果使用了 –global 选项，那么该命令只需要运行一次，因为之后无论你在该系统上做任何事情， Git 都会使用那些信息。当你想针对特定项目使用不同的用户名称与邮件地址时，可以在那个项目目录下运行没有 –global 选项的命令来配置。</p>
+<p>###文本编辑器<br>配置默认文本编辑器，当Git需要你输入信息时会调用它，如果未配置，git会使用操作系统默认的文本编辑器，通常是Vim。如果想使用不同的编辑器，如Emacs</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git config --global core.editor emacs</div></pre></td></tr></table></figure>
+<p>###检查配置信息<br>git config –list 命令来列出所有Git当时能找到的配置。<br>git config<key>:检查git的莫一项配置。</key></p>
+<p>##获取Git仓库</p>
+<p>###说明<br>有两种取得 Git 项目仓库的方法。 第一种是在现有项目或目录下导入所有文件到 Git 中； 第二种是从一个服务器克隆一个现有的 Git 仓库。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">//在当前目录新建一个Git代码库</div><div class="line">$ git init</div><div class="line">//新建一个目录，将其初始化为Git代码库</div><div class="line">$ git init [project-name]</div><div class="line">// 下载一个项目和它的整个代码历史</div><div class="line">$ git clone [url]</div></pre></td></tr></table></figure>
+<p>一般来说，我们会用远程仓库来对代码进行备份，同时便于多人协作。可以到github,oschina或者码市上去注册一个帐号并建立一个远程仓库。</p>
+<p>个人解读：远程库是本地库的镜像，本地库是远程库的镜像。</p>
+<p>##新增（修改）一些文件并跟踪</p>
+<p>###跟踪文件</p>
+<blockquote>
+<p>版本控制的最大作用就是记录文件的历史状态，以便随时可以回退到历史版本。如果没有版本控制，虽然编辑器都有ctrl+z功能，但是次数有限，且编辑器重启后，这些暂时记录就丢失了。把文件纳入版本控制之下。git中这个动作叫做跟踪文件.</p>
+</blockquote>
+<p>git add开始跟踪一个文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># 跟踪一个具体的文件</div><div class="line">git add &lt;filepath&gt;</div><div class="line"># 跟踪所有文件</div><div class="line">git add .</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>工作目录下的每一个文件都不外乎这两种状态：已跟踪或未跟踪。 已跟踪的文件是指那些被纳入了版本控制的文件。工作目录中除已跟踪文件以外的所有其它文件都属于未跟踪文件（废话）。 初次克隆某个仓库的时候，工作目录中的所有文件都属于已跟踪文件，并处于未修改状态.</p>
+</blockquote>
+<p>###忽略某些文件<br>我们可以创建一个名为 .gitignore 的文件，列出要忽略的文件模式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">*.class  # 忽略clsss文件</div><div class="line"># Mobile Tools for Java (J2ME)</div><div class="line">.mtj.tmp/</div><div class="line"># Package Files #</div><div class="line">*.jar   #忽略jar包</div><div class="line">*.war</div><div class="line">*.ear</div><div class="line"># eclipse files #</div><div class="line">.project</div><div class="line">.classpath</div><div class="line">.settings/</div></pre></td></tr></table></figure>
+<blockquote>
+<p>GitHub 有一个十分详细的针对数十种项目及语言的 .gitignore 文件列表，你可以在 <a href="https://github.com/github/gitignore" target="_blank" rel="external">https://github.com/github/gitignore</a> 找到它.</p>
+<p>###检查当前文件状态<br>要查看哪些文件处于什么状态，可以用 git status 命令.status命令不仅列出了文件状态，还对下一步应该使用的命令给出了提示.</p>
+<p>##提交<br>git commit<br>    git commit -m “第一次提交” 写注释</p>
+<p>##git 状态<br>Git 有三种状态，你的文件可能处于其中之一：已修改（modified）、已暂存（staged）和已提交（committed）。</p>
+</blockquote>
+<pre><code>已修改表示修改了文件，但还没跟踪，如新增的文件和刚修改过的文件。
+已暂存表示对一个已修改文件的当前版本做了标记（git add）。
+已提交表示数据已经安全地保存在本地数据库中(git commit)。
+</code></pre><blockquote>
+<p>Git 项目的三个工作区域的概念：工作目录、暂存区域以及Git仓库。<br>    工作目录是放在磁盘上供你使用或修改的文件及目录总和。<br>    暂存区域是一个文件，缓存文件快照，有时候也被称作“索引”，不过一般说法还是叫暂存区域。<br>    Git仓库是 Git 用来保存项目的元数据和文件快照的地方，记录了所有历史提交。</p>
+</blockquote>
+<p>基本的 Git 工作流程如下：</p>
+<pre><code>在工作目录中修改文件。
+暂存文件（git add），将文件的快照放入暂存区域。
+提交更新(git commit)，找到暂存区域的文件，将快照永久性存储到 Git 仓库。
+PS:文件快照必须先经过暂存区，才能到仓库区
+git add .
+git commit -m &quot;第一次提交&quot;
+</code></pre><p>##查看提交历史<br>git log</p>
+<blockquote>
+<p>git log 有许多选项可以帮助你搜寻你所要找的提交， 接下来我们介绍些最常用的。</p>
+<p>一个常用的选项是 -p，用来显示每次提交的内容差异。 你也可以加上 -2 来仅显示最近两次提交<br>    如果你想看到每次提交的简略的统计信息，你可以使用 –stat 选项.<br>    另外一个常用的选项是 –pretty。 这个选项可以指定使用不同于默认格式的方式展示提交历史。 这个选项有一些内建的子选项供你使用。 比如用 oneline 将每个提交放在一行显示，查看的提交数很大时非常有用。 另外还有 short，full 和 fuller 可以用，展示的信息或多或少有些不同，请自己动手实践一下看看效果如何。</p>
+<p>##移除文件<br>git rm <filepath><br>如果删除之前修改过并且已经放到暂存区域的话，则必须要用强制删除选项 -f</filepath></p>
+<p>##同步远程仓库<br>git push 推送是在远程仓库建立本地仓库的副本，便于别人拉取。<br>如果本地库和远程库一样，会得到Everything up-to-date提示.</p>
+</blockquote>
+<p>git pull 用远程仓库更新本地仓库以获得协作者推送的最新的变化.<br>如果远端没有更新，会得到Already up-to-date.提示。</p>
+
+      
+      
+        <div class="page-reward">
+          <p><a href="javascript:void(0)" onclick="dashangToggle()" class="dashang">赏</a></p>
+          <div class="hide_box"></div>
+          <div class="shang_box">
+            <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
+            <div class="shang_tit">
+              <p>纯属好玩</p>
+            </div>
+            <div class="shang_payimg">
+              <img src="/img/alipayimg.jpg" alt="扫码支持" title="扫一扫" />
+            </div>
+              <div class="pay_explain">扫码打赏，你说多少就多少</div>
+            <div class="shang_payselect">
+              
+                <div class="pay_item checked" data-id="alipay">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/alipay.png" alt="支付宝" /></span>
+                </div>
+              
+              
+                <div class="pay_item" data-id="wechat">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/weixin.png" alt="微信" /></span>
+                </div>
+              
+            </div>
+            <div class="shang_info">
+              <p>打开<span id="shang_pay_txt">支付宝</span>扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+        <script type="text/javascript">
+          $(".pay_item").click(function(){
+            $(this).addClass('checked').siblings('.pay_item').removeClass('checked');
+            var dataid=$(this).attr('data-id');
+            $(".shang_payimg img").attr("src","/img/"+dataid+"img.jpg");
+            $("#shang_pay_txt").text(dataid=="alipay"?"支付宝":"微信");
+          });
+          function dashangToggle(){
+            
+            $(".hide_box").fadeToggle();
+            $(".shang_box").fadeToggle();
+          }
+        </script>
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2017/08/17/使用git完成基本版本的控制/">使用git完成基本的版本控制</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 Lucky lee 的个人博客">Lucky lee</a></p>
+        <p><span>发布时间:</span>2017年08月17日 - 19时12分</p>
+        <p><span>最后更新:</span>2017年09月09日 - 10时47分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2017/08/17/使用git完成基本版本的控制/" title="使用git完成基本的版本控制">http://yoursite.com/2017/08/17/使用git完成基本版本的控制/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2017/08/17/使用git完成基本版本的控制/　　作者: Lucky lee" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+    <a href="/2017/08/17/git分支工作/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Git分支上的工作
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/08/06/json详解/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Json详解</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+</div>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+        <div id="gitments"></div>
+<script src="/js/gitment.browser.js"></script>
+<script>
+    var gitment = new Gitment({
+      id: window.location.pathname,
+      owner: 'lee',
+      repo: 'lee.github.io',
+      oauth: {
+        client_id: '',
+        client_secret: '',
+      },
+    })
+    gitment.render('gitments')
+</script>
+    
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2017/08/17/git分支工作/" title="上一篇: Git分支上的工作">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2017/08/06/json详解/" title="下一篇: Json详解">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/08/21/Mybatis学习/">Mybatis学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/21/JAVAEE之Servlet入门/">JAVAEE之Servlet入门</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/17/git分支工作/">Git分支上的工作</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/17/使用git完成基本版本的控制/">使用git完成基本的版本控制</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/06/json详解/">Json详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/jQuery/">JAVAEE之jQuery</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/29/Servlet中URL请求参数获取/">Servlet中URL请求参数获取</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/29/Servlet会话跟踪技术/">Servlet会话跟踪技术</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/29/JAVAEE之Servlet进阶/">JAVAEE之Servlet进阶</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/22/web基础知识/">JAVAEE之web基础知识</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/22/注解/">Java之注解</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/16/反射机制/">Java之反射机制</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/16/IO和XML/">Java之IO&XML</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/15/多线程/">Java之多线程</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/08/Java之异常处理/">Java之异常处理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/01/Java数据结构/">Java之数据结构</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/01/java网络编程/">Java之网络编程</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/25/java集合和泛型/">Java集合和泛型</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/24/Java基础之面向对象 /">Java基础之面向对象</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/15/Java基础之程序设计基础 /">Java基础之程序设计基础</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/04/java基础/">Java基础之初识Java</a></li></ul>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2017 Lucky lee
+            </div>
+          <!--  <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/luuman/hexo-theme-spfk" target="_blank">spfk</a> by luuman
+            </div> -->
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >海贼到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 24;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+  </div>
+</body>
+</html>
