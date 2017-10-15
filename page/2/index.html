@@ -5,6 +5,9 @@
   
   <title>Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Lukeyli,Lukeyli's Blog" />
+  
   <meta property="og:type" content="website">
 <meta property="og:title" content="Hexo">
 <meta property="og:url" content="http://yoursite.com/page/2/index.html">
@@ -12,993 +15,893 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo">
   
-    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
+    <link rel="icon" href="/favicon.ico">
   
-    <link rel="icon" href="/img/favicon.png">
-  
-  
-      <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
-  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <script src="/js/pace.min.js"></script>
   
-    
-    
+
   
   
-      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  
-  <!-- 加载特效 -->
-    <script src="/js/pace.js"></script>
-    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
-  <script>
-      var yiliaConfig = {
-          rootUrl: '/',
-          fancybox: true,
-          animate: true,
-          isHome: true,
-          isPost: false,
-          isArchive: false,
-          isTag: false,
-          isCategory: false,
-          open_in_new: false
-      }
-  </script>
+
+  <script type="text/javascript" src="http://imgmxy.oss-cn-beijing.aliyuncs.com/pixi-live2d/pixi.min.js" charset="utf-8"></script>
+          <script type="text/javascript" src="http://imgmxy.oss-cn-beijing.aliyuncs.com/pixi-live2d/live2d.min.js" charset="utf-8"></script>
+          <script type="text/javascript" src="http://imgmxy.oss-cn-beijing.aliyuncs.com/pixi-live2d/pixi-live2d.js" charset="utf-8"></script>
 </head>
+
 <body>
   <div id="container">
-    <div class="left-col">
-    <div class="overlay"></div>
-<div class="intrude-less">
-    <header id="header" class="inner">
-        <a href="/" class="profilepic">
-            
-            <img lazy-src="/img/head.jpg" class="js-avatar">
-            
-        </a>
-
-        <hgroup>
-          <h1 class="header-author"><a href="/" title="Hi Mate">Lucky lee</a></h1>
-        </hgroup>
-
-        
-        
-        
-            <div id="switch-btn" class="switch-btn">
-                <div class="icon">
-                    <div class="icon-ctn">
-                        <div class="icon-wrap icon-house" data-idx="0">
-                            <div class="birdhouse"></div>
-                            <div class="birdhouse_holes"></div>
-                        </div>
-                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
-                            <div class="ribbon"></div>
-                        </div>
-                        
-                        <div class="icon-wrap icon-link hide" data-idx="2">
-                            <div class="loopback_l"></div>
-                            <div class="loopback_r"></div>
-                        </div>
-                        
-                        
-                        <div class="icon-wrap icon-me hide" data-idx="3">
-                            <div class="user"></div>
-                            <div class="shoulder"></div>
-                        </div>
-                        
-                    </div>
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">LuckeyLi&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
                     
-                </div>
-                <div class="tips-box hide">
-                    <div class="tips-arrow"></div>
-                    <ul class="tips-inner">
-                        <li>菜单</li>
-                        <li>标签</li>
-                        
-                        <li>友情链接</li>
-                        
-                        
-                        <li>关于我</li>
-                        
-                    </ul>
-                </div>
-            </div>
-        
-
-        <div id="switch-area" class="switch-area">
-            <div class="switch-wrap">
-                <section class="switch-part switch-part1">
-                    <nav class="header-menu">
-                        <ul>
-                        
-                            <li><a href="/../index.html">博客首页</a></li>
-                        
-                            <li><a href="/resume">个人简历</a></li>
-                        
-                            <li><a href="/about">留言打卡</a></li>
-                        
-                            <li><a href="/FrontEndGuide">前端导航</a></li>
-                        
-                        </ul>
-                    </nav>
-                    <nav class="header-nav">
-                        <ul class="social">
-                            
-                                <a class="fl mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=f0dLS01PTkZNSj8ODlEcEBI" title="mail">mail</a>
-                            
-                                <a class="fl github" target="_blank" href="https://github.com/LukeyLi" title="github">github</a>
-                            
-                                <a class="fl zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
-                            
-                                <a class="fl weibo" target="_blank" href="#" title="weibo">weibo</a>
-                            
-                                <a class="fl google" target="_blank" href="#" title="google">google</a>
-                            
-                                <a class="fl twitter" target="_blank" href="#" title="twitter">twitter</a>
-                            
-                                <a class="fl linkedin" target="_blank" href="#" title="linkedin">linkedin</a>
-                            
-                        </ul>
-                    </nav>
-                </section>
-                
-                
-                <section class="switch-part switch-part2">
-                    <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/Cookie/" style="font-size: 10px;">Cookie</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaEE/" style="font-size: 10px;">JavaEE</a> <a href="/tags/Json详解/" style="font-size: 10px;">Json详解</a> <a href="/tags/Object/" style="font-size: 10px;">Object</a> <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/XML/" style="font-size: 10px;">XML</a> <a href="/tags/exception/" style="font-size: 10px;">exception</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/reponse/" style="font-size: 10px;">reponse</a> <a href="/tags/request/" style="font-size: 10px;">request</a> <a href="/tags/servlet/" style="font-size: 10px;">servlet</a> <a href="/tags/session/" style="font-size: 10px;">session</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/会话/" style="font-size: 10px;">会话</a> <a href="/tags/分支/" style="font-size: 10px;">分支</a> <a href="/tags/历史/" style="font-size: 10px;">历史</a> <a href="/tags/反射机制/" style="font-size: 10px;">反射机制</a> <a href="/tags/基础/" style="font-size: 10px;">基础</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/字符串/" style="font-size: 10px;">字符串</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/数据类型/" style="font-size: 10px;">数据类型</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/方法和数组/" style="font-size: 10px;">方法和数组</a> <a href="/tags/注解/" style="font-size: 10px;">注解</a> <a href="/tags/流程控制/" style="font-size: 10px;">流程控制</a> <a href="/tags/测试/" style="font-size: 10px;">测试</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/类和对象/" style="font-size: 10px;">类和对象</a> <a href="/tags/继承和多态/" style="font-size: 10px;">继承和多态</a> <a href="/tags/网络编程/" style="font-size: 10px;">网络编程</a> <a href="/tags/访问控制权限/" style="font-size: 10px;">访问控制权限</a> <a href="/tags/集合和泛型/" style="font-size: 10px;">集合和泛型</a>
-                    </div>
-                </section>
-                
-                
-                
-                <section class="switch-part switch-part3">
-                    <div id="js-friends">
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
                     
-                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://github.com/LukeyLi/Lee.github.io">name</a>
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
                     
-                    </div>
-                </section>
-                
-
-                
-                
-                <section class="switch-part switch-part4">
-                
-                    <div id="js-aboutme">爱健身、爱运动、爱交友、爱旅行、喜欢接触新鲜事物、迎接新的挑战，更爱游离于错综复杂的编码与逻辑中</div>
-                </section>
-                
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
             </div>
         </div>
-    </header>                
-</div>
-    </div>
-    <div class="mid-col">
-      <nav id="mobile-nav">
-      <div class="overlay">
-          <div class="slider-trigger"></div>
-          <h1 class="header-author js-mobile-header hide"><a href="/" title="Me">Lucky lee</a></h1>
-      </div>
-    <div class="intrude-less">
-        <header id="header" class="inner">
-            <a href="/" class="profilepic">
-                
-                    <img lazy-src="/img/head.jpg" class="js-avatar">
-                
-            </a>
-            <hgroup>
-              <h1 class="header-author"><a href="/" title="Me">Lucky lee</a></h1>
-            </hgroup>
-            
-            <nav class="header-menu">
-                <ul>
-                
-                    <li><a href="/../index.html">博客首页</a></li>
-                
-                    <li><a href="/resume">个人简历</a></li>
-                
-                    <li><a href="/about">留言打卡</a></li>
-                
-                    <li><a href="/FrontEndGuide">前端导航</a></li>
-                
-                <div class="clearfix"></div>
-                </ul>
-            </nav>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        LuckeyLi&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个不断进步的程序猿的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
             <nav class="header-nav">
                 <div class="social">
                     
-                        <a class="mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=f0dLS01PTkZNSj8ODlEcEBI" title="mail">mail</a>
+                        <a title="MinHow" target="_blank" href="/">
+                            <i class="fa fa-home fa-2x"></i></a>
                     
-                        <a class="github" target="_blank" href="https://github.com/LukeyLi" title="github">github</a>
+                        <a title="Github" target="_blank" href="https://github.com/LukeyLi">
+                            <i class="fa fa-github fa-2x"></i></a>
                     
-                        <a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+                        <a title="Weibo" target="_blank" href="http://weibo.com/u/1952184405">
+                            <i class="fa fa-weibo fa-2x"></i></a>
                     
-                        <a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
-                    
-                        <a class="google" target="_blank" href="#" title="google">google</a>
-                    
-                        <a class="twitter" target="_blank" href="#" title="twitter">twitter</a>
-                    
-                        <a class="linkedin" target="_blank" href="#" title="linkedin">linkedin</a>
+                        <a title="Mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=f0dLS01PTkZNSj8ODlEcEBI">
+                            <i class="fa fa-qq fa-2x"></i></a>
                     
                 </div>
             </nav>
-        </header>                
+        </div>
     </div>
-</nav>
-      <div class="body-wrap">
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap">
   
-    <article id="post-反射机制" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/07/16/反射机制/" class="article-date">
-      <time datetime="2017-07-16T12:22:11.000Z" itemprop="datePublished">2017-07-16</time>
-</a>
-    </div>
-  
+    <article id="post-注解" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/16/反射机制/">Java之反射机制</a>
+      <a class="article-title" href="/2017/07/22/注解/"  >Java之注解</a>
     </h1>
   
 
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/Java基础/">Java基础</a>
+                  
+              </span>
+          
       </header>
-      
     
-    <div class="article-entry" itemprop="articleBody">
+    <div class="article-entry " itemprop="articleBody">
       
-          
-              本篇为笔记贴，介绍关于Java反射机制
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Java基础/">Java基础</a>
-    </div>
+        <div class="article-img">
+            <a href="/2017/07/22/注解/" >
+                
+                <img src="http://yoursite.com/images/banner.jpg" alt="Java之注解" title="Java之注解">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                持续更新
 
 
+            </p>
+        </div>
       
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/反射机制/">反射机制</a></li></ul>
     </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2017-07-22</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/注解/" class="color3">注解</a>
+      
+    <a href="/tags/测试/" class="color3">测试</a>
+      
+  </li>
 
-      
-        <p class="article-more-link">
-          <a  href="/2017/07/16/反射机制/#more">大航海 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
+        </ul>
+        
+            <a href="/2017/07/22/注解/#more" class="article-more-link" >more&gt;&gt;</a>
+        
+    </footer>
   </div>
-  
 </article>
 
 
+  
+    <article id="post-反射机制" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/16/反射机制/"  >Java之反射机制</a>
+    </h1>
+  
 
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/Java基础/">Java基础</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2017/07/16/反射机制/" >
+                
+                <img src="http://yoursite.com/images/banner.jpg" alt="Java之反射机制" title="Java之反射机制">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                持续更新…
 
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2017-07-16</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/反射机制/" class="color5">反射机制</a>
+      
+  </li>
 
-
-
+        </ul>
+        
+            <a href="/2017/07/16/反射机制/#more" class="article-more-link" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
 
 
   
     <article id="post-IO和XML" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/07/16/IO和XML/" class="article-date">
-      <time datetime="2017-07-16T10:40:11.000Z" itemprop="datePublished">2017-07-16</time>
-</a>
-    </div>
-  
   <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/16/IO和XML/">Java之IO&amp;XML</a>
+      <a class="article-title" href="/2017/07/16/IO和XML/"  >Java之IO&amp;XML</a>
     </h1>
   
 
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/Java基础/">Java基础</a>
+                  
+              </span>
+          
       </header>
-      
     
-    <div class="article-entry" itemprop="articleBody">
+    <div class="article-entry " itemprop="articleBody">
       
-          
-              本篇为笔记贴，介绍关于Java之IO&XML
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Java基础/">Java基础</a>
-    </div>
+        <div class="article-img">
+            <a href="/2017/07/16/IO和XML/" >
+                
+                <img src="http://yoursite.com/images/banner.jpg" alt="Java之IO&XML" title="Java之IO&XML">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                持续更新中…
 
-
+            </p>
+        </div>
       
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IO/">IO</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/XML/">XML</a></li></ul>
     </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2017-07-16</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/IO/" class="color3">IO</a>
+      
+    <a href="/tags/XML/" class="color4">XML</a>
+      
+  </li>
 
-      
-        <p class="article-more-link">
-          <a  href="/2017/07/16/IO和XML/#more">大航海 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
+        </ul>
+        
+            <a href="/2017/07/16/IO和XML/#more" class="article-more-link" >more&gt;&gt;</a>
+        
+    </footer>
   </div>
-  
 </article>
-
-
-
-
-
-
-
 
 
   
     <article id="post-多线程" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/07/15/多线程/" class="article-date">
-      <time datetime="2017-07-15T11:03:44.000Z" itemprop="datePublished">2017-07-15</time>
-</a>
-    </div>
-  
   <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/15/多线程/">Java之多线程</a>
+      <a class="article-title" href="/2017/07/15/多线程/"  >Java之多线程</a>
     </h1>
   
 
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/Java基础/">Java基础</a>
+                  
+              </span>
+          
       </header>
-      
     
-    <div class="article-entry" itemprop="articleBody">
+    <div class="article-entry " itemprop="articleBody">
       
-          
-              本篇为笔记贴，介绍关于Java多线程
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Java基础/">Java基础</a>
-    </div>
+        <div class="article-img">
+            <a href="/2017/07/15/多线程/" >
+                
+                <img src="http://yoursite.com/images/banner.jpg" alt="Java之多线程" title="Java之多线程">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                持续更新
 
-
+            </p>
+        </div>
       
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/多线程/">多线程</a></li></ul>
     </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2017-07-15</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/多线程/" class="color4">多线程</a>
+      
+  </li>
 
-      
-        <p class="article-more-link">
-          <a  href="/2017/07/15/多线程/#more">大航海 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
+        </ul>
+        
+            <a href="/2017/07/15/多线程/#more" class="article-more-link" >more&gt;&gt;</a>
+        
+    </footer>
   </div>
-  
 </article>
-
-
-
-
-
-
-
 
 
   
     <article id="post-Java之异常处理" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/07/08/Java之异常处理/" class="article-date">
-      <time datetime="2017-07-08T11:15:16.000Z" itemprop="datePublished">2017-07-08</time>
-</a>
-    </div>
-  
   <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/08/Java之异常处理/">Java之异常处理</a>
+      <a class="article-title" href="/2017/07/08/Java之异常处理/"  >Java之异常处理</a>
     </h1>
   
 
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/Java/">Java</a>
+                  
+              </span>
+          
       </header>
-      
     
-    <div class="article-entry" itemprop="articleBody">
+    <div class="article-entry " itemprop="articleBody">
       
-          
-              本篇介绍Java异常处理
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Java/">Java</a>
-    </div>
+        <div class="article-img">
+            <a href="/2017/07/08/Java之异常处理/" >
+                
+                <img src="http://yoursite.com/images/banner.jpg" alt="Java之异常处理" title="Java之异常处理">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                本人学习笔记记录专用，有不足之处望之处，内容持续更新。后续更新中…
 
-
+            </p>
+        </div>
       
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/exception/">exception</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/异常/">异常</a></li></ul>
     </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2017-07-08</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/exception/" class="color5">exception</a>
+      
+    <a href="/tags/异常/" class="color3">异常</a>
+      
+  </li>
 
-      
-        <p class="article-more-link">
-          <a  href="/2017/07/08/Java之异常处理/#more">大航海 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
+        </ul>
+        
+            <a href="/2017/07/08/Java之异常处理/#more" class="article-more-link" >more&gt;&gt;</a>
+        
+    </footer>
   </div>
-  
 </article>
-
-
-
-
-
-
-
 
 
   
     <article id="post-Java数据结构" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/07/01/Java数据结构/" class="article-date">
-      <time datetime="2017-07-01T12:40:01.000Z" itemprop="datePublished">2017-07-01</time>
-</a>
-    </div>
-  
   <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/01/Java数据结构/">Java之数据结构</a>
+      <a class="article-title" href="/2017/07/01/Java数据结构/"  >Java之数据结构</a>
     </h1>
   
 
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/Java基础/">Java基础</a>
+                  
+              </span>
+          
       </header>
-      
     
-    <div class="article-entry" itemprop="articleBody">
+    <div class="article-entry " itemprop="articleBody">
       
-          
-              本篇为笔记贴，介绍关于Java数据结构
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Java基础/">Java基础</a>
-    </div>
+        <div class="article-img">
+            <a href="/2017/07/01/Java数据结构/" >
+                
+                <img src="http://yoursite.com/images/banner.jpg" alt="Java之数据结构" title="Java之数据结构">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                学习笔记专用，持续更新。
 
 
+            </p>
+        </div>
       
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li></ul>
     </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2017-07-01</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/数据结构/" class="color5">数据结构</a>
+      
+  </li>
 
-      
-        <p class="article-more-link">
-          <a  href="/2017/07/01/Java数据结构/#more">大航海 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
+        </ul>
+        
+            <a href="/2017/07/01/Java数据结构/#more" class="article-more-link" >more&gt;&gt;</a>
+        
+    </footer>
   </div>
-  
 </article>
-
-
-
-
-
-
-
 
 
   
     <article id="post-java网络编程" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/07/01/java网络编程/" class="article-date">
-      <time datetime="2017-07-01T12:12:11.000Z" itemprop="datePublished">2017-07-01</time>
-</a>
-    </div>
-  
   <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/01/java网络编程/">Java之网络编程</a>
+      <a class="article-title" href="/2017/07/01/java网络编程/"  >Java之网络编程</a>
     </h1>
   
 
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/Java基础/">Java基础</a>
+                  
+              </span>
+          
       </header>
-      
     
-    <div class="article-entry" itemprop="articleBody">
+    <div class="article-entry " itemprop="articleBody">
       
-          
-              本篇为笔记贴，介绍关于Java网络编程
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Java基础/">Java基础</a>
-    </div>
+        <div class="article-img">
+            <a href="/2017/07/01/java网络编程/" >
+                
+                <img src="http://yoursite.com/images/banner.jpg" alt="Java之网络编程" title="Java之网络编程">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                持续更新中...
 
 
+            </p>
+        </div>
       
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网络编程/">网络编程</a></li></ul>
     </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2017-07-01</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/网络编程/" class="color5">网络编程</a>
+      
+  </li>
 
-      
-        <p class="article-more-link">
-          <a  href="/2017/07/01/java网络编程/#more">大航海 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
+        </ul>
+        
+            <a href="/2017/07/01/java网络编程/#more" class="article-more-link" >more&gt;&gt;</a>
+        
+    </footer>
   </div>
-  
 </article>
-
-
-
-
-
-
-
 
 
   
     <article id="post-java集合和泛型" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/06/25/java集合和泛型/" class="article-date">
-      <time datetime="2017-06-25T11:04:14.000Z" itemprop="datePublished">2017-06-25</time>
-</a>
-    </div>
-  
   <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/25/java集合和泛型/">Java集合和泛型</a>
+      <a class="article-title" href="/2017/06/25/java集合和泛型/"  >Java集合和泛型</a>
     </h1>
   
 
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/Java/">Java</a>
+                  
+              </span>
+          
       </header>
-      
     
-    <div class="article-entry" itemprop="articleBody">
+    <div class="article-entry " itemprop="articleBody">
       
-          
-              本篇为笔记贴，介绍关于Java集合和泛型
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Java/">Java</a>
-    </div>
+        <div class="article-img">
+            <a href="/2017/06/25/java集合和泛型/" >
+                
+                <img src="http://yoursite.com/images/banner.jpg" alt="Java集合和泛型" title="Java集合和泛型">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                持续更新中...
 
 
+            </p>
+        </div>
       
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/集合和泛型/">集合和泛型</a></li></ul>
     </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2017-06-25</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/集合和泛型/" class="color1">集合和泛型</a>
+      
+  </li>
 
-      
-        <p class="article-more-link">
-          <a  href="/2017/06/25/java集合和泛型/#more">大航海 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
+        </ul>
+        
+            <a href="/2017/06/25/java集合和泛型/#more" class="article-more-link" >more&gt;&gt;</a>
+        
+    </footer>
   </div>
-  
 </article>
-
-
-
-
-
-
-
 
 
   
     <article id="post-Java基础之面向对象 " class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/06/24/Java基础之面向对象 /" class="article-date">
-      <time datetime="2017-06-24T11:30:11.000Z" itemprop="datePublished">2017-06-24</time>
-</a>
-    </div>
-  
   <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/24/Java基础之面向对象 /">Java基础之面向对象</a>
+      <a class="article-title" href="/2017/06/24/Java基础之面向对象 /"  >Java基础之面向对象</a>
     </h1>
   
 
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/Java基础/">Java基础</a>
+                  
+              </span>
+          
       </header>
-      
     
-    <div class="article-entry" itemprop="articleBody">
+    <div class="article-entry " itemprop="articleBody">
       
-          
-              本篇为笔记贴，关于类和对象，包和访问控制权限，Object类，继承和多态
-          
-      
+        <div class="article-img">
+            <a href="/2017/06/24/Java基础之面向对象 /" >
+                
+                <img src="http://yoursite.com/images/banner.jpg" alt="Java基础之面向对象" title="Java基础之面向对象">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                本篇整理个人以前笔记，有不足之处还望指出。
+Object类
+类和对象
+包和访问控制
+抽象类和接口接口和抽象类的相同特征：两者都不能实例化。它们都位于继承树的顶端，用于被其他类实现和继承。两者都可包含抽象方法，留待子类去实现。
+接口和抽象类的差别：接口类似于整个系统的总纲，它制定了系统各模块应遵循的标准。因此一个系统中的接口不应该经常改变。抽象类作为系统中多个子类的父类，体...
+            </p>
+        </div>
       
     </div>
-    
-    <div class="article-info article-info-index">
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2017-06-24</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
       
+    <a href="/tags/Java/" class="color5">Java</a>
       
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Java基础/">Java基础</a>
-    </div>
+    <a href="/tags/类和对象/" class="color5">类和对象</a>
+      
+    <a href="/tags/Object/" class="color2">Object</a>
+      
+    <a href="/tags/访问控制权限/" class="color2">访问控制权限</a>
+      
+    <a href="/tags/继承和多态/" class="color1">继承和多态</a>
+      
+  </li>
 
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Object/">Object</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/类和对象/">类和对象</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/继承和多态/">继承和多态</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/访问控制权限/">访问控制权限</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/06/24/Java基础之面向对象 /#more">大航海 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
+        </ul>
+        
+            <a href="/2017/06/24/Java基础之面向对象 /#more" class="article-more-link" >more&gt;&gt;</a>
+        
+    </footer>
   </div>
-  
 </article>
-
-
-
-
-
-
-
 
 
   
     <article id="post-Java基础之程序设计基础 " class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/06/15/Java基础之程序设计基础 /" class="article-date">
-      <time datetime="2017-06-15T11:11:16.000Z" itemprop="datePublished">2017-06-15</time>
-</a>
-    </div>
-  
   <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/15/Java基础之程序设计基础 /">Java基础之程序设计基础</a>
+      <a class="article-title" href="/2017/06/15/Java基础之程序设计基础 /"  >Java基础之程序设计基础</a>
     </h1>
   
 
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/Java基础/">Java基础</a>
+                  
+              </span>
+          
       </header>
-      
     
-    <div class="article-entry" itemprop="articleBody">
+    <div class="article-entry " itemprop="articleBody">
       
-          
-              本篇为笔记贴，JAVA数据类型，流程控制，方法和数组，字符串
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Java基础/">Java基础</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/字符串/">字符串</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据类型/">数据类型</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/方法和数组/">方法和数组</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/流程控制/">流程控制</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/06/15/Java基础之程序设计基础 /#more">大航海 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-java基础" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/06/04/java基础/" class="article-date">
-      <time datetime="2017-06-04T11:12:16.000Z" itemprop="datePublished">2017-06-04</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/04/java基础/">Java基础之初识Java</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              本篇主要谈JAVA的特点和GC回收机制，还有介绍了G1
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Java基础/">Java基础</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gc/">gc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/历史/">历史</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/基础/">基础</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/06/04/java基础/#more">大航海 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-  
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-    </nav>
-  
-</div>
-      <footer id="footer">
-    <div class="outer">
-        <div id="footer-info">
-            <div class="footer-left">
-                &copy; 2017 Lucky lee
-            </div>
-          <!--  <div class="footer-right">
-                <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/luuman/hexo-theme-spfk" target="_blank">spfk</a> by luuman
-            </div> -->
+        <div class="article-img">
+            <a href="/2017/06/15/Java基础之程序设计基础 /" >
+                
+                <img src="http://yoursite.com/images/banner.jpg" alt="Java基础之程序设计基础" title="Java基础之程序设计基础">
+                
+            </a>
         </div>
-        
-            <div class="visit">
-                
-                    <span id="busuanzi_container_site_pv" style='display:none'>
-                        <span id="site-visit" >海贼到访数: 
-                            <span id="busuanzi_value_site_uv"></span>
-                        </span>
-                    </span>
-                
-                
-                    <span>, </span>
-                
-                
-                    <span id="busuanzi_container_page_pv" style='display:none'>
-                        <span id="page-visit">本页阅读量: 
-                            <span id="busuanzi_value_page_pv"></span>
-                        </span>
-                    </span>
-                
-            </div>
-        
-    </div>
-</footer>
+        <div class="article-feed">
+            <p>
+                整理自己以前笔记专用，有不足之处还望指出
+JAVA数据类型个人整理思维导图，所用工具XMind
+流程控制
+方法和数组
+字符串
 
+            </p>
+        </div>
+      
     </div>
-    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2017-06-15</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Java/" class="color5">Java</a>
+      
+    <a href="/tags/流程控制/" class="color5">流程控制</a>
+      
+    <a href="/tags/数据类型/" class="color5">数据类型</a>
+      
+    <a href="/tags/方法和数组/" class="color1">方法和数组</a>
+      
+    <a href="/tags/字符串/" class="color4">字符串</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2017/06/15/Java基础之程序设计基础 /#more" class="article-more-link" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/"><< Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next >></a>
+  </nav>
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2017 John Doe<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://yoursite.com",
+      animate: true,
+      isHome: true,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/Java基础/">Java基础</a><a class="category-link" href="/categories/Json详解/">Json详解</a><a class="category-link" href="/categories/Mybatis/">Mybatis</a><a class="category-link" href="/categories/Servlet/">Servlet</a><a class="category-link" href="/categories/git/">git</a><a class="category-link" href="/categories/前端/">前端</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/Cookie/" style="font-size: 10px;">Cookie</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaEE/" style="font-size: 10px;">JavaEE</a> <a href="/tags/Json详解/" style="font-size: 10px;">Json详解</a> <a href="/tags/Object/" style="font-size: 10px;">Object</a> <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/XML/" style="font-size: 10px;">XML</a> <a href="/tags/exception/" style="font-size: 10px;">exception</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/reponse/" style="font-size: 10px;">reponse</a> <a href="/tags/request/" style="font-size: 10px;">request</a> <a href="/tags/servlet/" style="font-size: 10px;">servlet</a> <a href="/tags/session/" style="font-size: 10px;">session</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/会话/" style="font-size: 10px;">会话</a> <a href="/tags/分支/" style="font-size: 10px;">分支</a> <a href="/tags/历史/" style="font-size: 10px;">历史</a> <a href="/tags/反射机制/" style="font-size: 10px;">反射机制</a> <a href="/tags/基础/" style="font-size: 10px;">基础</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/字符串/" style="font-size: 10px;">字符串</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/数据类型/" style="font-size: 10px;">数据类型</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/方法和数组/" style="font-size: 10px;">方法和数组</a> <a href="/tags/注解/" style="font-size: 10px;">注解</a> <a href="/tags/流程控制/" style="font-size: 10px;">流程控制</a> <a href="/tags/测试/" style="font-size: 10px;">测试</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/类和对象/" style="font-size: 10px;">类和对象</a> <a href="/tags/继承和多态/" style="font-size: 10px;">继承和多态</a> <a href="/tags/网络编程/" style="font-size: 10px;">网络编程</a> <a href="/tags/访问控制权限/" style="font-size: 10px;">访问控制权限</a> <a href="/tags/集合和泛型/" style="font-size: 10px;">集合和泛型</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/Cookie/" style="font-size: 10px;">Cookie</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaEE/" style="font-size: 10px;">JavaEE</a> <a href="/tags/Json详解/" style="font-size: 10px;">Json详解</a> <a href="/tags/Object/" style="font-size: 10px;">Object</a> <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/XML/" style="font-size: 10px;">XML</a> <a href="/tags/exception/" style="font-size: 10px;">exception</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/reponse/" style="font-size: 10px;">reponse</a> <a href="/tags/request/" style="font-size: 10px;">request</a> <a href="/tags/servlet/" style="font-size: 10px;">servlet</a> <a href="/tags/session/" style="font-size: 10px;">session</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/会话/" style="font-size: 10px;">会话</a> <a href="/tags/分支/" style="font-size: 10px;">分支</a> <a href="/tags/历史/" style="font-size: 10px;">历史</a> <a href="/tags/反射机制/" style="font-size: 10px;">反射机制</a> <a href="/tags/基础/" style="font-size: 10px;">基础</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/字符串/" style="font-size: 10px;">字符串</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/数据类型/" style="font-size: 10px;">数据类型</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/方法和数组/" style="font-size: 10px;">方法和数组</a> <a href="/tags/注解/" style="font-size: 10px;">注解</a> <a href="/tags/流程控制/" style="font-size: 10px;">流程控制</a> <a href="/tags/测试/" style="font-size: 10px;">测试</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/类和对象/" style="font-size: 10px;">类和对象</a> <a href="/tags/继承和多态/" style="font-size: 10px;">继承和多态</a> <a href="/tags/网络编程/" style="font-size: 10px;">网络编程</a> <a href="/tags/访问控制权限/" style="font-size: 10px;">访问控制权限</a> <a href="/tags/集合和泛型/" style="font-size: 10px;">集合和泛型</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
 <script src="/js/main.js"></script>
 
-    <script>
-        $(document).ready(function() {
-            var backgroundnum = 24;
-            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
-            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
-            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
-        })
-    </script>
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
 
 
 
 
 
-<div class="scroll" id="scroll">
-    <a href="#"><i class="fa fa-arrow-up"></i></a>
-    <a href="#comments"><i class="fa fa-comments-o"></i></a>
-    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
-</div>
-<script>
-    $(document).ready(function() {
-        if ($("#comments").length < 1) {
-            $("#scroll > a:nth-child(2)").hide();
-        };
-    })
-</script>
 
-<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
-</script>
 
-  <script language="javascript">
-    $(function() {
-        $("a[title]").each(function() {
-            var a = $(this);
-            var title = a.attr('title');
-            if (title == undefined || title == "") return;
-            a.data('title', title).removeAttr('title').hover(
-
-            function() {
-                var offset = a.offset();
-                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
-                    top: offset.top - a.outerHeight() - 15,
-                    left: offset.left + a.outerWidth()/2 + 1
-                }).fadeIn(function() {
-                    var pop = $(this);
-                    setTimeout(function() {
-                        pop.remove();
-                    }, pop.text().length * 800);
-                });
-            }, function() {
-                $("#anchortitlecontainer").remove();
-            });
-        });
-    });
-</script>
-
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
 
   </div>
+  <div id="live2d"><script type="text/javascript" src="http://imgmxy.oss-cn-beijing.aliyuncs.com/pixi-live2d/live2d-mod.js" charset="utf-8"></script>
+              </div>
 </body>
 </html>
