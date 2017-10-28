@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>JAVAEE之Servlet进阶 | Hexo</title>
+  <title>JAVAEE之Servlet进阶 | LukeyLi&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="Lukeyli,Lukeyli's Blog" />
@@ -13,15 +13,16 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="JAVAEE之Servlet进阶">
 <meta property="og:url" content="http://yoursite.com/2017/07/29/JAVAEE之Servlet进阶/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="LukeyLi&#39;s Blog">
 <meta property="og:description" content="本篇为笔记贴，介绍关于Java Servlet进阶">
+<meta property="og:image" content="http://img.blog.csdn.net/20170909003251791?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjk3NDc2ODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170909003513251?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjk3NDc2ODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170909003653905?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjk3NDc2ODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2017-09-09T02:45:18.841Z">
+<meta property="og:updated_time" content="2017-10-17T00:41:32.735Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JAVAEE之Servlet进阶">
 <meta name="twitter:description" content="本篇为笔记贴，介绍关于Java Servlet进阶">
-<meta name="twitter:image" content="http://img.blog.csdn.net/20170909003513251?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjk3NDc2ODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170909003251791?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjk3NDc2ODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -45,7 +46,7 @@
         <div id="header-menu" class="header-menu-pos animated">
             <div class="header-menu-container">
                 <a href="/" class="left">
-                    <span class="site-title">LuckeyLi&#39;s Blog</span>
+                    <span class="site-title">LukeyLi&#39;s Blog</span>
                 </a>
                 <nav id="header-menu-nav" class="right">
                     
@@ -80,7 +81,7 @@
                 <div id="header-title">
                     
                     <h2>
-                        LuckeyLi&#39;s Blog
+                        LukeyLi&#39;s Blog
                     </h2>
                     
                 </div>
@@ -149,9 +150,8 @@
     <div class="article-entry post-content" itemprop="articleBody">
       
             
-            <pre><code>![这里写图片描述](http://img.blog.csdn.net/20170909003251791?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjk3NDc2ODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
-</code></pre><p>#Servlet中的九大内置对象</p>
-<p>##ServletConfig|config<br>1、ServletConfig 对象 ： init-param 节点中注册的初使化参数被封装ServletConfig对象中;<br>2、此对象在init方法被调用时由服务器自动创建,并通过参数传递给用户;</p>
+            <p><img src="http://img.blog.csdn.net/20170909003251791?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjk3NDc2ODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<h1 id="Servlet中的九大内置对象"><a href="#Servlet中的九大内置对象" class="headerlink" title="Servlet中的九大内置对象"></a>Servlet中的九大内置对象</h1><h2 id="ServletConfig-config"><a href="#ServletConfig-config" class="headerlink" title="ServletConfig|config"></a>ServletConfig|config</h2><p>1、ServletConfig 对象 ： init-param 节点中注册的初使化参数被封装ServletConfig对象中;<br>2、此对象在init方法被调用时由服务器自动创建,并通过参数传递给用户;</p>
 <pre><code>--- 通过 init 方法拿到 ServletConfig 对象;
 --- getServletConfig();
 </code></pre><p>3、ServletConfig API<br>     – getInitParameter(paraname)</p>
@@ -194,12 +194,12 @@
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2017年09月09日 10:45</p>
+        <p>最后更新： 2017年10月17日 08:41</p>
         <p>原始链接： <a class="post-url" href="/2017/07/29/JAVAEE之Servlet进阶/" title="JAVAEE之Servlet进阶">http://yoursite.com/2017/07/29/JAVAEE之Servlet进阶/</a></p>
         <footer>
             <a href="http://yoursite.com">
-                <img src="/images/logo.png" alt="John Doe">
-                John Doe
+                <img src="/images/logo.png" alt="LukeyLi">
+                LukeyLi
             </a>
         </footer>
     </div>
@@ -217,7 +217,7 @@
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2017/07/29/JAVAEE之Servlet进阶/&title=《JAVAEE之Servlet进阶》 — Hexo&pic=http://yoursite.comimages/logo.png" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2017/07/29/JAVAEE之Servlet进阶/&title=《JAVAEE之Servlet进阶》 — LukeyLi's Blog&pic=http://yoursite.comimages/logo.png" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -227,7 +227,7 @@
             </a>
           </li>
           <li>
-            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2017/07/29/JAVAEE之Servlet进阶/&title=《JAVAEE之Servlet进阶》 — Hexo&source=" data-title="QQ">
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2017/07/29/JAVAEE之Servlet进阶/&title=《JAVAEE之Servlet进阶》 — LukeyLi's Blog&source=" data-title="QQ">
               <i class="fa fa-qq"></i>
             </a>
           </li>
@@ -237,7 +237,7 @@
             </a>
           </li>
           <li>
-            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《JAVAEE之Servlet进阶》 — Hexo&url=http://yoursite.com/2017/07/29/JAVAEE之Servlet进阶/&via=http://yoursite.com" data-title="Twitter">
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《JAVAEE之Servlet进阶》 — LukeyLi's Blog&url=http://yoursite.com/2017/07/29/JAVAEE之Servlet进阶/&via=http://yoursite.com" data-title="Twitter">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
@@ -277,7 +277,7 @@
 
     <aside class="post-toc-pos post-toc-top" id="post-toc">
         <nav class="post-toc-wrap">
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#request-getParameter-“参数名”"><span class="post-toc-text">request.getParameter(“参数名”);</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Servlet中的九大内置对象"><span class="post-toc-text">Servlet中的九大内置对象</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ServletConfig-config"><span class="post-toc-text">ServletConfig|config</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#request-getParameter-“参数名”"><span class="post-toc-text">request.getParameter(“参数名”);</span></a></li></ol></li></ol>
         </nav>
     </aside>
     
@@ -295,8 +295,8 @@
     </a>
   
   
-    <a href="/2017/07/22/web基础知识/" id="article-nav-older" class="article-nav-link-wrap">
-      <span class="article-nav-title">JAVAEE之web基础知识</span>
+    <a href="/2017/07/22/JAVAEE之Servlet入门/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">JAVAEE之Servlet入门</span>
       <i class="fa fa-hand-o-right" aria-hidden="true"></i>
     </a>
   
@@ -304,6 +304,20 @@
 
 
 
+    
+        <section id="comments">
+            <div id="disqus_thread">
+                <script type="text/javascript">
+                    var disqus_shortname = 'true';
+                    (function() {
+                        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                    })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            </div>
+        </section>
     
 </section>
         
@@ -342,7 +356,7 @@
       <p>
         Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
         Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
-      &copy; 2017 John Doe<br>
+      &copy; 2017 LukeyLi<br>
       </p>
     </div>
 
@@ -378,7 +392,7 @@
             <a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/Java基础/">Java基础</a><a class="category-link" href="/categories/Json详解/">Json详解</a><a class="category-link" href="/categories/Mybatis/">Mybatis</a><a class="category-link" href="/categories/Servlet/">Servlet</a><a class="category-link" href="/categories/git/">git</a><a class="category-link" href="/categories/前端/">前端</a>
         </div>
         <div id="sidebar-menu-box-tags">
-            <a href="/tags/Cookie/" style="font-size: 10px;">Cookie</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaEE/" style="font-size: 10px;">JavaEE</a> <a href="/tags/Json详解/" style="font-size: 10px;">Json详解</a> <a href="/tags/Object/" style="font-size: 10px;">Object</a> <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/XML/" style="font-size: 10px;">XML</a> <a href="/tags/exception/" style="font-size: 10px;">exception</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/reponse/" style="font-size: 10px;">reponse</a> <a href="/tags/request/" style="font-size: 10px;">request</a> <a href="/tags/servlet/" style="font-size: 10px;">servlet</a> <a href="/tags/session/" style="font-size: 10px;">session</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/会话/" style="font-size: 10px;">会话</a> <a href="/tags/分支/" style="font-size: 10px;">分支</a> <a href="/tags/历史/" style="font-size: 10px;">历史</a> <a href="/tags/反射机制/" style="font-size: 10px;">反射机制</a> <a href="/tags/基础/" style="font-size: 10px;">基础</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/字符串/" style="font-size: 10px;">字符串</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/数据类型/" style="font-size: 10px;">数据类型</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/方法和数组/" style="font-size: 10px;">方法和数组</a> <a href="/tags/注解/" style="font-size: 10px;">注解</a> <a href="/tags/流程控制/" style="font-size: 10px;">流程控制</a> <a href="/tags/测试/" style="font-size: 10px;">测试</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/类和对象/" style="font-size: 10px;">类和对象</a> <a href="/tags/继承和多态/" style="font-size: 10px;">继承和多态</a> <a href="/tags/网络编程/" style="font-size: 10px;">网络编程</a> <a href="/tags/访问控制权限/" style="font-size: 10px;">访问控制权限</a> <a href="/tags/集合和泛型/" style="font-size: 10px;">集合和泛型</a>
+            <a href="/tags/Cookie/" style="font-size: 10px;">Cookie</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaEE/" style="font-size: 10px;">JavaEE</a> <a href="/tags/Json详解/" style="font-size: 10px;">Json详解</a> <a href="/tags/Object/" style="font-size: 10px;">Object</a> <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/XML/" style="font-size: 10px;">XML</a> <a href="/tags/exception/" style="font-size: 10px;">exception</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/reponse/" style="font-size: 10px;">reponse</a> <a href="/tags/request/" style="font-size: 10px;">request</a> <a href="/tags/servlet/" style="font-size: 15px;">servlet</a> <a href="/tags/session/" style="font-size: 10px;">session</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/会话/" style="font-size: 10px;">会话</a> <a href="/tags/分支/" style="font-size: 10px;">分支</a> <a href="/tags/历史/" style="font-size: 10px;">历史</a> <a href="/tags/反射机制/" style="font-size: 10px;">反射机制</a> <a href="/tags/基础/" style="font-size: 10px;">基础</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/字符串/" style="font-size: 10px;">字符串</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/数据类型/" style="font-size: 10px;">数据类型</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/方法和数组/" style="font-size: 10px;">方法和数组</a> <a href="/tags/注解/" style="font-size: 10px;">注解</a> <a href="/tags/流程控制/" style="font-size: 10px;">流程控制</a> <a href="/tags/测试/" style="font-size: 10px;">测试</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/类和对象/" style="font-size: 10px;">类和对象</a> <a href="/tags/继承和多态/" style="font-size: 10px;">继承和多态</a> <a href="/tags/网络编程/" style="font-size: 10px;">网络编程</a> <a href="/tags/访问控制权限/" style="font-size: 10px;">访问控制权限</a> <a href="/tags/集合和泛型/" style="font-size: 10px;">集合和泛型</a>
         </div>
     </div>
     <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
@@ -411,7 +425,7 @@
     <div class="mobile-header-tag-container">
         <span class="title">Tags</span>
         <div id="mobile-header-container-tags">
-            <a href="/tags/Cookie/" style="font-size: 10px;">Cookie</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaEE/" style="font-size: 10px;">JavaEE</a> <a href="/tags/Json详解/" style="font-size: 10px;">Json详解</a> <a href="/tags/Object/" style="font-size: 10px;">Object</a> <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/XML/" style="font-size: 10px;">XML</a> <a href="/tags/exception/" style="font-size: 10px;">exception</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/reponse/" style="font-size: 10px;">reponse</a> <a href="/tags/request/" style="font-size: 10px;">request</a> <a href="/tags/servlet/" style="font-size: 10px;">servlet</a> <a href="/tags/session/" style="font-size: 10px;">session</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/会话/" style="font-size: 10px;">会话</a> <a href="/tags/分支/" style="font-size: 10px;">分支</a> <a href="/tags/历史/" style="font-size: 10px;">历史</a> <a href="/tags/反射机制/" style="font-size: 10px;">反射机制</a> <a href="/tags/基础/" style="font-size: 10px;">基础</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/字符串/" style="font-size: 10px;">字符串</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/数据类型/" style="font-size: 10px;">数据类型</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/方法和数组/" style="font-size: 10px;">方法和数组</a> <a href="/tags/注解/" style="font-size: 10px;">注解</a> <a href="/tags/流程控制/" style="font-size: 10px;">流程控制</a> <a href="/tags/测试/" style="font-size: 10px;">测试</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/类和对象/" style="font-size: 10px;">类和对象</a> <a href="/tags/继承和多态/" style="font-size: 10px;">继承和多态</a> <a href="/tags/网络编程/" style="font-size: 10px;">网络编程</a> <a href="/tags/访问控制权限/" style="font-size: 10px;">访问控制权限</a> <a href="/tags/集合和泛型/" style="font-size: 10px;">集合和泛型</a>
+            <a href="/tags/Cookie/" style="font-size: 10px;">Cookie</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaEE/" style="font-size: 10px;">JavaEE</a> <a href="/tags/Json详解/" style="font-size: 10px;">Json详解</a> <a href="/tags/Object/" style="font-size: 10px;">Object</a> <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/XML/" style="font-size: 10px;">XML</a> <a href="/tags/exception/" style="font-size: 10px;">exception</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/reponse/" style="font-size: 10px;">reponse</a> <a href="/tags/request/" style="font-size: 10px;">request</a> <a href="/tags/servlet/" style="font-size: 15px;">servlet</a> <a href="/tags/session/" style="font-size: 10px;">session</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/会话/" style="font-size: 10px;">会话</a> <a href="/tags/分支/" style="font-size: 10px;">分支</a> <a href="/tags/历史/" style="font-size: 10px;">历史</a> <a href="/tags/反射机制/" style="font-size: 10px;">反射机制</a> <a href="/tags/基础/" style="font-size: 10px;">基础</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/字符串/" style="font-size: 10px;">字符串</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/数据类型/" style="font-size: 10px;">数据类型</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/方法和数组/" style="font-size: 10px;">方法和数组</a> <a href="/tags/注解/" style="font-size: 10px;">注解</a> <a href="/tags/流程控制/" style="font-size: 10px;">流程控制</a> <a href="/tags/测试/" style="font-size: 10px;">测试</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/类和对象/" style="font-size: 10px;">类和对象</a> <a href="/tags/继承和多态/" style="font-size: 10px;">继承和多态</a> <a href="/tags/网络编程/" style="font-size: 10px;">网络编程</a> <a href="/tags/访问控制权限/" style="font-size: 10px;">访问控制权限</a> <a href="/tags/集合和泛型/" style="font-size: 10px;">集合和泛型</a>
         </div>
     </div>
 </div>

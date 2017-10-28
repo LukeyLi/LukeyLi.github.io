@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>使用git完成基本的版本控制 | Hexo</title>
+  <title>使用git完成基本的版本控制 | LukeyLi&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="Lukeyli,Lukeyli's Blog" />
@@ -13,9 +13,9 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用git完成基本的版本控制">
 <meta property="og:url" content="http://yoursite.com/2017/08/17/使用git完成基本版本的控制/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="LukeyLi&#39;s Blog">
 <meta property="og:description" content="本篇为笔记贴，主要介绍git完成基本的版本控制">
-<meta property="og:updated_time" content="2017-09-09T02:47:40.179Z">
+<meta property="og:updated_time" content="2017-10-17T00:49:59.487Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用git完成基本的版本控制">
 <meta name="twitter:description" content="本篇为笔记贴，主要介绍git完成基本的版本控制">
@@ -42,7 +42,7 @@
         <div id="header-menu" class="header-menu-pos animated">
             <div class="header-menu-container">
                 <a href="/" class="left">
-                    <span class="site-title">LuckeyLi&#39;s Blog</span>
+                    <span class="site-title">LukeyLi&#39;s Blog</span>
                 </a>
                 <nav id="header-menu-nav" class="right">
                     
@@ -77,7 +77,7 @@
                 <div id="header-title">
                     
                     <h2>
-                        LuckeyLi&#39;s Blog
+                        LukeyLi&#39;s Blog
                     </h2>
                     
                 </div>
@@ -148,35 +148,31 @@
             
             <blockquote>
 <p>Git为目前世界上先进的分布式版本控制系统。学习git是为了维护代码的版本，希望网络上有一份永久的存储，这样我们可以将代代码退回到历史版本，和别人协作。</p>
-<p>##配置</p>
-<p>###用户信息<br>git第一件事情设置自己的用户名与邮件地址。Git的提交会使用这些信息，并且它会写入到你的每一次提交中，不可更改：</p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="用户信息"><a href="#用户信息" class="headerlink" title="用户信息"></a>用户信息</h3><p>git第一件事情设置自己的用户名与邮件地址。Git的提交会使用这些信息，并且它会写入到你的每一次提交中，不可更改：</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git config --global user.name “zhangsan”</div><div class="line">git config --global user.email 邮箱</div></pre></td></tr></table></figure>
 <p>如果使用了 –global 选项，那么该命令只需要运行一次，因为之后无论你在该系统上做任何事情， Git 都会使用那些信息。当你想针对特定项目使用不同的用户名称与邮件地址时，可以在那个项目目录下运行没有 –global 选项的命令来配置。</p>
-<p>###文本编辑器<br>配置默认文本编辑器，当Git需要你输入信息时会调用它，如果未配置，git会使用操作系统默认的文本编辑器，通常是Vim。如果想使用不同的编辑器，如Emacs</p>
+<h3 id="文本编辑器"><a href="#文本编辑器" class="headerlink" title="文本编辑器"></a>文本编辑器</h3><p>配置默认文本编辑器，当Git需要你输入信息时会调用它，如果未配置，git会使用操作系统默认的文本编辑器，通常是Vim。如果想使用不同的编辑器，如Emacs</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git config --global core.editor emacs</div></pre></td></tr></table></figure>
-<p>###检查配置信息<br>git config –list 命令来列出所有Git当时能找到的配置。<br>git config<key>:检查git的莫一项配置。</key></p>
-<p>##获取Git仓库</p>
-<p>###说明<br>有两种取得 Git 项目仓库的方法。 第一种是在现有项目或目录下导入所有文件到 Git 中； 第二种是从一个服务器克隆一个现有的 Git 仓库。</p>
+<h3 id="检查配置信息"><a href="#检查配置信息" class="headerlink" title="检查配置信息"></a>检查配置信息</h3><p>git config –list 命令来列出所有Git当时能找到的配置。<br>git config<key>:检查git的莫一项配置。</key></p>
+<h2 id="获取Git仓库"><a href="#获取Git仓库" class="headerlink" title="获取Git仓库"></a>获取Git仓库</h2><h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h3><p>有两种取得 Git 项目仓库的方法。 第一种是在现有项目或目录下导入所有文件到 Git 中； 第二种是从一个服务器克隆一个现有的 Git 仓库。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">//在当前目录新建一个Git代码库</div><div class="line">$ git init</div><div class="line">//新建一个目录，将其初始化为Git代码库</div><div class="line">$ git init [project-name]</div><div class="line">// 下载一个项目和它的整个代码历史</div><div class="line">$ git clone [url]</div></pre></td></tr></table></figure>
 <p>一般来说，我们会用远程仓库来对代码进行备份，同时便于多人协作。可以到github,oschina或者码市上去注册一个帐号并建立一个远程仓库。</p>
 <p>个人解读：远程库是本地库的镜像，本地库是远程库的镜像。</p>
-<p>##新增（修改）一些文件并跟踪</p>
-<p>###跟踪文件</p>
-<blockquote>
+<h2 id="新增（修改）一些文件并跟踪"><a href="#新增（修改）一些文件并跟踪" class="headerlink" title="新增（修改）一些文件并跟踪"></a>新增（修改）一些文件并跟踪</h2><h3 id="跟踪文件"><a href="#跟踪文件" class="headerlink" title="跟踪文件"></a>跟踪文件</h3><blockquote>
 <p>版本控制的最大作用就是记录文件的历史状态，以便随时可以回退到历史版本。如果没有版本控制，虽然编辑器都有ctrl+z功能，但是次数有限，且编辑器重启后，这些暂时记录就丢失了。把文件纳入版本控制之下。git中这个动作叫做跟踪文件.</p>
 </blockquote>
 <p>git add开始跟踪一个文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># 跟踪一个具体的文件</div><div class="line">git add &lt;filepath&gt;</div><div class="line"># 跟踪所有文件</div><div class="line">git add .</div></pre></td></tr></table></figure></p>
 <blockquote>
 <p>工作目录下的每一个文件都不外乎这两种状态：已跟踪或未跟踪。 已跟踪的文件是指那些被纳入了版本控制的文件。工作目录中除已跟踪文件以外的所有其它文件都属于未跟踪文件（废话）。 初次克隆某个仓库的时候，工作目录中的所有文件都属于已跟踪文件，并处于未修改状态.</p>
 </blockquote>
-<p>###忽略某些文件<br>我们可以创建一个名为 .gitignore 的文件，列出要忽略的文件模式</p>
+<h3 id="忽略某些文件"><a href="#忽略某些文件" class="headerlink" title="忽略某些文件"></a>忽略某些文件</h3><p>我们可以创建一个名为 .gitignore 的文件，列出要忽略的文件模式</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">*.class  # 忽略clsss文件</div><div class="line"># Mobile Tools for Java (J2ME)</div><div class="line">.mtj.tmp/</div><div class="line"># Package Files #</div><div class="line">*.jar   #忽略jar包</div><div class="line">*.war</div><div class="line">*.ear</div><div class="line"># eclipse files #</div><div class="line">.project</div><div class="line">.classpath</div><div class="line">.settings/</div></pre></td></tr></table></figure>
 <blockquote>
 <p>GitHub 有一个十分详细的针对数十种项目及语言的 .gitignore 文件列表，你可以在 <a href="https://github.com/github/gitignore" target="_blank" rel="external">https://github.com/github/gitignore</a> 找到它.</p>
-<p>###检查当前文件状态<br>要查看哪些文件处于什么状态，可以用 git status 命令.status命令不仅列出了文件状态，还对下一步应该使用的命令给出了提示.</p>
-<p>##提交<br>git commit<br>    git commit -m “第一次提交” 写注释</p>
-<p>##git 状态<br>Git 有三种状态，你的文件可能处于其中之一：已修改（modified）、已暂存（staged）和已提交（committed）。</p>
+<h3 id="检查当前文件状态"><a href="#检查当前文件状态" class="headerlink" title="检查当前文件状态"></a>检查当前文件状态</h3><p>要查看哪些文件处于什么状态，可以用 git status 命令.status命令不仅列出了文件状态，还对下一步应该使用的命令给出了提示.</p>
+<h2 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h2><p>git commit<br>    git commit -m “第一次提交” 写注释</p>
+<h2 id="git-状态"><a href="#git-状态" class="headerlink" title="git 状态"></a>git 状态</h2><p>Git 有三种状态，你的文件可能处于其中之一：已修改（modified）、已暂存（staged）和已提交（committed）。</p>
 </blockquote>
 <pre><code>已修改表示修改了文件，但还没跟踪，如新增的文件和刚修改过的文件。
 已暂存表示对一个已修改文件的当前版本做了标记（git add）。
@@ -191,23 +187,22 @@
 PS:文件快照必须先经过暂存区，才能到仓库区
 git add .
 git commit -m &quot;第一次提交&quot;
-</code></pre><p>##查看提交历史<br>git log</p>
-<blockquote>
+</code></pre><h2 id="查看提交历史"><a href="#查看提交历史" class="headerlink" title="查看提交历史"></a>查看提交历史</h2><blockquote>
 <p>git log 有许多选项可以帮助你搜寻你所要找的提交， 接下来我们介绍些最常用的。</p>
 <p>一个常用的选项是 -p，用来显示每次提交的内容差异。 你也可以加上 -2 来仅显示最近两次提交<br>    如果你想看到每次提交的简略的统计信息，你可以使用 –stat 选项.<br>    另外一个常用的选项是 –pretty。 这个选项可以指定使用不同于默认格式的方式展示提交历史。 这个选项有一些内建的子选项供你使用。 比如用 oneline 将每个提交放在一行显示，查看的提交数很大时非常有用。 另外还有 short，full 和 fuller 可以用，展示的信息或多或少有些不同，请自己动手实践一下看看效果如何。</p>
-<p>##移除文件<br>git rm <filepath><br>如果删除之前修改过并且已经放到暂存区域的话，则必须要用强制删除选项 -f</filepath></p>
-<p>##同步远程仓库<br>git push 推送是在远程仓库建立本地仓库的副本，便于别人拉取。<br>如果本地库和远程库一样，会得到Everything up-to-date提示.</p>
+<h2 id="移除文件"><a href="#移除文件" class="headerlink" title="移除文件"></a>移除文件</h2><p>git rm <filepath><br>如果删除之前修改过并且已经放到暂存区域的话，则必须要用强制删除选项 -f</filepath></p>
+<h2 id="同步远程仓库"><a href="#同步远程仓库" class="headerlink" title="同步远程仓库"></a>同步远程仓库</h2><p>git push 推送是在远程仓库建立本地仓库的副本，便于别人拉取。<br>如果本地库和远程库一样，会得到Everything up-to-date提示.</p>
 </blockquote>
 <p>git pull 用远程仓库更新本地仓库以获得协作者推送的最新的变化.<br>如果远端没有更新，会得到Already up-to-date.提示。</p>
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2017年09月09日 10:47</p>
+        <p>最后更新： 2017年10月17日 08:49</p>
         <p>原始链接： <a class="post-url" href="/2017/08/17/使用git完成基本版本的控制/" title="使用git完成基本的版本控制">http://yoursite.com/2017/08/17/使用git完成基本版本的控制/</a></p>
         <footer>
             <a href="http://yoursite.com">
-                <img src="/images/logo.png" alt="John Doe">
-                John Doe
+                <img src="/images/logo.png" alt="LukeyLi">
+                LukeyLi
             </a>
         </footer>
     </div>
@@ -225,7 +220,7 @@ git commit -m &quot;第一次提交&quot;
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2017/08/17/使用git完成基本版本的控制/&title=《使用git完成基本的版本控制》 — Hexo&pic=http://yoursite.comimages/logo.png" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2017/08/17/使用git完成基本版本的控制/&title=《使用git完成基本的版本控制》 — LukeyLi's Blog&pic=http://yoursite.comimages/logo.png" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -235,7 +230,7 @@ git commit -m &quot;第一次提交&quot;
             </a>
           </li>
           <li>
-            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2017/08/17/使用git完成基本版本的控制/&title=《使用git完成基本的版本控制》 — Hexo&source=" data-title="QQ">
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2017/08/17/使用git完成基本版本的控制/&title=《使用git完成基本的版本控制》 — LukeyLi's Blog&source=" data-title="QQ">
               <i class="fa fa-qq"></i>
             </a>
           </li>
@@ -245,7 +240,7 @@ git commit -m &quot;第一次提交&quot;
             </a>
           </li>
           <li>
-            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《使用git完成基本的版本控制》 — Hexo&url=http://yoursite.com/2017/08/17/使用git完成基本版本的控制/&via=http://yoursite.com" data-title="Twitter">
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《使用git完成基本的版本控制》 — LukeyLi's Blog&url=http://yoursite.com/2017/08/17/使用git完成基本版本的控制/&via=http://yoursite.com" data-title="Twitter">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
@@ -285,6 +280,12 @@ git commit -m &quot;第一次提交&quot;
 </article>
 
 
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#配置"><span class="post-toc-text">配置</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#用户信息"><span class="post-toc-text">用户信息</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#文本编辑器"><span class="post-toc-text">文本编辑器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#检查配置信息"><span class="post-toc-text">检查配置信息</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#获取Git仓库"><span class="post-toc-text">获取Git仓库</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#说明"><span class="post-toc-text">说明</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#新增（修改）一些文件并跟踪"><span class="post-toc-text">新增（修改）一些文件并跟踪</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#跟踪文件"><span class="post-toc-text">跟踪文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#忽略某些文件"><span class="post-toc-text">忽略某些文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#检查当前文件状态"><span class="post-toc-text">检查当前文件状态</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#提交"><span class="post-toc-text">提交</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-状态"><span class="post-toc-text">git 状态</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#查看提交历史"><span class="post-toc-text">查看提交历史</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#移除文件"><span class="post-toc-text">移除文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#同步远程仓库"><span class="post-toc-text">同步远程仓库</span></a></li></ol>
+        </nav>
+    </aside>
+    
 
 <nav id="article-nav">
   
@@ -308,6 +309,20 @@ git commit -m &quot;第一次提交&quot;
 
 
 
+    
+        <section id="comments">
+            <div id="disqus_thread">
+                <script type="text/javascript">
+                    var disqus_shortname = 'true';
+                    (function() {
+                        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                    })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            </div>
+        </section>
     
 </section>
         
@@ -346,7 +361,7 @@ git commit -m &quot;第一次提交&quot;
       <p>
         Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
         Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
-      &copy; 2017 John Doe<br>
+      &copy; 2017 LukeyLi<br>
       </p>
     </div>
 
@@ -382,7 +397,7 @@ git commit -m &quot;第一次提交&quot;
             <a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/Java基础/">Java基础</a><a class="category-link" href="/categories/Json详解/">Json详解</a><a class="category-link" href="/categories/Mybatis/">Mybatis</a><a class="category-link" href="/categories/Servlet/">Servlet</a><a class="category-link" href="/categories/git/">git</a><a class="category-link" href="/categories/前端/">前端</a>
         </div>
         <div id="sidebar-menu-box-tags">
-            <a href="/tags/Cookie/" style="font-size: 10px;">Cookie</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaEE/" style="font-size: 10px;">JavaEE</a> <a href="/tags/Json详解/" style="font-size: 10px;">Json详解</a> <a href="/tags/Object/" style="font-size: 10px;">Object</a> <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/XML/" style="font-size: 10px;">XML</a> <a href="/tags/exception/" style="font-size: 10px;">exception</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/reponse/" style="font-size: 10px;">reponse</a> <a href="/tags/request/" style="font-size: 10px;">request</a> <a href="/tags/servlet/" style="font-size: 10px;">servlet</a> <a href="/tags/session/" style="font-size: 10px;">session</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/会话/" style="font-size: 10px;">会话</a> <a href="/tags/分支/" style="font-size: 10px;">分支</a> <a href="/tags/历史/" style="font-size: 10px;">历史</a> <a href="/tags/反射机制/" style="font-size: 10px;">反射机制</a> <a href="/tags/基础/" style="font-size: 10px;">基础</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/字符串/" style="font-size: 10px;">字符串</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/数据类型/" style="font-size: 10px;">数据类型</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/方法和数组/" style="font-size: 10px;">方法和数组</a> <a href="/tags/注解/" style="font-size: 10px;">注解</a> <a href="/tags/流程控制/" style="font-size: 10px;">流程控制</a> <a href="/tags/测试/" style="font-size: 10px;">测试</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/类和对象/" style="font-size: 10px;">类和对象</a> <a href="/tags/继承和多态/" style="font-size: 10px;">继承和多态</a> <a href="/tags/网络编程/" style="font-size: 10px;">网络编程</a> <a href="/tags/访问控制权限/" style="font-size: 10px;">访问控制权限</a> <a href="/tags/集合和泛型/" style="font-size: 10px;">集合和泛型</a>
+            <a href="/tags/Cookie/" style="font-size: 10px;">Cookie</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaEE/" style="font-size: 10px;">JavaEE</a> <a href="/tags/Json详解/" style="font-size: 10px;">Json详解</a> <a href="/tags/Object/" style="font-size: 10px;">Object</a> <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/XML/" style="font-size: 10px;">XML</a> <a href="/tags/exception/" style="font-size: 10px;">exception</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/reponse/" style="font-size: 10px;">reponse</a> <a href="/tags/request/" style="font-size: 10px;">request</a> <a href="/tags/servlet/" style="font-size: 15px;">servlet</a> <a href="/tags/session/" style="font-size: 10px;">session</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/会话/" style="font-size: 10px;">会话</a> <a href="/tags/分支/" style="font-size: 10px;">分支</a> <a href="/tags/历史/" style="font-size: 10px;">历史</a> <a href="/tags/反射机制/" style="font-size: 10px;">反射机制</a> <a href="/tags/基础/" style="font-size: 10px;">基础</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/字符串/" style="font-size: 10px;">字符串</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/数据类型/" style="font-size: 10px;">数据类型</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/方法和数组/" style="font-size: 10px;">方法和数组</a> <a href="/tags/注解/" style="font-size: 10px;">注解</a> <a href="/tags/流程控制/" style="font-size: 10px;">流程控制</a> <a href="/tags/测试/" style="font-size: 10px;">测试</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/类和对象/" style="font-size: 10px;">类和对象</a> <a href="/tags/继承和多态/" style="font-size: 10px;">继承和多态</a> <a href="/tags/网络编程/" style="font-size: 10px;">网络编程</a> <a href="/tags/访问控制权限/" style="font-size: 10px;">访问控制权限</a> <a href="/tags/集合和泛型/" style="font-size: 10px;">集合和泛型</a>
         </div>
     </div>
     <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
@@ -415,7 +430,7 @@ git commit -m &quot;第一次提交&quot;
     <div class="mobile-header-tag-container">
         <span class="title">Tags</span>
         <div id="mobile-header-container-tags">
-            <a href="/tags/Cookie/" style="font-size: 10px;">Cookie</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaEE/" style="font-size: 10px;">JavaEE</a> <a href="/tags/Json详解/" style="font-size: 10px;">Json详解</a> <a href="/tags/Object/" style="font-size: 10px;">Object</a> <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/XML/" style="font-size: 10px;">XML</a> <a href="/tags/exception/" style="font-size: 10px;">exception</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/reponse/" style="font-size: 10px;">reponse</a> <a href="/tags/request/" style="font-size: 10px;">request</a> <a href="/tags/servlet/" style="font-size: 10px;">servlet</a> <a href="/tags/session/" style="font-size: 10px;">session</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/会话/" style="font-size: 10px;">会话</a> <a href="/tags/分支/" style="font-size: 10px;">分支</a> <a href="/tags/历史/" style="font-size: 10px;">历史</a> <a href="/tags/反射机制/" style="font-size: 10px;">反射机制</a> <a href="/tags/基础/" style="font-size: 10px;">基础</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/字符串/" style="font-size: 10px;">字符串</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/数据类型/" style="font-size: 10px;">数据类型</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/方法和数组/" style="font-size: 10px;">方法和数组</a> <a href="/tags/注解/" style="font-size: 10px;">注解</a> <a href="/tags/流程控制/" style="font-size: 10px;">流程控制</a> <a href="/tags/测试/" style="font-size: 10px;">测试</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/类和对象/" style="font-size: 10px;">类和对象</a> <a href="/tags/继承和多态/" style="font-size: 10px;">继承和多态</a> <a href="/tags/网络编程/" style="font-size: 10px;">网络编程</a> <a href="/tags/访问控制权限/" style="font-size: 10px;">访问控制权限</a> <a href="/tags/集合和泛型/" style="font-size: 10px;">集合和泛型</a>
+            <a href="/tags/Cookie/" style="font-size: 10px;">Cookie</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaEE/" style="font-size: 10px;">JavaEE</a> <a href="/tags/Json详解/" style="font-size: 10px;">Json详解</a> <a href="/tags/Object/" style="font-size: 10px;">Object</a> <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/XML/" style="font-size: 10px;">XML</a> <a href="/tags/exception/" style="font-size: 10px;">exception</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/reponse/" style="font-size: 10px;">reponse</a> <a href="/tags/request/" style="font-size: 10px;">request</a> <a href="/tags/servlet/" style="font-size: 15px;">servlet</a> <a href="/tags/session/" style="font-size: 10px;">session</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/会话/" style="font-size: 10px;">会话</a> <a href="/tags/分支/" style="font-size: 10px;">分支</a> <a href="/tags/历史/" style="font-size: 10px;">历史</a> <a href="/tags/反射机制/" style="font-size: 10px;">反射机制</a> <a href="/tags/基础/" style="font-size: 10px;">基础</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/字符串/" style="font-size: 10px;">字符串</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/数据类型/" style="font-size: 10px;">数据类型</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/方法和数组/" style="font-size: 10px;">方法和数组</a> <a href="/tags/注解/" style="font-size: 10px;">注解</a> <a href="/tags/流程控制/" style="font-size: 10px;">流程控制</a> <a href="/tags/测试/" style="font-size: 10px;">测试</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/类和对象/" style="font-size: 10px;">类和对象</a> <a href="/tags/继承和多态/" style="font-size: 10px;">继承和多态</a> <a href="/tags/网络编程/" style="font-size: 10px;">网络编程</a> <a href="/tags/访问控制权限/" style="font-size: 10px;">访问控制权限</a> <a href="/tags/集合和泛型/" style="font-size: 10px;">集合和泛型</a>
         </div>
     </div>
 </div>
