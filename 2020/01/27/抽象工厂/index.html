@@ -3,26 +3,25 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Git分支上的工作 | LukeyLi&#39;s Blog</title>
+  <title>抽象工厂 | LukeyLi&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="Lukeyli,Lukeyli's Blog" />
   
-  <meta name="description" content="本篇为笔记贴，介绍使用git分支工作">
-<meta name="keywords" content="分支">
+  <meta name="description" content="抽象工厂定义：抽象工厂模式提供了一个创建一系列相关或相互依赖对象的接口，无需指定他们具体的类。抽象工厂可以将一组具有同一主题单独的工厂封装起来。在正常使用中客户端程序需要创建抽象工厂的具体实现，然后使用抽象工厂作为接口来创建这一主题的具体对象，在使用的时候是不需要知道或关心他从这些内部的工厂方法中获得对象的具体类型，因为我们的客户端程序仅仅使用这些通用的接口，抽象工厂模式将一组对象的实现细节和他们">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Git分支上的工作">
-<meta property="og:url" content="https://lukeyli.github.io/2017/08/17/git分支工作/index.html">
+<meta property="og:title" content="抽象工厂">
+<meta property="og:url" content="https://lukeyli.github.io/2020/01/27/抽象工厂/index.html">
 <meta property="og:site_name" content="LukeyLi&#39;s Blog">
-<meta property="og:description" content="本篇为笔记贴，介绍使用git分支工作">
-<meta property="og:image" content="http://img.blog.csdn.net/20170908223258583?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjk3NDc2ODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:image" content="http://img.blog.csdn.net/20170908224034595?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjk3NDc2ODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:image" content="http://img.blog.csdn.net/20170908224441010?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjk3NDc2ODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2017-10-17T00:45:32.411Z">
+<meta property="og:description" content="抽象工厂定义：抽象工厂模式提供了一个创建一系列相关或相互依赖对象的接口，无需指定他们具体的类。抽象工厂可以将一组具有同一主题单独的工厂封装起来。在正常使用中客户端程序需要创建抽象工厂的具体实现，然后使用抽象工厂作为接口来创建这一主题的具体对象，在使用的时候是不需要知道或关心他从这些内部的工厂方法中获得对象的具体类型，因为我们的客户端程序仅仅使用这些通用的接口，抽象工厂模式将一组对象的实现细节和他们">
+<meta property="og:image" content="https://lukeyli.github.io/2020/01/27/抽象工厂/产品族1.jpg">
+<meta property="og:image" content="https://lukeyli.github.io/2020/01/27/抽象工厂/产品族2.jpg">
+<meta property="og:image" content="https://lukeyli.github.io/2020/01/27/抽象工厂/抽象工厂.jpg">
+<meta property="og:updated_time" content="2020-01-27T06:17:53.218Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Git分支上的工作">
-<meta name="twitter:description" content="本篇为笔记贴，介绍使用git分支工作">
-<meta name="twitter:image" content="http://img.blog.csdn.net/20170908223258583?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjk3NDc2ODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta name="twitter:title" content="抽象工厂">
+<meta name="twitter:description" content="抽象工厂定义：抽象工厂模式提供了一个创建一系列相关或相互依赖对象的接口，无需指定他们具体的类。抽象工厂可以将一组具有同一主题单独的工厂封装起来。在正常使用中客户端程序需要创建抽象工厂的具体实现，然后使用抽象工厂作为接口来创建这一主题的具体对象，在使用的时候是不需要知道或关心他从这些内部的工厂方法中获得对象的具体类型，因为我们的客户端程序仅仅使用这些通用的接口，抽象工厂模式将一组对象的实现细节和他们">
+<meta name="twitter:image" content="https://lukeyli.github.io/2020/01/27/抽象工厂/产品族1.jpg">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -111,27 +110,20 @@
     </div>
 </header>
       <div class="outer">
-        <section id="main" class="body-wrap"><article id="post-git分支工作" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main" class="body-wrap"><article id="post-抽象工厂" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="post-title" itemprop="name">
-      Git分支上的工作
+      抽象工厂
     </h1>
     <div class="post-title-bar">
       <ul>
           
-              <li>
-                  <i class="fa fa-book"></i>
-                  
-                      <a href="/categories/git/">git</a>
-                  
-              </li>
-          
         <li>
-          <i class="fa fa-calendar"></i>  2017-08-17
+          <i class="fa fa-calendar"></i>  2020-01-27
         </li>
         <li>
           <i class="fa fa-eye"></i>
@@ -147,54 +139,20 @@
     <div class="article-entry post-content" itemprop="articleBody">
       
             
-            <p>我们一定在某个分支上工作——master分支，这是git特性决定的。关于这一点，我们可以在gitdemo目录下执行git branch命令来查看，会得到这样的结果：</p>
-<pre><code>* master
-</code></pre><p>   这个命令列出现存本地分支，并以星号（*）高亮当前所在的分支。</p>
-<pre><code>git branch -r列出远程分支
-git branch -a列出远程分支和本地分支
-</code></pre><h2 id="我们需要在分支上工作"><a href="#我们需要在分支上工作" class="headerlink" title="我们需要在分支上工作"></a>我们需要在分支上工作</h2><p>几乎所有的版本控制系统都以某种形式支持分支。 使用分支意味着你可以把你的工作从开发主线上分离开来，以免影响开发主线。</p>
-<blockquote>
-<p>通常，master分支作为稳定分支，和线上发布版同步，不适合频繁更改。我们会建立多个开发分支，在开发分支上开发、测试，直到认为新功能或旧功能改造完全完成，再往主分支上合并。整个过程就像一条河流，有多个支流，每个支流都各自向前推进，某些地方他么又并入主干，然后在下面的某个地方有分叉开来，但最终汇入大海。</p>
-</blockquote>
-<h2 id="创建一个开发分支"><a href="#创建一个开发分支" class="headerlink" title="创建一个开发分支"></a>创建一个开发分支</h2><p>git branch testing   // 新建分支</p>
-<p>执行这个命令仍在 master 分支上。 因为 git branch 命令仅仅创建 一个新分支，并不会自动切换到新分支中去。</p>
-<h2 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ git checkout testing  # 切换分支</div><div class="line">$ git branch            # 查看分支</div><div class="line"> * testing</div><div class="line">  master</div><div class="line">$ ll  #查看目录结构</div></pre></td></tr></table></figure>
-<p>查看目录结构我们发现和切换前一模一样，这是因为新建分支并不是建立一个完全无关的空目录，事实上只是在此处开叉了</p>
-<p>git checkout -，快速切换回上个分支。练习执行两次又会回到当前分支。</p>
-<p>git checkout -b testing可新建并立即切换分支。</p>
-<h2 id="分支的机制"><a href="#分支的机制" class="headerlink" title="分支的机制"></a>分支的机制</h2><p>git的分支，本质上仅仅是指向提交对象的可变指针。</p>
-<p>创建分支，git只是为你创建了一个可以移动的新的指针，指针的名字就是分支的名字，你可以这样认为分支就是指针。创建一个testing分支,这会在当前所在的提交对象上创建一个指针（名字叫testing）。</p>
-<p><img src="http://img.blog.csdn.net/20170908223258583?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjk3NDc2ODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br>它有一个名为HEAD的特殊指针。在 Git 中，它是一个指针，指向当前所在的本地分支。</p>
-<h2 id="在新分支上工作并提交"><a href="#在新分支上工作并提交" class="headerlink" title="在新分支上工作并提交"></a>在新分支上工作并提交</h2><p>我们已经成功切换到testing分支，现在我们可以在testing分支上做一些自己的开发任务，而不用担心影响主分支。<br>每个分支都可以独立地向前推进，如下：</p>
-<p><img src="http://img.blog.csdn.net/20170908224034595?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjk3NDc2ODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="HEAD和分支随着提交操作自动向前移动"><br>HEAD和分支随着提交操作自动向前移动</p>
-<p>不同分支间不断地来回切换和工作，在时机成熟时将它们合并起来。<br><img src="http://img.blog.csdn.net/20170908224441010?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjk3NDc2ODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-<h2 id="分支合并"><a href="#分支合并" class="headerlink" title="分支合并"></a>分支合并</h2><p>现在我们在主分支，我们认为testing上的改变很重要，现在希望master上拥有这些变化，这么做</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ git branch             # 确认当前分支</div><div class="line">$ git merge testing      # 将testing的修改合并到当前master分支</div><div class="line">---</div><div class="line">Merge made by the &apos;recursive&apos; strategy.</div><div class="line"> lesson2/test.rb | 1 +</div><div class="line"> 1 file changed, 1 insertion(+)</div><div class="line"> create mode 100644 lesson2/test.rb</div></pre></td></tr></table></figure>
-<p>合并会产生新的提交，因此，git弹出文本编辑器要求你记录下这次合并的日志。</p>
-<h2 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h2><pre><code>$ git branch -d testing   # 删除分支
-</code></pre><h3 id="解决分支合并冲突"><a href="#解决分支合并冲突" class="headerlink" title="解决分支合并冲突"></a>解决分支合并冲突</h3><p>在两个不同的分支中，对同一个文件的同一个部分进行了不同的修改，Git就没法干净的合并它们。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">git checkout -b dev #新建并切换分支</div><div class="line"> vi test1.rb         #编辑test1.rb，在第二行输入&quot;dev中新增一行&quot;</div><div class="line"> git add .  </div><div class="line"> git commit -m &quot;dev change test1&quot;</div><div class="line"> git checkout master</div><div class="line"> vi test1.rb         #编辑test1.rb，在第二行输入&quot;master新增一行&quot;</div><div class="line"> git add .  </div><div class="line"> git commit -m &quot;master change test1&quot;</div></pre></td></tr></table></figure>
-<p>现在来合并</p>
-<pre><code> git merge dev
- ---
-Auto-merging lesson2/test1.rb
-CONFLICT (content): Merge conflict in lesson2/test1.rb
-Automatic merge failed; fix conflicts and then commit the result.
-</code></pre><p>此时 Git 做了合并，但是没有自动地创建一个新的合并提交。 Git 会暂停下来，等待你去解决合并产生的冲突。明显，lesson2/test1.rb 是有冲突的文件，自动合并失败，需要我们手工解决冲突然后再提交</p>
-<p><strong>合并冲突后的任意时刻使用 git status 命令来查看那些因包含合并冲突而处于未合并（unmerged）状态的文件。</strong></p>
-<p>Git 会在有冲突的文件中加入标准的冲突解决标记，这样你可以打开这些包含冲突的文件然后手动解决冲突。 出现冲突的文件会包含一些特殊区段，看起来像下面这个样子：<br>复制</p>
-<pre><code>testsomething
-&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
-master新增一行
-=======
-dev中新增一行
-&gt;&gt;&gt;&gt;&gt;&gt;&gt; dev
-</code></pre><p>=======将内容分为两部分，&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD和分割线中间的部分表示HEAD所指的版本（也就是你的 master 分支所在的位置，因为你在运行 merge 命令的时候已经检出到了这个分支），而分割线和&gt;&gt;&gt;&gt;&gt;&gt;&gt; dev中间的部分是dev分支的版本。<br>为了解决冲突，你必须选择使用由 ======= 分割的两部分中的一个，或者你也可以自行合并这些内容。<br>在你解决了所有文件里的冲突之后，对每个文件使用 git add 命令来将其标记为冲突已解决，然后提交</p>
+            <h4 id="抽象工厂"><a href="#抽象工厂" class="headerlink" title="抽象工厂"></a>抽象工厂</h4><p>定义：抽象工厂模式提供了一个创建一系列相关或相互依赖对象的接口，无需指定他们具体的类。抽象工厂可以将一组具有同<br>一主题单独的工厂封装起来。在正常使用中客户端程序需要创建抽象工厂的具体实现，然后使用抽象工厂作为接口来创建这一<br>主题的具体对象，在使用的时候是不需要知道或关心他从这些内部的工厂方法中获得对象的具体类型，因为我们的客户端程序<br>仅仅使用这些通用的接口，抽象工厂模式将一组对象的实现细节和他们的使用分离开来。</p>
+<p>类型：创建型</p>
+<h4 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h4><p>1.客户端（应用层）不依赖于产品类实例如何被创建、实现等细节<br>2.强调一系列相关的产品对象（属于同一产品族）一起使用，创建对象时需要大量重复的代码。<br>3.提供一个产品类的库，所有的产品以同样的接口出现，从而使客户端不依赖于具体实现</p>
+<p>使用抽象工厂模式能够再具体工厂变化的时候不用修改使用工厂的客户端程序</p>
+<p>优点：<br>1.具体产品在应用层代码隔离，无需关心创建细节<br>2.将一个系列的产品族统一到一起创建<br>缺点：<br>1.规定了所有可能被创建的产品集合，产品族中扩展新的产品困难，需要修改抽象工厂的接口<br>2.增加了系统的抽象性和理解难度</p>
+<p>产品等级结构与产品族<br>同一产品等级譬如：苹果、梨子、香蕉都是水果的一个产品等级，产品族的概念是：A 水果店里在卖 苹果、梨子、香蕉，<br>B水果店也在卖上面三种水果，C 水果店也卖卖上述三种水果，A、B、C 水果店分别的苹果、梨子、香蕉 就是一个产品族。<br>一个产品族就对应了一个具体工厂类。<br><img src="//lukeyli.github.io/2020/01/27/抽象工厂/产品族1.jpg" alt=""><br><img src="//lukeyli.github.io/2020/01/27/抽象工厂/产品族2.jpg" alt=""></p>
+<h4 id="coding"><a href="#coding" class="headerlink" title="coding"></a>coding</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div></pre></td><td class="code"><pre><div class="line">public abstract class Cuisine &#123;</div><div class="line">    public abstract void cookie();</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class SichuanCuisine extends Cuisine &#123;</div><div class="line">    @Override</div><div class="line">    public void cookie() &#123;</div><div class="line">        System.out.println(&quot;做川菜&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class CantoneseCuisine extends Cuisine &#123;</div><div class="line">    @Override</div><div class="line">    public void cookie() &#123;</div><div class="line">        System.out.println(&quot;做粤菜&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public abstract class Soup &#123;</div><div class="line">    public abstract void cookie();</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class SichuanSoup extends Soup &#123;</div><div class="line">    @Override</div><div class="line">    public void cookie() &#123;</div><div class="line">        System.out.println(&quot;做川汤&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class CantoneseSoup extends Soup &#123;</div><div class="line">    @Override</div><div class="line">    public void cookie() &#123;</div><div class="line">        System.out.println(&quot;做粤汤&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//一桌大餐,菜少不了汤</div><div class="line">public interface DinnerFactory &#123;</div><div class="line">    Cuisine getCuisine();</div><div class="line">    Soup getSoup();</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class SichuanDinnerFactory implements DinnerFactory &#123;</div><div class="line">    @Override</div><div class="line">    public Cuisine getCuisine() &#123;</div><div class="line">        return new SichuanCuisine();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public Soup getSoup() &#123;</div><div class="line">        return new SichuanSoup();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class CantonseDinnerFactory implements DinnerFactory &#123;</div><div class="line">    @Override</div><div class="line">    public Cuisine getCuisine() &#123;</div><div class="line">        return new CantoneseCuisine();</div><div class="line">    &#125;</div><div class="line">    @Override</div><div class="line">    public Soup getSoup() &#123;</div><div class="line">        return new SichuanSoup();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class Test &#123;</div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        DinnerFactory dinnerFactory = new SichuanDinnerFactory();</div><div class="line">        Cuisine sichuanCuisine = dinnerFactory.getCuisine();</div><div class="line">        Soup sichuanSoup = dinnerFactory.getSoup();</div><div class="line">        sichuanCuisine.cookie();</div><div class="line">        sichuanSoup.cookie();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="//lukeyli.github.io/2020/01/27/抽象工厂/抽象工厂.jpg" alt=""></p>
+<h4 id="源码解析"><a href="#源码解析" class="headerlink" title="源码解析"></a>源码解析</h4><p>java.sql.Connection 类,通过实际应用可以知道，如果你使用 MySQL 数据库驱动，那么通过该 Connection 的实现类，可以获<br>取MySQL 数据库驱动的 Statement 和 PreparedStatement 对应子类，如果是 Oracle ，同样可以获取 Oracle 对应的<br>Statement 和PreparedStatement 对应子类，那么 java.sql.Connection 就是抽象工厂类,可以生产Statement和<br>PreparedStatement 这一产品族的工厂。而不同的数据库驱动对应的 PreparedStatement  或 Statement  是同一产品等级。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">public interface Connection  extends Wrapper, AutoCloseable &#123;</div><div class="line">    ...</div><div class="line">    Statement createStatement() throws SQLException;</div><div class="line">    PreparedStatement prepareStatement(String sql)</div><div class="line">    ...</div><div class="line">｝</div></pre></td></tr></table></figure></p>
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2017年10月17日 08:45</p>
-        <p>原始链接： <a class="post-url" href="/2017/08/17/git分支工作/" title="Git分支上的工作">https://lukeyli.github.io/2017/08/17/git分支工作/</a></p>
+        <p>最后更新： 2020年01月27日 14:17</p>
+        <p>原始链接： <a class="post-url" href="/2020/01/27/抽象工厂/" title="抽象工厂">https://lukeyli.github.io/2020/01/27/抽象工厂/</a></p>
         <footer>
             <a href="https://lukeyli.github.io">
                 <img src="/images/logo.png" alt="LukeyLi">
@@ -216,7 +174,7 @@ dev中新增一行
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lukeyli.github.io/2017/08/17/git分支工作/&title=《Git分支上的工作》 — LukeyLi's Blog&pic=https://lukeyli.github.ioimages/logo.png" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lukeyli.github.io/2020/01/27/抽象工厂/&title=《抽象工厂》 — LukeyLi's Blog&pic=https://lukeyli.github.ioimages/logo.png" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -226,22 +184,22 @@ dev中新增一行
             </a>
           </li>
           <li>
-            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lukeyli.github.io/2017/08/17/git分支工作/&title=《Git分支上的工作》 — LukeyLi's Blog&source=" data-title="QQ">
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lukeyli.github.io/2020/01/27/抽象工厂/&title=《抽象工厂》 — LukeyLi's Blog&source=" data-title="QQ">
               <i class="fa fa-qq"></i>
             </a>
           </li>
           <li>
-            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lukeyli.github.io/2017/08/17/git分支工作/" data-title="Facebook">
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lukeyli.github.io/2020/01/27/抽象工厂/" data-title="Facebook">
               <i class="fa fa-facebook"></i>
             </a>
           </li>
           <li>
-            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Git分支上的工作》 — LukeyLi's Blog&url=https://lukeyli.github.io/2017/08/17/git分支工作/&via=https://lukeyli.github.io" data-title="Twitter">
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《抽象工厂》 — LukeyLi's Blog&url=https://lukeyli.github.io/2020/01/27/抽象工厂/&via=https://lukeyli.github.io" data-title="Twitter">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
           <li>
-            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lukeyli.github.io/2017/08/17/git分支工作/" data-title="Google+">
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lukeyli.github.io/2020/01/27/抽象工厂/" data-title="Google+">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -251,7 +209,7 @@ dev中新增一行
 <div class="post-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;" id="wxShare-close">×</a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://lukeyli.github.io/2017/08/17/git分支工作/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://lukeyli.github.io/2020/01/27/抽象工厂/" alt="微信分享二维码">
 </div>
 
 <div class="mask"></div>
@@ -260,13 +218,6 @@ dev中新增一行
         <ul class="article-footer-menu">
             
             
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/分支/" class="color3">分支</a>
-      
-  </li>
-
         </ul>
         
     </footer>
@@ -276,26 +227,16 @@ dev中新增一行
 
     <aside class="post-toc-pos post-toc-top" id="post-toc">
         <nav class="post-toc-wrap">
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#我们需要在分支上工作"><span class="post-toc-text">我们需要在分支上工作</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#创建一个开发分支"><span class="post-toc-text">创建一个开发分支</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#切换分支"><span class="post-toc-text">切换分支</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#分支的机制"><span class="post-toc-text">分支的机制</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#在新分支上工作并提交"><span class="post-toc-text">在新分支上工作并提交</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#分支合并"><span class="post-toc-text">分支合并</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#删除分支"><span class="post-toc-text">删除分支</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#解决分支合并冲突"><span class="post-toc-text">解决分支合并冲突</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#抽象工厂"><span class="post-toc-text">抽象工厂</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#适用场景"><span class="post-toc-text">适用场景</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#coding"><span class="post-toc-text">coding</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#源码解析"><span class="post-toc-text">源码解析</span></a></li></ol>
         </nav>
     </aside>
     
 
 <nav id="article-nav">
   
-    <a href="/2017/08/21/Mybatis学习/" id="article-nav-newer" class="article-nav-link-wrap">
-
-      <span class="article-nav-title">
-        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
-        
-          Mybatis学习
-        
-      </span>
-    </a>
   
-  
-    <a href="/2017/08/17/使用git完成基本版本的控制/" id="article-nav-older" class="article-nav-link-wrap">
-      <span class="article-nav-title">使用git完成基本的版本控制</span>
+    <a href="/2020/01/26/工厂方法/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">工厂方法</span>
       <i class="fa fa-hand-o-right" aria-hidden="true"></i>
     </a>
   
