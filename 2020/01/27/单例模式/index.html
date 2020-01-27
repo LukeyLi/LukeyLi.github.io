@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>单例模式 | LukeyLi&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Lukeyli,Lukeyli's Blog" />
+  
+  <meta name="description" content="单例模式定义：保证一个类仅有一个实例，并提供一个全局访问点。 类型：创建型 适用场景想确保任何情况下都绝对只有一个实例 优点：1.在内存里只有一个实例，减少了内存的开销2.可以对避免对资源的多重占用3.设置全局的访问点，严格控制访问。 缺点：1.没有接口，扩展困难 重点：1.私有构造器，禁止从单例类外部调用构造函数创建对象2.线程安全3.延迟加载，等使用到的时候再创建。懒汉模式4.序列化和反序列化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="单例模式">
+<meta property="og:url" content="https://lukeyli.github.io/2020/01/27/单例模式/index.html">
+<meta property="og:site_name" content="LukeyLi&#39;s Blog">
+<meta property="og:description" content="单例模式定义：保证一个类仅有一个实例，并提供一个全局访问点。 类型：创建型 适用场景想确保任何情况下都绝对只有一个实例 优点：1.在内存里只有一个实例，减少了内存的开销2.可以对避免对资源的多重占用3.设置全局的访问点，严格控制访问。 缺点：1.没有接口，扩展困难 重点：1.私有构造器，禁止从单例类外部调用构造函数创建对象2.线程安全3.延迟加载，等使用到的时候再创建。懒汉模式4.序列化和反序列化">
+<meta property="og:image" content="https://lukeyli.github.io/2020/01/27/单例模式/Double-check.jpg">
+<meta property="og:image" content="https://lukeyli.github.io/2020/01/27/单例模式/静态内部类.jpg">
+<meta property="og:updated_time" content="2020-01-27T15:08:34.512Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="单例模式">
+<meta name="twitter:description" content="单例模式定义：保证一个类仅有一个实例，并提供一个全局访问点。 类型：创建型 适用场景想确保任何情况下都绝对只有一个实例 优点：1.在内存里只有一个实例，减少了内存的开销2.可以对避免对资源的多重占用3.设置全局的访问点，严格控制访问。 缺点：1.没有接口，扩展困难 重点：1.私有构造器，禁止从单例类外部调用构造函数创建对象2.线程安全3.延迟加载，等使用到的时候再创建。懒汉模式4.序列化和反序列化">
+<meta name="twitter:image" content="https://lukeyli.github.io/2020/01/27/单例模式/Double-check.jpg">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">LukeyLi&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/home">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        LukeyLi&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个不断进步的程序猿的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="MinHow" target="_blank" href="/home">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="https://github.com/LukeyLi">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="Mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=f0dLS01PTkZNSj8ODlEcEBI">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-单例模式" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      单例模式
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2020-01-27
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h4 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h4><p>定义：保证一个类仅有一个实例，并提供一个全局访问点。</p>
+<p>类型：创建型</p>
+<h4 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h4><p>想确保任何情况下都绝对只有一个实例</p>
+<p>优点：<br>1.在内存里只有一个实例，减少了内存的开销<br>2.可以对避免对资源的多重占用<br>3.设置全局的访问点，严格控制访问。</p>
+<p>缺点：1.没有接口，扩展困难</p>
+<p>重点：<br>1.私有构造器，禁止从单例类外部调用构造函数创建对象<br>2.线程安全<br>3.延迟加载，等使用到的时候再创建。懒汉模式<br>4.序列化和反序列化安全<br>5.反射,通过反射可以破坏单例</p>
+<p>单例模式和其他设计模式的结合：<br>1.单例模式和工厂模式<br>2.单例模式和享元模式</p>
+<h4 id="coding"><a href="#coding" class="headerlink" title="coding"></a>coding</h4><h4 id="懒汉式"><a href="#懒汉式" class="headerlink" title="懒汉式"></a>懒汉式</h4><h5 id="线程不安全"><a href="#线程不安全" class="headerlink" title="线程不安全"></a>线程不安全</h5><p>注重延迟加载，只有使用的时候才会创建。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">public class LazySingleton &#123;</div><div class="line">    // 声明该类变量，但是不创建，等到真正使用的时候调用 getInstance 方法创建</div><div class="line">    private static LazySingleton lazySingleton = null;</div><div class="line">    // 构造函数私有化，避免外部调用</div><div class="line">    private LazySingleton() &#123;</div><div class="line">    &#125;</div><div class="line">    //v1 线程不安全</div><div class="line">    public static LazySingleton getInstance() &#123;</div><div class="line">        if (lazySingleton == null) &#123; </div><div class="line">	   //在多线程的情况下,可能使用很多对象。</div><div class="line">            lazySingleton = new LazySingleton();</div><div class="line">        &#125;</div><div class="line">        return lazySingleton;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h5 id="懒汉式安全版本"><a href="#懒汉式安全版本" class="headerlink" title="懒汉式安全版本"></a>懒汉式安全版本</h5><h6 id="1-直接锁类的静态方法"><a href="#1-直接锁类的静态方法" class="headerlink" title="1.直接锁类的静态方法"></a>1.直接锁类的静态方法</h6><p>加锁范围大，对程序消耗较大<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">public class LazySingleton &#123;</div><div class="line">    // 声明该类变量，但是不创建，等到真正使用的时候调用 getInstance 方法创建</div><div class="line">    private static LazySingleton lazySingleton = null;</div><div class="line">    // 构造函数私有化，避免外部调用</div><div class="line">    private LazySingleton() &#123;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    //v2 加上 synchronized 关键字，使该方法变为同步方法，</div><div class="line">    public synchronized static LazySingleton getInstance() &#123;</div><div class="line">        if (lazySingleton == null) &#123;</div><div class="line">            lazySingleton = new LazySingleton();</div><div class="line">        &#125;</div><div class="line">        return lazySingleton;</div><div class="line">    &#125;</div><div class="line">    //与上面的方法效果一样。</div><div class="line">//   public static LazySingleton getInstance()&#123;</div><div class="line">//        synchronized(LazySingleton.class)&#123;</div><div class="line">//            if (lazySingleton == null) &#123;</div><div class="line">//                lazySingleton = new LazySingleton();</div><div class="line">//            &#125;</div><div class="line">//        &#125;</div><div class="line">//        return lazySingleton;</div><div class="line">//    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h6 id="2-Double-Check-双重检查"><a href="#2-Double-Check-双重检查" class="headerlink" title="2.Double-Check 双重检查"></a>2.Double-Check 双重检查</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">public class LazyDoubleCheckSingleton &#123;</div><div class="line">    private static LazyDoubleCheckSingleton lazyDoubleCheckSingleton = null;</div><div class="line">    private LazyDoubleCheckSingleton()&#123;&#125;</div><div class="line">    private static LazyDoubleCheckSingleton getInstance()&#123;</div><div class="line">        if (lazyDoubleCheckSingleton == null) &#123;</div><div class="line">            synchronized (LazyDoubleCheckSingleton.class) &#123;</div><div class="line">                if(lazyDoubleCheckSingleton == null) &#123;</div><div class="line">                    lazyDoubleCheckSingleton = new LazyDoubleCheckSingleton();</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        return lazyDoubleCheckSingleton;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>分析：这边看似逻辑正确，但是这边存在坑，指定重排序问题<br>lazyDoubleCheckSingleton = new LazyDoubleCheckSingleton()的过程：<br>1.分配对象的内存空间。<br>2.初始化对象<br>3.设置lazyDoubleCheckSingleton指向刚分配的内存地址。<br>4.初次访问对象<br>在发生的过程中可能发生重排序, 执行顺序可能发生2和3互换位置，即执行顺序为1-3-2-4.在单线程内，重排序不会影<br>响程序执行结果。但是在多线程中就会出现问题：<br><img src="//lukeyli.github.io/2020/01/27/单例模式/Double-check.jpg" alt=""><br>如何解决？</p>
+<h6 id="1-Double-Check-volatile"><a href="#1-Double-Check-volatile" class="headerlink" title="(1)Double-Check + volatile"></a>(1)Double-Check + volatile</h6><p>1.不允许2、3进行重排序（Double-Check + volatile 关键字）<br>使用 volatile 关键字修饰我们的变量，就会禁止重排序，在多线程的时候CPU也有共享内存，我们在加了 volatile 关键字之后，<br>所有的线程都可以看到共享内存的最新状态，保证了内存的可见性。用 volatile 关键字修饰的共享变量在进行写操作的时候会<br>多出一些汇编代码，将当前处理器缓存好的数据写回系统内存，该操作会使在其他CPU里缓存了该内存地址的数据无效，从而<br>又从共享内存同步数据，这样就保证了内存的可见性。这里主要使用了缓存一致性协议。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">public class LazyDoubleCheckSingleton &#123;</div><div class="line">    private volatile static LazyDoubleCheckSingleton lazyDoubleCheckSingleton = null;</div><div class="line">    private LazyDoubleCheckSingleton()&#123;&#125;</div><div class="line">    private static LazyDoubleCheckSingleton getInstance()&#123;</div><div class="line">        if (lazyDoubleCheckSingleton == null) &#123;</div><div class="line">            synchronized (LazyDoubleCheckSingleton.class) &#123;</div><div class="line">                if(lazyDoubleCheckSingleton == null) &#123;</div><div class="line">                    lazyDoubleCheckSingleton = new LazyDoubleCheckSingleton();</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        return lazyDoubleCheckSingleton;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>2.允许2、3重排序，但是不允许其他线程看到这个重排序。</p>
+<h6 id="2-静态内部类"><a href="#2-静态内部类" class="headerlink" title="(2)静态内部类"></a>(2)静态内部类</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">public class StaticInnerClassSingleton &#123;</div><div class="line">    private StaticInnerClassSingleton() &#123;</div><div class="line">    &#125;</div><div class="line">    // 静态内部类的静态初始化锁，哪个线程拿到哪个线程就去初始化它</div><div class="line">    private static class InnerClass &#123;</div><div class="line">        private static StaticInnerClassSingleton staticInnerClassSingleton = new StaticInnerClassSingleton();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    private static StaticInnerClassSingleton getInstance()&#123;</div><div class="line">        return InnerClass.staticInnerClassSingleton;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>原理:jvm 在类的初始化阶段，也就是 class 被加载后，并且被线程使用前都是类的初始化阶段，在这个阶段会执行类的初始<br>化，在执行类的初始化期间 jvm 会获取一个锁，这个锁会同步多个线程对一个类的初始化，也就是图中绿色的部分,基于这个<br>基于这个特性，我们可以实现基于静态内部类的并且是线程安全的延迟初始化方案按照这个方式，假如线程1拿到类初始化<br>锁,右边部分指令的重排序，对于线程1并不会看到，也就是说非构造线程是不允许看到重排序的。初始化一个类，包括执行这<br>个类的静态初始化以及初始化在这个类中的声明的静态变量，根据 java 语言规范主要分为五种情况，首次发生的时候一个类<br>将被立刻初始化，这里说的类是泛指一个接口也是一个类，假设该类为 A，以下五种情况都会导致 A 类会被立刻初始化。<br>1.有一个 A 类型的实例被创建<br>2.A 类中声明的一个静态方法被调用<br>3.A 类中声明的一个静态成员被赋值<br>4.A 类中声明的一个静态成员被使用，并且该成员不是一个常量成员<br>5.如果 A 类是个顶级类，并且在该类中有嵌套的断言语句，此时 A 也会被立即初始化<br>这里的原理可以这样理解下：线程 0 拿到了 内部类的初始化锁，而内部类的初始化过程有 3 ，整个绿色的过程被上了锁，所<br>以锁内指令重排序2、3颠倒顺序无所谓，因为从其他线程此时是没有办法进来的，只能等待这个初始化过程完毕。<br><img src="//lukeyli.github.io/2020/01/27/单例模式/静态内部类.jpg" alt=""></p>
+<h4 id="饿汉式"><a href="#饿汉式" class="headerlink" title="饿汉式"></a>饿汉式</h4><p>线程安全，但是如果创建出来的实际程序没有使用就会造成浪费（感觉这个担心多余，不用删掉，创建它干嘛）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public class HungrySingleton &#123;</div><div class="line">    private final static HungrySingleton hungrySingleton = new HungrySingleton();</div><div class="line"></div><div class="line">    private HungrySingleton()&#123;&#125;</div><div class="line">    </div><div class="line">    public static HungrySingleton getInstance() &#123;</div><div class="line">        return hungrySingleton;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="基于枚举的单列"><a href="#基于枚举的单列" class="headerlink" title="基于枚举的单列"></a>基于枚举的单列</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">线程安全、反序列化和反射不能破坏其单例的初衷 ，可以通过jad反编译该 class 文件查看（最优解）</div><div class="line">public enum EnumInstance &#123;</div><div class="line">    INSTANCE;</div><div class="line">    private Object data;</div><div class="line"></div><div class="line">    public Object getData() &#123;</div><div class="line">        return data;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void setData(Object data) &#123;</div><div class="line">        this.data = data;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static EnumInstance getInstance() &#123;</div><div class="line">        return INSTANCE;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="基于-ThreadLocal-的单例模式"><a href="#基于-ThreadLocal-的单例模式" class="headerlink" title="基于 ThreadLocal 的单例模式"></a>基于 ThreadLocal 的单例模式</h4><p>该方法并不能保证全局唯一，但可以保证线程唯一，很多框架也用到这个模式的单例。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">public class ThreadLocalInstance &#123;</div><div class="line">    private static final  ThreadLocal&lt;ThreadLocalInstance&gt; threadLocalInstance</div><div class="line">            = new ThreadLocal&lt;ThreadLocalInstance&gt;()&#123;</div><div class="line">        @Override</div><div class="line">        protected ThreadLocalInstance initialValue() &#123;</div><div class="line">            return new ThreadLocalInstance();</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    private ThreadLocalInstance() &#123;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static ThreadLocalInstance getInstance()&#123;</div><div class="line">        return threadLocalInstance.get();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="序列化破坏单例模式"><a href="#序列化破坏单例模式" class="headerlink" title="序列化破坏单例模式"></a>序列化破坏单例模式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">public class HungrySingleton implements Serializable &#123;</div><div class="line">    private final static HungrySingleton hungrySingleton = new HungrySingleton();</div><div class="line"></div><div class="line">    private HungrySingleton()&#123;&#125;</div><div class="line"></div><div class="line">    public static HungrySingleton getInstance() &#123;</div><div class="line">        return hungrySingleton;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class Test &#123;</div><div class="line">    public static void main(String[] args) throws IOException, ClassNotFoundException &#123;</div><div class="line">        HungrySingleton instance = HungrySingleton.getInstance();</div><div class="line">        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(&quot;singleton_file&quot;));</div><div class="line">        oos.writeObject(instance);</div><div class="line"></div><div class="line">        File file = new File(&quot;singleton_file&quot;);</div><div class="line">        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));</div><div class="line">        HungrySingleton newInstance = (HungrySingleton) ois.readObject();</div><div class="line">        System.out.println(instance);</div><div class="line">        System.out.println(newInstance);</div><div class="line">        System.out.println(instance == newInstance);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果：<br>com.lzy.design.pattern.singleton.HungrySingleton@2626b418<br>com.lzy.design.pattern.singleton.HungrySingleton@7530d0a<br>false<br>结果发现，经过序列化和反序列化之后拿到的对象地址不一样，这违背了单例模式的初衷。<br>增加以下方法，可以解决上述问题。注意该方法名称和返回类型最好跟下面所写一致。</p>
+<h5 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">public class HungrySingleton implements Serializable &#123;</div><div class="line">    private final static HungrySingleton hungrySingleton = new HungrySingleton();</div><div class="line">    private HungrySingleton()&#123;&#125;</div><div class="line">    public static HungrySingleton getInstance() &#123;</div><div class="line">        return hungrySingleton;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // 该方法并非被重写的方法</div><div class="line">    private Object readResolve()&#123;</div><div class="line">        return hungrySingleton;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="源码追踪"><a href="#源码追踪" class="headerlink" title="源码追踪:"></a>源码追踪:</h5><p>ObjectInputStream类中readObject方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div></pre></td><td class="code"><pre><div class="line">public final Object readObject()</div><div class="line">        throws IOException, ClassNotFoundException</div><div class="line">    &#123;</div><div class="line">        if (enableOverride) &#123;</div><div class="line">            return readObjectOverride();</div><div class="line">        &#125;</div><div class="line"> </div><div class="line">        // if nested read, passHandle contains handle of enclosing object</div><div class="line">        int outerHandle = passHandle;</div><div class="line">        try &#123;</div><div class="line">            // TODO 从这里查看</div><div class="line">            Object obj = readObject0(false);</div><div class="line">            handles.markDependency(outerHandle, passHandle);</div><div class="line">            ClassNotFoundException ex = handles.lookupException(passHandle);</div><div class="line">            if (ex != null) &#123;</div><div class="line">                throw ex;</div><div class="line">            &#125;</div><div class="line">            if (depth == 0) &#123;</div><div class="line">                vlist.doCallbacks();</div><div class="line">            &#125;</div><div class="line">            return obj;</div><div class="line">        &#125; finally &#123;</div><div class="line">            passHandle = outerHandle;</div><div class="line">            if (closed &amp;&amp; depth == 0) &#123;</div><div class="line">                clear();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">// ObjectInputStream#readObject0</div><div class="line">private Object readObject0(boolean unshared) throws IOException &#123;</div><div class="line">    ...</div><div class="line">    case TC_OBJECT:</div><div class="line">         return checkResolve(readOrdinaryObject(unshared));</div><div class="line">    ...</div><div class="line">&#125;</div><div class="line"> </div><div class="line">// ObjectInputStream#readOrdinaryObject</div><div class="line">private Object readOrdinaryObject(boolean unshared)&#123;</div><div class="line">    ...</div><div class="line">    obj = desc.isInstantiable() ? desc.newInstance() : null;</div><div class="line">    ... </div><div class="line">&#125;</div><div class="line"> </div><div class="line">// ObjectInputStream#isInstantiable 返回 true，执行 desc.newInstance()，通过反射创建新的单例类，</div><div class="line">// 到此时也看到了为什么在 HungrySingleton 没添加 readResolve 方法之前会返回新的对象.</div><div class="line">/**</div><div class="line"> * Returns true if represented class is serializable/externalizable and can</div><div class="line"> * be instantiated by the serialization runtime--i.e., if it is</div><div class="line"> * externalizable and defines a public no-arg constructor, or if it is</div><div class="line"> * non-externalizable and its first non-serializable superclass defines an</div><div class="line"> * accessible no-arg constructor.  Otherwise, returns false.</div><div class="line"> */</div><div class="line">boolean isInstantiable() &#123;</div><div class="line">    requireInitialized();</div><div class="line">    return (cons != null);</div><div class="line">&#125;</div><div class="line"> </div><div class="line">// ObjectInputStream#readOrdinaryObject</div><div class="line">private Object readOrdinaryObject(boolean unshared)&#123;</div><div class="line">    ...</div><div class="line">    // 在 HungrySingleton 添加 readResolve 方法之后 desc.hasReadResolveMethod() 该方法执行为 true</div><div class="line">    if (obj != null &amp;&amp;</div><div class="line">            handles.lookupException(passHandle) == null &amp;&amp;</div><div class="line">            desc.hasReadResolveMethod())</div><div class="line">        &#123;</div><div class="line">            // 通过反射调用 HungrySingleton 类中的 readResolve 方法返回，</div><div class="line">            // 即为我们的单例对象，所以这里讲此处返回的对象赋值给 obj，所以这里我们找到了答案</div><div class="line">            Object rep = desc.invokeReadResolve(obj);</div><div class="line">            if (unshared &amp;&amp; rep.getClass().isArray()) &#123;</div><div class="line">                rep = cloneArray(rep);</div><div class="line">            &#125;</div><div class="line">            if (rep != obj) &#123;</div><div class="line">                // Filter the replacement object</div><div class="line">                if (rep != null) &#123;</div><div class="line">                    if (rep.getClass().isArray()) &#123;</div><div class="line">                        filterCheck(rep.getClass(), Array.getLength(rep));</div><div class="line">                    &#125; else &#123;</div><div class="line">                        filterCheck(rep.getClass(), -1);</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">                handles.setObject(passHandle, obj = rep);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"> </div><div class="line">        return obj;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">readResolveMethod = getInheritableMethod(</div><div class="line">                        // 这里有 readResolve 解答了我们 HungrySingleton 类中方法命名疑惑</div><div class="line">                        cl, &quot;readResolve&quot;, null, Object.class);</div></pre></td></tr></table></figure></p>
+<h4 id="反射破坏单例模式"><a href="#反射破坏单例模式" class="headerlink" title="反射破坏单例模式"></a>反射破坏单例模式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">public class HungrySingleton implements Serializable &#123;</div><div class="line">    private final static HungrySingleton hungrySingleton = new HungrySingleton();</div><div class="line"> </div><div class="line">    private HungrySingleton()&#123;&#125;</div><div class="line"> </div><div class="line">    public static HungrySingleton getInstance()&#123;</div><div class="line">        return hungrySingleton;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">    public static void main(String[] args) throws Exception &#123;</div><div class="line">        Class objectClass = HungrySingleton.class;</div><div class="line">        Constructor constructor = objectClass.getDeclaredConstructor();</div><div class="line">        HungrySingleton instance = HungrySingleton.getInstance();</div><div class="line"> </div><div class="line">        constructor.setAccessible(true);</div><div class="line">        HungrySingleton object = (HungrySingleton) constructor.newInstance();</div><div class="line"> </div><div class="line">        System.out.println(instance);</div><div class="line">        System.out.println(object);</div><div class="line">        System.out.println(instance == object);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果:<br>com.lzy.design.pattern.singleton.HungrySingleton@7440e464<br>com.lzy.design.pattern.singleton.HungrySingleton@49476842<br>false</p>
+<h5 id="解决方案-1"><a href="#解决方案-1" class="headerlink" title="解决方案"></a>解决方案</h5><p>在私有化构造器中添加防止通过反射调用的代码（只针对在类加载初始化时就已经创建好单例对象的单例模式有效）<br>即（饿汉式和基于内部类实现懒加载的单例模式有效，对其他懒汉加载无效）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">public class HungrySingleton implements Serializable &#123;</div><div class="line">    private final static HungrySingleton hungrySingleton = new HungrySingleton();</div><div class="line"> </div><div class="line">    private HungrySingleton()&#123;</div><div class="line">        // 防放射破坏代码,如果是通过反射调用就抛出运行时异常</div><div class="line">        if (hungrySingleton != null) &#123;</div><div class="line">            throw new RuntimeException(&quot;单例构造器禁止反射调用&quot;);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    public static HungrySingleton getInstance()&#123;</div><div class="line">        return hungrySingleton;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>对于不是在类加载的时候创建好单例实例对象的单例模式无法避免单例被破坏</p>
+<h4 id="克隆破坏单例模式"><a href="#克隆破坏单例模式" class="headerlink" title="克隆破坏单例模式"></a>克隆破坏单例模式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">public class HungrySingleton implements Serializable, Cloneable &#123;</div><div class="line">    private final static HungrySingleton hungrySingleton = new HungrySingleton();</div><div class="line">    private HungrySingleton()&#123;</div><div class="line">            if (hungrySingleton != null) &#123;</div><div class="line">            throw new RuntimeException(&quot;单例构造器禁止反射调用&quot;);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    public static HungrySingleton getInstance()&#123;</div><div class="line">        return hungrySingleton;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // 该方法并非被重写的方法</div><div class="line">    private Object readResolve()&#123;</div><div class="line">        return hungrySingleton;</div><div class="line">    &#125;</div><div class="line">    @Override</div><div class="line">    protected Object clone() throws CloneNotSupportedException &#123;</div><div class="line">        return super.clone();</div><div class="line">        // 解决办法，1. 不实现 Cloneable 接口，2. 实现 Cloneable 接口，重写 clone 方法，调用 单例类的 getInstance 方法</div><div class="line">        //return getInstance();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"> public class Test &#123;</div><div class="line">    public static void main(String[] args) throws IOException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException &#123;</div><div class="line"> </div><div class="line">        HungrySingleton hungrySingleton = HungrySingleton.getInstance();</div><div class="line"> </div><div class="line">        Method method = hungrySingleton.getClass().getDeclaredMethod(&quot;clone&quot;);</div><div class="line">        method.setAccessible(true);</div><div class="line">        HungrySingleton cloneHungrySingleton = (HungrySingleton) method.invoke(hungrySingleton);</div><div class="line"> </div><div class="line">        System.out.println(hungrySingleton);</div><div class="line">        System.out.println(cloneHungrySingleton);</div><div class="line">        System.out.println(hungrySingleton == cloneHungrySingleton);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果:<br>com.lzy.design.pattern.singleton.HungrySingleton@49476842<br>com.lzy.design.pattern.singleton.HungrySingleton@78308db1<br>false</p>
+<h5 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h5><p>1.不实现 Cloneable 接口<br>2.实现 Cloneable 接口，重写 clone 方法，调用 单例类的 getInstance 方法</p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2020年01月27日 23:08</p>
+        <p>原始链接： <a class="post-url" href="/2020/01/27/单例模式/" title="单例模式">https://lukeyli.github.io/2020/01/27/单例模式/</a></p>
+        <footer>
+            <a href="https://lukeyli.github.io">
+                <img src="/images/logo.png" alt="LukeyLi">
+                LukeyLi
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lukeyli.github.io/2020/01/27/单例模式/&title=《单例模式》 — LukeyLi's Blog&pic=https://lukeyli.github.ioimages/logo.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lukeyli.github.io/2020/01/27/单例模式/&title=《单例模式》 — LukeyLi's Blog&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lukeyli.github.io/2020/01/27/单例模式/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《单例模式》 — LukeyLi's Blog&url=https://lukeyli.github.io/2020/01/27/单例模式/&via=https://lukeyli.github.io" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lukeyli.github.io/2020/01/27/单例模式/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://lukeyli.github.io/2020/01/27/单例模式/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#单例模式"><span class="post-toc-text">单例模式</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#适用场景"><span class="post-toc-text">适用场景</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#coding"><span class="post-toc-text">coding</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#懒汉式"><span class="post-toc-text">懒汉式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#线程不安全"><span class="post-toc-text">线程不安全</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#懒汉式安全版本"><span class="post-toc-text">懒汉式安全版本</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#1-直接锁类的静态方法"><span class="post-toc-text">1.直接锁类的静态方法</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#2-Double-Check-双重检查"><span class="post-toc-text">2.Double-Check 双重检查</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#1-Double-Check-volatile"><span class="post-toc-text">(1)Double-Check + volatile</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#2-静态内部类"><span class="post-toc-text">(2)静态内部类</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#饿汉式"><span class="post-toc-text">饿汉式</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#基于枚举的单列"><span class="post-toc-text">基于枚举的单列</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#基于-ThreadLocal-的单例模式"><span class="post-toc-text">基于 ThreadLocal 的单例模式</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#序列化破坏单例模式"><span class="post-toc-text">序列化破坏单例模式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#解决方案"><span class="post-toc-text">解决方案</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#源码追踪"><span class="post-toc-text">源码追踪:</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#反射破坏单例模式"><span class="post-toc-text">反射破坏单例模式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#解决方案-1"><span class="post-toc-text">解决方案</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#克隆破坏单例模式"><span class="post-toc-text">克隆破坏单例模式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#解决方法"><span class="post-toc-text">解决方法</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+  
+    <a href="/2020/01/27/抽象工厂/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">抽象工厂</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+          <div id="uyan_frame"></div>
+  <script src="http://v2.uyan.cc/code/uyan.js?uid=2147648"></script>
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+
+  <div class="outer">
+
+    <div id="footer-info" class="inner">
+      
+    <script type="text/javascript" src="/live2d/script.js"></script>
+    <canvas id="live2dcanvas" width="300" height="600" class="live2d"></canvas>
+    <style>
+      #live2dcanvas {
+        position: fixed;
+        right: 0px;
+        z-index: 999;
+        pointer-events: none;
+        bottom: 3px;
+      }
+    </style>
+    <script>loadlive2d("live2dcanvas" ,"/live2d/assets/haru/haru.model.json",0.5)</script>
+  
+      
+
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2020 LukeyLi<br>
+      </p>
+    </div>
+
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://lukeyli.github.io",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/Java基础/">Java基础</a><a class="category-link" href="/categories/Json详解/">Json详解</a><a class="category-link" href="/categories/Mybatis/">Mybatis</a><a class="category-link" href="/categories/Servlet/">Servlet</a><a class="category-link" href="/categories/git/">git</a><a class="category-link" href="/categories/前端/">前端</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/Cookie/" style="font-size: 10px;">Cookie</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaEE/" style="font-size: 10px;">JavaEE</a> <a href="/tags/Json详解/" style="font-size: 10px;">Json详解</a> <a href="/tags/Object/" style="font-size: 10px;">Object</a> <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/XML/" style="font-size: 10px;">XML</a> <a href="/tags/exception/" style="font-size: 10px;">exception</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/reponse/" style="font-size: 10px;">reponse</a> <a href="/tags/request/" style="font-size: 10px;">request</a> <a href="/tags/servlet/" style="font-size: 15px;">servlet</a> <a href="/tags/session/" style="font-size: 10px;">session</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/会话/" style="font-size: 10px;">会话</a> <a href="/tags/分支/" style="font-size: 10px;">分支</a> <a href="/tags/历史/" style="font-size: 10px;">历史</a> <a href="/tags/反射机制/" style="font-size: 10px;">反射机制</a> <a href="/tags/基础/" style="font-size: 10px;">基础</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/字符串/" style="font-size: 10px;">字符串</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/数据类型/" style="font-size: 10px;">数据类型</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/方法和数组/" style="font-size: 10px;">方法和数组</a> <a href="/tags/注解/" style="font-size: 10px;">注解</a> <a href="/tags/流程控制/" style="font-size: 10px;">流程控制</a> <a href="/tags/测试/" style="font-size: 10px;">测试</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/类和对象/" style="font-size: 10px;">类和对象</a> <a href="/tags/继承和多态/" style="font-size: 10px;">继承和多态</a> <a href="/tags/网络编程/" style="font-size: 10px;">网络编程</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/访问控制权限/" style="font-size: 10px;">访问控制权限</a> <a href="/tags/集合和泛型/" style="font-size: 10px;">集合和泛型</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/home">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/Cookie/" style="font-size: 10px;">Cookie</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/JavaEE/" style="font-size: 10px;">JavaEE</a> <a href="/tags/Json详解/" style="font-size: 10px;">Json详解</a> <a href="/tags/Object/" style="font-size: 10px;">Object</a> <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/XML/" style="font-size: 10px;">XML</a> <a href="/tags/exception/" style="font-size: 10px;">exception</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/reponse/" style="font-size: 10px;">reponse</a> <a href="/tags/request/" style="font-size: 10px;">request</a> <a href="/tags/servlet/" style="font-size: 15px;">servlet</a> <a href="/tags/session/" style="font-size: 10px;">session</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/会话/" style="font-size: 10px;">会话</a> <a href="/tags/分支/" style="font-size: 10px;">分支</a> <a href="/tags/历史/" style="font-size: 10px;">历史</a> <a href="/tags/反射机制/" style="font-size: 10px;">反射机制</a> <a href="/tags/基础/" style="font-size: 10px;">基础</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/字符串/" style="font-size: 10px;">字符串</a> <a href="/tags/异常/" style="font-size: 15px;">异常</a> <a href="/tags/数据类型/" style="font-size: 10px;">数据类型</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/方法和数组/" style="font-size: 10px;">方法和数组</a> <a href="/tags/注解/" style="font-size: 10px;">注解</a> <a href="/tags/流程控制/" style="font-size: 10px;">流程控制</a> <a href="/tags/测试/" style="font-size: 10px;">测试</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/类和对象/" style="font-size: 10px;">类和对象</a> <a href="/tags/继承和多态/" style="font-size: 10px;">继承和多态</a> <a href="/tags/网络编程/" style="font-size: 10px;">网络编程</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/访问控制权限/" style="font-size: 10px;">访问控制权限</a> <a href="/tags/集合和泛型/" style="font-size: 10px;">集合和泛型</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+
+  </div>
+</body>
+</html>
