@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>适配器模式 | LukeyLi&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Lukeyli,Lukeyli's Blog" />
+  
+  <meta name="description" content="适配器模式定义: 将一个类的接口（被适配者）转换成客户期望的另一个接口（目标类）。使原本接口不兼容的类可以一起工作。 类型: 结构型 适用场景1.已经存在的类，它的方法和需求不匹配时（方法结果相同或相似）。适配器模式主要应用于希望复用一些现有的类，但是接口又与复用环境要求不一致的情况。系统的数据和行为都正确，但是接口不符合，这个时候我们应该考虑使用适配器模式是原有对象和某个接口匹配。2.随着软件维">
+<meta property="og:type" content="article">
+<meta property="og:title" content="适配器模式">
+<meta property="og:url" content="https://lukeyli.github.io/2020/01/28/适配器模式/index.html">
+<meta property="og:site_name" content="LukeyLi&#39;s Blog">
+<meta property="og:description" content="适配器模式定义: 将一个类的接口（被适配者）转换成客户期望的另一个接口（目标类）。使原本接口不兼容的类可以一起工作。 类型: 结构型 适用场景1.已经存在的类，它的方法和需求不匹配时（方法结果相同或相似）。适配器模式主要应用于希望复用一些现有的类，但是接口又与复用环境要求不一致的情况。系统的数据和行为都正确，但是接口不符合，这个时候我们应该考虑使用适配器模式是原有对象和某个接口匹配。2.随着软件维">
+<meta property="og:image" content="https://lukeyli.github.io/2020/01/28/适配器模式/对象适配器.jpg">
+<meta property="og:image" content="https://lukeyli.github.io/2020/01/28/适配器模式/类适配器.jpg">
+<meta property="og:updated_time" content="2020-01-28T14:59:29.437Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="适配器模式">
+<meta name="twitter:description" content="适配器模式定义: 将一个类的接口（被适配者）转换成客户期望的另一个接口（目标类）。使原本接口不兼容的类可以一起工作。 类型: 结构型 适用场景1.已经存在的类，它的方法和需求不匹配时（方法结果相同或相似）。适配器模式主要应用于希望复用一些现有的类，但是接口又与复用环境要求不一致的情况。系统的数据和行为都正确，但是接口不符合，这个时候我们应该考虑使用适配器模式是原有对象和某个接口匹配。2.随着软件维">
+<meta name="twitter:image" content="https://lukeyli.github.io/2020/01/28/适配器模式/对象适配器.jpg">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">LukeyLi&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/home">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        LukeyLi&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个不断进步的程序猿的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="MinHow" target="_blank" href="/home">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="https://github.com/LukeyLi">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="Mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=f0dLS01PTkZNSj8ODlEcEBI">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-适配器模式" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      适配器模式
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2020-01-28
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h4 id="适配器模式"><a href="#适配器模式" class="headerlink" title="适配器模式"></a>适配器模式</h4><p>定义: 将一个类的接口（被适配者）转换成客户期望的另一个接口（目标类）。使原本接口不兼容的类可以一起工作。</p>
+<p>类型: 结构型</p>
+<h4 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h4><p>1.已经存在的类，它的方法和需求不匹配时（方法结果相同或相似）。适配器模式主要应用于希望复用一些现有的类，但是<br>接口又与复用环境要求不一致的情况。系统的数据和行为都正确，但是接口不符合，这个时候我们应该考虑使用适配器模式<br>是原有对象和某个接口匹配。<br>2.随着软件维护，由于不同产品、不同厂家造成功能类似而接口不同情况下的解决方案。</p>
+<p>优点：<br>1.能提高类的透明性和复用，现有的类复用但不需要改变，解决了现有类和目标类不匹配的问题<br>2.目标类和适配器类解耦，提高程序扩展性，可以使用适配器模式开发自己的功能<br>3.符合开闭原则，具体的实现都在适配器中，客户端知道的只有适配器类，扩展时只需要扩展适配器类就可以，原有的类不<br>需要变化<br>缺点：<br>1.适配器编写过程需要全面考虑，可能会增加系统的复杂性<br>2.增加系统代码可读的难度，过多的使用适配器模式会让我们的系统非常凌乱，不易把握，比如，我们调用的是第一个接口,<br>其实呢内部已经被适配成了调用第二个接口的实现。</p>
+<p>扩展:<br>对象适配器：对象适配器模式符合组合复用原则，并且使用委托机制（重点掌握推荐使用）<br>类适配器：类适配器通过类继承来实现</p>
+<p>相关设计模式:<br>适配器模式和外观模式，适配器模式和外观模式都是对现有的类或者现存的系统的封装，外观模式定义了新的接口，外观模式<br>定义了新的接口，而适配器模式则是复用一个原有的接口。适配器模式是指两个已有的接口协同工作，而外观模式则是在现有<br>的系统中提供一个更为方便的访问入口。</p>
+<h4 id="Coding"><a href="#Coding" class="headerlink" title="Coding"></a>Coding</h4><h5 id="对象适配器"><a href="#对象适配器" class="headerlink" title="对象适配器"></a>对象适配器</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * @description:被适配者</div><div class="line"> **/</div><div class="line">public class Adaptee &#123;</div><div class="line">    public void adapteeRequest()&#123;</div><div class="line">        System.out.println(&quot;被适配者的方法&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> * @description:目标接口</div><div class="line"> **/</div><div class="line">public interface Target &#123;</div><div class="line">    void request();</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">/**</div><div class="line"> * @description:目标实现类</div><div class="line"> **/</div><div class="line">public class ConcreteTarget implements Target&#123;</div><div class="line">    @Override</div><div class="line">    public void request() &#123;</div><div class="line">        System.out.println(&quot;concreteTarget目标方法&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class Adapter implements Target&#123;</div><div class="line">    private Adaptee adaptee = new Adaptee();</div><div class="line">    @Override</div><div class="line">    public void request() &#123;</div><div class="line">        //... 增加自己的逻辑代码</div><div class="line">        adaptee.adapteeRequest();</div><div class="line">        //... 增加自己的逻辑代码</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class Test &#123;</div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        //Target target = new ConcreteTarget();</div><div class="line">       // target.request();</div><div class="line"></div><div class="line">        Target adapterTarget = new Adapter();</div><div class="line">        adapterTarget.request();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="//lukeyli.github.io/2020/01/28/适配器模式/对象适配器.jpg" alt=""></p>
+<h5 id="类适配器"><a href="#类适配器" class="headerlink" title="类适配器"></a>类适配器</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">public interface Target &#123;</div><div class="line">    void request();</div><div class="line">&#125;</div><div class="line">public class ConcreteTarget implements Target &#123;</div><div class="line">    @Override</div><div class="line">    public void request() &#123;</div><div class="line">        System.out.println(&quot;concreteTarget目标方法&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class Adaptee &#123;</div><div class="line">    public void adapteeRequest()&#123;</div><div class="line">        System.out.println(&quot;被适配者的方法&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class Adapter extends Adaptee implements Target &#123;</div><div class="line">    @Override</div><div class="line">    public void request() &#123;</div><div class="line">        //...</div><div class="line">        super.adapteeRequest();</div><div class="line">        //...</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class Test &#123;</div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        //Target target = new ConcreteTarget();</div><div class="line">       // target.request();</div><div class="line"></div><div class="line">        Target adapterTarget = new Adapter();</div><div class="line">        adapterTarget.request();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="//lukeyli.github.io/2020/01/28/适配器模式/类适配器.jpg" alt=""></p>
+<h5 id="生活场景"><a href="#生活场景" class="headerlink" title="生活场景"></a>生活场景</h5><p>手机是用5V直流电才可以充电，而我们的国家用电是220V交流电，那用220V的交流电去给手机充电肯定不行。最好<br>用专门的手机充电器去充<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">public class AC220 &#123;</div><div class="line">    public int outputAC220V()&#123;</div><div class="line">        int output = 220;</div><div class="line">        System.out.println(&quot;输出交流电：&quot; + output + &quot; V&quot;);</div><div class="line">        return output;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public interface DC5 &#123;</div><div class="line">    int outputDC5V();</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class XiaomiAdaptor implements DC5 &#123;</div><div class="line">    private AC220 ac220 = new AC220();</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public int outputDC5V() &#123;</div><div class="line">        int adapterInput = ac220.outputAC220V();</div><div class="line">        // 变压器，交流变直流</div><div class="line">        int adapterOutput = adapterInput/44;</div><div class="line">        System.out.println(&quot;使用小米充电器输入 AC:&quot;  + adapterInput +  &quot;V 输出 DC：&quot; + adapterOutput + &quot;V&quot;);</div><div class="line">        return adapterOutput;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class Test &#123;</div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        DC5 dc5 = new XiaomiAdaptor();</div><div class="line">        dc5.outputDC5V();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h4><p>1.springmvc 的适配器 HandlerAdapter<br>DispatcherServlet：客户端<br>Handler(Controller) ：被适配者<br>2.XmlAdapter 适配器</p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2020年01月28日 22:59</p>
+        <p>原始链接： <a class="post-url" href="/2020/01/28/适配器模式/" title="适配器模式">https://lukeyli.github.io/2020/01/28/适配器模式/</a></p>
+        <footer>
+            <a href="https://lukeyli.github.io">
+                <img src="/images/logo.png" alt="LukeyLi">
+                LukeyLi
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lukeyli.github.io/2020/01/28/适配器模式/&title=《适配器模式》 — LukeyLi's Blog&pic=https://lukeyli.github.ioimages/logo.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lukeyli.github.io/2020/01/28/适配器模式/&title=《适配器模式》 — LukeyLi's Blog&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lukeyli.github.io/2020/01/28/适配器模式/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《适配器模式》 — LukeyLi's Blog&url=https://lukeyli.github.io/2020/01/28/适配器模式/&via=https://lukeyli.github.io" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lukeyli.github.io/2020/01/28/适配器模式/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://lukeyli.github.io/2020/01/28/适配器模式/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#适配器模式"><span class="post-toc-text">适配器模式</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#适用场景"><span class="post-toc-text">适用场景</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Coding"><span class="post-toc-text">Coding</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#对象适配器"><span class="post-toc-text">对象适配器</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#类适配器"><span class="post-toc-text">类适配器</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#生活场景"><span class="post-toc-text">生活场景</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#源码"><span class="post-toc-text">源码</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+  
+    <a href="/2020/01/28/装饰者模式/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">装饰者模式</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+          <div id="uyan_frame"></div>
+  <script src="http://v2.uyan.cc/code/uyan.js?uid=2147648"></script>
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+
+  <div class="outer">
+
+    <div id="footer-info" class="inner">
+      
+    <script type="text/javascript" src="/live2d/script.js"></script>
+    <canvas id="live2dcanvas" width="300" height="600" class="live2d"></canvas>
+    <style>
+      #live2dcanvas {
+        position: fixed;
+        right: 0px;
+        z-index: 999;
+        pointer-events: none;
+        bottom: 3px;
+      }
+    </style>
+    <script>loadlive2d("live2dcanvas" ,"/live2d/assets/haru/haru.model.json",0.5)</script>
+  
+      
+
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2020 LukeyLi<br>
+      </p>
+    </div>
+
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://lukeyli.github.io",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/Java基础/">Java基础</a><a class="category-link" href="/categories/Json详解/">Json详解</a><a class="category-link" href="/categories/git/">git</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/后端框架/">后端框架</a><a class="category-link" href="/categories/设计模式/">设计模式</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/servlet/" style="font-size: 15px;">servlet</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/设计模式/" style="font-size: 20px;">设计模式</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/home">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/servlet/" style="font-size: 15px;">servlet</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/设计模式/" style="font-size: 20px;">设计模式</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+
+  </div>
+</body>
+</html>
