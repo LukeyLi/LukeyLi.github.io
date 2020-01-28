@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>外观模式 | LukeyLi&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Lukeyli,Lukeyli's Blog" />
+  
+  <meta name="description" content="外观模式定义：外观模式又叫门面模式，提供了一个统一的接口，用来访问子系统中的一群接口，外观模式定义了一个高层接口，让子系统更容易使用。可能应用层实现某个功能的时候需要调用多个服务类的方法，这样应用层就和各个服务类耦合度很高，那么通过提供出来一个接口方法，将实现这个功能的这些类的方法根据业务需求组织到一个类的方法里面，只对应用层提供该类的方法即可实现同样的功能，这样不仅降低了耦合度，而且应用层也不需">
+<meta property="og:type" content="article">
+<meta property="og:title" content="外观模式">
+<meta property="og:url" content="https://lukeyli.github.io/2020/01/28/外观模式/index.html">
+<meta property="og:site_name" content="LukeyLi&#39;s Blog">
+<meta property="og:description" content="外观模式定义：外观模式又叫门面模式，提供了一个统一的接口，用来访问子系统中的一群接口，外观模式定义了一个高层接口，让子系统更容易使用。可能应用层实现某个功能的时候需要调用多个服务类的方法，这样应用层就和各个服务类耦合度很高，那么通过提供出来一个接口方法，将实现这个功能的这些类的方法根据业务需求组织到一个类的方法里面，只对应用层提供该类的方法即可实现同样的功能，这样不仅降低了耦合度，而且应用层也不需">
+<meta property="og:image" content="https://lukeyli.github.io/2020/01/28/外观模式/外观模式1.jpg">
+<meta property="og:updated_time" content="2020-01-28T13:00:50.486Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="外观模式">
+<meta name="twitter:description" content="外观模式定义：外观模式又叫门面模式，提供了一个统一的接口，用来访问子系统中的一群接口，外观模式定义了一个高层接口，让子系统更容易使用。可能应用层实现某个功能的时候需要调用多个服务类的方法，这样应用层就和各个服务类耦合度很高，那么通过提供出来一个接口方法，将实现这个功能的这些类的方法根据业务需求组织到一个类的方法里面，只对应用层提供该类的方法即可实现同样的功能，这样不仅降低了耦合度，而且应用层也不需">
+<meta name="twitter:image" content="https://lukeyli.github.io/2020/01/28/外观模式/外观模式1.jpg">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">LukeyLi&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/home">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        LukeyLi&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个不断进步的程序猿的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="MinHow" target="_blank" href="/home">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="https://github.com/LukeyLi">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="Mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=f0dLS01PTkZNSj8ODlEcEBI">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-外观模式" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      外观模式
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2020-01-28
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h4 id="外观模式"><a href="#外观模式" class="headerlink" title="外观模式"></a>外观模式</h4><p>定义：外观模式又叫门面模式，提供了一个统一的接口，用来访问子系统中的一群接口，外观模式定义了一个高层接口，让子<br>系统更容易使用。可能应用层实现某个功能的时候需要调用多个服务类的方法，这样应用层就和各个服务类耦合度很高，那么<br>通过提供出来一个接口方法，将实现这个功能的这些类的方法根据业务需求组织到一个类的方法里面，只对应用层提供该类的<br>方法即可实现同样的功能，这样不仅降低了耦合度，而且应用层也不需要了解每个类方法的作用。</p>
+<p>类型：结构型</p>
+<h4 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h4><p>1.子系统越来越复杂，增加外观模式提供简单的调用接口<br>2.构建多层系统结构，利用外观对象作为每层的入口，简化层间调用</p>
+<p>优点：<br>1.简化了调用过程，无需了解深入子系统，防止带来风险。<br>2.减少系统依赖、松散耦合。外观模式松散了客户端于子系统的耦合关系，客户端通过外观模式于子系统交流，让子系统内部<br>的模块更容易扩展和维护。<br>3.更好的划分访问层次。有些方法是供系统外部调用的，有些则是供系统内部调用的，把需要暴露给外部的功能集中到外观类<br>上，这样既方便客户端调用，也隐藏了系统内部的细节。<br>4.符合迪米特法则</p>
+<p>缺点：<br>1.增加子系统、扩展子系统行为容易引入风险<br>2.不符合开闭原则</p>
+<p>相关设计模式<br>1.外观模式和中介者模式。外观模式关注的是外界和子系统的交互，而中介者模式关注的是子系统内部之间的交互。<br>2.外观模式和单例模式。通常可以把外观模式中的外观对象做成单例模式的结合使用。<br>3.外观模式和抽象工厂模式。外观类可以通过抽象工厂获取子系统的实例，这样子系统内部可以对外观类进行屏蔽。</p>
+<h4 id="codig"><a href="#codig" class="headerlink" title="codig"></a>codig</h4><p>场景: 积分礼物兑换。涉及一个实体积分礼物，三个子系统积分子系统、支付子系统、物流子系统。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * @description: 积分礼物</div><div class="line"> **/</div><div class="line">public class PointGift &#123;</div><div class="line">    private String name;</div><div class="line"></div><div class="line">    public String getName() &#123;</div><div class="line">        return name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void setName(String name) &#123;</div><div class="line">        this.name = name;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> * @description: 支付子系统</div><div class="line"> **/</div><div class="line">public class PointPaymentService &#123;</div><div class="line">    public boolean pay(PointGift pointGift) &#123;</div><div class="line">        //扣减积分</div><div class="line">        System.out.println(&quot;支付&quot; + pointGift.getName() + &quot;积分成功&quot;);</div><div class="line">        return true;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> * @description:积分子系统</div><div class="line"> **/</div><div class="line">public class QualityService &#123;</div><div class="line">    public boolean isAvailable(PointGift pointGift) &#123;</div><div class="line">        System.out.println(&quot;检验&quot; + pointGift.getName() + &quot;积分资格通过，库存通过&quot;);</div><div class="line">        return true;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> * @description: 物流子系统</div><div class="line"> **/</div><div class="line">public class ShippingService &#123;</div><div class="line">    public String shipGift(PointGift pointGift) &#123;</div><div class="line">        //物流系统的对接逻辑</div><div class="line">        System.out.println(pointGift.getName() + &quot;进入物流系统&quot;);</div><div class="line">        String shippingOrderNo = &quot;666&quot;;</div><div class="line">        return shippingOrderNo;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class GiftExchangeService &#123;</div><div class="line">    private QualityService qualityService = new QualityService();</div><div class="line">    private PointPaymentService pointPaymentService = new PointPaymentService();</div><div class="line">    private ShippingService shippingService = new ShippingService();</div><div class="line"></div><div class="line">    public void giftExchange(PointGift pointGift) &#123;</div><div class="line">        // 如果资格校验通过</div><div class="line">        if (qualityService.isAvailable(pointGift)) &#123;</div><div class="line">            // 如果支付积分成功</div><div class="line">            if (pointPaymentService.pay(pointGift))&#123;</div><div class="line">                String shippingOrderNo = shippingService.shipGift(pointGift);</div><div class="line">                System.out.println(&quot;物流系统下单成功, 订单号是：&quot; + shippingOrderNo);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class Test &#123;</div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        PointGift pointGift = new PointGift(&quot;iphone&quot;);</div><div class="line">        GiftExchangeService giftExchangeService = new GiftExchangeService();</div><div class="line">        giftExchangeService.giftExchange(pointGift);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><img src="//lukeyli.github.io/2020/01/28/外观模式/外观模式1.jpg" alt=""><br>上述外观类使用的是实体外观类，非常完美的支持了迪米特法则，但是对于扩展性并不友好，如果实现某个功能需要增加子<br>系统，除了新增子系统之外，对于的外观类也要修改。不符合开闭原则。可以使用抽象外观类优化解决扩张性，根据业务场<br>景决定。外观类不需要经常变化，使用实外观类即可，如果需要经常变化，则需要使用抽象外观类。</p>
+<h4 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h4><p>1.Spring的jdbcUtils 中closeConnection，closeResultSet，getResultSetValue方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">public abstract class JdbcUtils &#123;</div><div class="line">...</div><div class="line">   public static void closeConnection(@Nullable Connection con) &#123;</div><div class="line">...</div><div class="line">&#125;</div><div class="line">...</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>2.Mybatis 中的 Configuration 实例，也有外观模式。newMetaObject、newParameterHandler、newResultSetHandler<br>都是封装了接口，对外提供服务。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"> public MetaObject newMetaObject(Object object) &#123;</div><div class="line">        return MetaObject.forObject(object, this.objectFactory, this.objectWrapperFactory, this.reflectorFactory);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">public ParameterHandler newParameterHandler(MappedStatement mappedStatement, Object parameterObject, BoundSql boundSql) &#123;</div><div class="line">	ParameterHandler parameterHandler = mappedStatement.getLang().createParameterHandler(mappedStatement, parameterObject, boundSql);</div><div class="line">	parameterHandler = (ParameterHandler)this.interceptorChain.pluginAll(parameterHandler);</div><div class="line">	return parameterHandler;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public ResultSetHandler newResultSetHandler(Executor executor, MappedStatement mappedStatement, RowBounds rowBounds, ParameterHandler parameterHandler, ResultHandler resultHandler, BoundSql boundSql) &#123;</div><div class="line">	ResultSetHandler resultSetHandler = new DefaultResultSetHandler(executor, mappedStatement, parameterHandler, resultHandler, boundSql, rowBounds);</div><div class="line">	ResultSetHandler resultSetHandler = (ResultSetHandler)this.interceptorChain.pluginAll(resultSetHandler);</div><div class="line">	return resultSetHandler;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>3.Tomcat 也用了很多外观模式，像一些带Facade的接口。（RequestFacade 是对 Request进行的封装、ResponseFacade 等）</p>
+<h4 id="tips"><a href="#tips" class="headerlink" title="tips:"></a>tips:</h4><p>迪米特法则：一个对象应该对其他对象保持最少的了解。意义在于降低类之间的耦合。<br>开闭原则：一个软件实体,如类、模块和函数应该对扩展开放,对修改关闭.即一个软件实体应该通过扩展来实现变化,而不是通<br>过修改已有的代码来实现变化.</p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2020年01月28日 21:00</p>
+        <p>原始链接： <a class="post-url" href="/2020/01/28/外观模式/" title="外观模式">https://lukeyli.github.io/2020/01/28/外观模式/</a></p>
+        <footer>
+            <a href="https://lukeyli.github.io">
+                <img src="/images/logo.png" alt="LukeyLi">
+                LukeyLi
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lukeyli.github.io/2020/01/28/外观模式/&title=《外观模式》 — LukeyLi's Blog&pic=https://lukeyli.github.ioimages/logo.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lukeyli.github.io/2020/01/28/外观模式/&title=《外观模式》 — LukeyLi's Blog&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lukeyli.github.io/2020/01/28/外观模式/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《外观模式》 — LukeyLi's Blog&url=https://lukeyli.github.io/2020/01/28/外观模式/&via=https://lukeyli.github.io" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lukeyli.github.io/2020/01/28/外观模式/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://lukeyli.github.io/2020/01/28/外观模式/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#外观模式"><span class="post-toc-text">外观模式</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#适用场景"><span class="post-toc-text">适用场景</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#codig"><span class="post-toc-text">codig</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#源码分析"><span class="post-toc-text">源码分析</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#tips"><span class="post-toc-text">tips:</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+  
+    <a href="/2020/01/28/建造者模式/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">建造者模式</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+          <div id="uyan_frame"></div>
+  <script src="http://v2.uyan.cc/code/uyan.js?uid=2147648"></script>
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+
+  <div class="outer">
+
+    <div id="footer-info" class="inner">
+      
+    <script type="text/javascript" src="/live2d/script.js"></script>
+    <canvas id="live2dcanvas" width="300" height="600" class="live2d"></canvas>
+    <style>
+      #live2dcanvas {
+        position: fixed;
+        right: 0px;
+        z-index: 999;
+        pointer-events: none;
+        bottom: 3px;
+      }
+    </style>
+    <script>loadlive2d("live2dcanvas" ,"/live2d/assets/haru/haru.model.json",0.5)</script>
+  
+      
+
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2020 LukeyLi<br>
+      </p>
+    </div>
+
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://lukeyli.github.io",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/Java基础/">Java基础</a><a class="category-link" href="/categories/Json详解/">Json详解</a><a class="category-link" href="/categories/git/">git</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/后端框架/">后端框架</a><a class="category-link" href="/categories/设计模式/">设计模式</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/servlet/" style="font-size: 15px;">servlet</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/设计模式/" style="font-size: 20px;">设计模式</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/home">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/servlet/" style="font-size: 15px;">servlet</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/设计模式/" style="font-size: 20px;">设计模式</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+
+  </div>
+</body>
+</html>
