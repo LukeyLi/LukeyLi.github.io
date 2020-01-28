@@ -3,22 +3,22 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Json详解 | LukeyLi&#39;s Blog</title>
+  <title>原型模式 | LukeyLi&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="Lukeyli,Lukeyli's Blog" />
   
-  <meta name="description" content="本篇为笔记贴，主要介绍json">
-<meta name="keywords" content="Json详解">
+  <meta name="description" content="原型模式定义：指原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。不需要知道任何创建的细节，不调用构造函数（这里说的不调用构造函数是指不通过new的方式创建，查看jdk源码是通过反射机制实现对象的创建） 类型：创建型 适用场景1.类初始化消耗较多资源2.new 产生的一个对象需要非常繁琐的过程（数据准备、访问权限等）3.构造函数比较复杂4.循环体中创建大量对象 优点：1.原型模式性能比">
+<meta name="keywords" content="设计模式">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Json详解">
-<meta property="og:url" content="https://lukeyli.github.io/2017/08/06/json详解/index.html">
+<meta property="og:title" content="原型模式">
+<meta property="og:url" content="https://lukeyli.github.io/2020/01/28/原型模式/index.html">
 <meta property="og:site_name" content="LukeyLi&#39;s Blog">
-<meta property="og:description" content="本篇为笔记贴，主要介绍json">
-<meta property="og:updated_time" content="2017-09-09T02:56:01.595Z">
+<meta property="og:description" content="原型模式定义：指原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。不需要知道任何创建的细节，不调用构造函数（这里说的不调用构造函数是指不通过new的方式创建，查看jdk源码是通过反射机制实现对象的创建） 类型：创建型 适用场景1.类初始化消耗较多资源2.new 产生的一个对象需要非常繁琐的过程（数据准备、访问权限等）3.构造函数比较复杂4.循环体中创建大量对象 优点：1.原型模式性能比">
+<meta property="og:updated_time" content="2020-01-28T08:44:07.354Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Json详解">
-<meta name="twitter:description" content="本篇为笔记贴，主要介绍json">
+<meta name="twitter:title" content="原型模式">
+<meta name="twitter:description" content="原型模式定义：指原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。不需要知道任何创建的细节，不调用构造函数（这里说的不调用构造函数是指不通过new的方式创建，查看jdk源码是通过反射机制实现对象的创建） 类型：创建型 适用场景1.类初始化消耗较多资源2.new 产生的一个对象需要非常繁琐的过程（数据准备、访问权限等）3.构造函数比较复杂4.循环体中创建大量对象 优点：1.原型模式性能比">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -107,14 +107,14 @@
     </div>
 </header>
       <div class="outer">
-        <section id="main" class="body-wrap"><article id="post-json详解" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main" class="body-wrap"><article id="post-原型模式" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="post-title" itemprop="name">
-      Json详解
+      原型模式
     </h1>
     <div class="post-title-bar">
       <ul>
@@ -122,12 +122,12 @@
               <li>
                   <i class="fa fa-book"></i>
                   
-                      <a href="/categories/Json详解/">Json详解</a>
+                      <a href="/categories/设计模式/">设计模式</a>
                   
               </li>
           
         <li>
-          <i class="fa fa-calendar"></i>  2017-08-06
+          <i class="fa fa-calendar"></i>  2020-01-28
         </li>
         <li>
           <i class="fa fa-eye"></i>
@@ -143,27 +143,22 @@
     <div class="article-entry post-content" itemprop="articleBody">
       
             
-            <p> 本篇本人学习理解JSON的学习记录用，共同进步，欢迎指点。</p>
-<h3 id="JSON概念"><a href="#JSON概念" class="headerlink" title="JSON概念"></a>JSON概念</h3><blockquote>
-<p> JSON(JavaScript Object Notation)，即JavaScript对象表示法，它是用于轻量级数据交互，完全独立于语言的 <strong>文本格式，</strong>取代XML格式的繁琐标记。JSON易于程序员阅读和编写，同时也易于机器解析生成。 </p>
-</blockquote>
-<h3 id="JSON的两种结构"><a href="#JSON的两种结构" class="headerlink" title="JSON的两种结构"></a>JSON的两种结构</h3><blockquote>
-<p>JSON有两种结构：1、对象。2、数组<br>1。对象：对象在js中表示为{}里面的内容，key/value 构成，value 的值可以是true、false、null、对象或数组。<br>数据结构如下：</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line"> 　　　key1:value1,／／例如　&quot;name&quot;:&quot;张三&quot;</div><div class="line">   　　　key2:value2,／／“age”：22</div><div class="line">   　 　    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>2.数组：数组表示一系列有序的值。<br>数据结构：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">[</div><div class="line">    &#123;</div><div class="line">        key1:value1,</div><div class="line">        key2:value2 </div><div class="line">    &#125;,</div><div class="line">    &#123;</div><div class="line">         key3:value3,</div><div class="line">         key4:value4   </div><div class="line">    &#125;</div><div class="line">]</div></pre></td></tr></table></figure></p>
-<p>JSON字符串：var str =‘{ “name”: “李四”, “sex”: “man” }’；<br>JSON对象：var jsobj ={ “name”: “李四”, “sex”: “man” }；</p>
-<h3 id="JSON字符串和对象的转换"><a href="#JSON字符串和对象的转换" class="headerlink" title="JSON字符串和对象的转换"></a>JSON字符串和对象的转换</h3><p>一、JSON字符串转换为JSON对象。<br>注意区分字符串和JSON字符串的区别。<br>字符串：使用“”双引号或’’单引号包括的字符。<br>json字符串：符合json格式要求的js字符串。<br>var obj = JSON.parse(str);<br>JSON.parse(). 现在大多数浏览器都支持这个方法，是推荐使用的方法。</p>
-<p>二、JSON对象转JSON字符串<br>var str2 = JSON.stringify（jsobj）；<br>默认情况下，JSON.stringify()输出的JSON字符串不包括任何空格字符或缩进。</p>
-<h3 id="在JS中使用JSON"><a href="#在JS中使用JSON" class="headerlink" title="在JS中使用JSON"></a>在JS中使用JSON</h3><p>JSON的读写有两种方式：一、利用”.”操作符二、“[key]”的方式。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">var obj = &#123;</div><div class="line">            1: &quot;value1&quot;,</div><div class="line">            &quot;2&quot;: &quot;value2&quot;，</div><div class="line">            person: [ //数组结构JSON对象，可以嵌套使用</div><div class="line">                        &#123;</div><div class="line">                            id: 1,</div><div class="line">                            name: &quot;张三&quot;</div><div class="line">                        &#125;,</div><div class="line">                        &#123;</div><div class="line">                            id: 2,</div><div class="line">                            name: &quot;李四&quot;</div><div class="line">                        &#125;</div><div class="line">                   ],</div><div class="line">            object: &#123; //对象结构JSON对象</div><div class="line">                id: 1,</div><div class="line">                msg: &quot;对象里的对象&quot;    </div><div class="line">            &#125;</div><div class="line">        &#125;;</div><div class="line">        1.从JSON中读数据</div><div class="line">        function readJSON（）&#123;</div><div class="line">        alert(obj.1); //会报语法错误，可以用alert(obj[&quot;1&quot;]);说明数字最好不要做关键字</div><div class="line">        alert(obj.person[0].name); //或者alert(obj.person[0][&quot;name&quot;])</div><div class="line">            alert(obj.object.msg); //或者alert(obj.object[&quot;msg&quot;])</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
-<p>2.向JSON中写数据<br> function write（）{<br>  //往JSON对象中增加了一条记录<br>            obj.sex= “男” //或者obj[“sex”]=”男”<br>}<br>3.修改JSON中的cout的值<br>function Update() {<br>            obj.count = 10; //或obj[“count”]=10<br>        }<br>   4.删除JSON中数据<br>   delete obj.count;</p>
-<h3 id="处理客户端提交的JSON数据"><a href="#处理客户端提交的JSON数据" class="headerlink" title="处理客户端提交的JSON数据"></a>处理客户端提交的JSON数据</h3><p>客户端提交过来的数据一般是JSON字符串，我们一般处理方式为将JSON字符串转换为JSON对象，<br>可以利com.alibaba.fastjson快速序列化转换。</p>
+            <h4 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h4><p>定义：指原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。不需要知道任何创建的细节，不调用构<br>造函数（这里说的不调用构造函数是指不通过new的方式创建，查看jdk源码是通过反射机制实现对象的创建）</p>
+<p>类型：创建型</p>
+<h4 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h4><p>1.类初始化消耗较多资源<br>2.new 产生的一个对象需要非常繁琐的过程（数据准备、访问权限等）<br>3.构造函数比较复杂<br>4.循环体中创建大量对象</p>
+<p>优点：<br>1.原型模式性能比直接 new 一个对象性能高<br>2.简化创建过程</p>
+<p>缺点：<br>1.必须实现 Cloneable 接口并且实现配备克隆方法<br>2.对克隆复杂对象或对克隆出的对象进行复杂改造时，容易引入风险<br>3.在对复杂对象进行深拷贝、浅拷贝要运用得当</p>
+<h4 id="Coding"><a href="#Coding" class="headerlink" title="Coding"></a>Coding</h4><p>场景:给一群活动中奖的人发生邮件,需要保存原始的邮件模板,而且中奖的人很多意味着要new很多类,并且给每个属性都赋值,<br>有些内容一致,有些则不同。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">@Data</div><div class="line">public class Mail &#123;</div><div class="line">    private String name;</div><div class="line">    private String emailAddress;</div><div class="line">    private String content;</div><div class="line"></div><div class="line">    public Mail()&#123;</div><div class="line">        System.out.println(&quot;Mail Class Contructor&quot;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public String toString() &#123;</div><div class="line">        return &quot;Mail&#123;&quot; +</div><div class="line">                &quot;name=&apos;&quot; + name + &apos;\&apos;&apos; +</div><div class="line">                &quot;, emailAddress=&apos;&quot; + emailAddress + &apos;\&apos;&apos; +</div><div class="line">                &quot;, content=&apos;&quot; + content + &apos;\&apos;&apos; +</div><div class="line">                &apos;&#125;&apos; + super.toString();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class MailUtil &#123;</div><div class="line">    public static void sendMail(Mail mail) &#123;</div><div class="line">        String outputContent = &quot;向&#123;0&#125;同学,发送邮件地址：&#123;1&#125;, 邮件内容：&#123;2&#125;发送邮件成功&quot;;</div><div class="line">        System.out.println(MessageFormat.format(outputContent, mail.getName(), mail.getEmailAddress(), mail.getContent()));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static void saveOriginMailRecord(Mail mail) &#123;</div><div class="line">        System.out.println(&quot;存储 originMail记录, originMail:&quot; + mail.getContent());</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class Test &#123;</div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        Mail mail = new Mail();</div><div class="line">        mail.setContent(&quot;初始化模板&quot;);</div><div class="line">	MailUtil.saveOriginMailRecord(mail);</div><div class="line">        for (int i = 0; i &lt; 1000; i++) &#123;</div><div class="line">            mail.setName(&quot;姓名&quot; + i);</div><div class="line">            mail.setEmailAddress(&quot;姓名&quot; + i + &quot;@163.com&quot;);</div><div class="line">            mail.setContent(&quot;恭喜你，中奖了&quot;);</div><div class="line">            MailUtil.sendMail(mail);</div><div class="line">        &#125;</div><div class="line">    </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行结果:<br>Mail Class Contructor<br>存储 originMail记录, originMail:初始化模板<br>向姓名0同学,发送邮件地址：姓名0@163.com, 邮件内容：恭喜你，中奖了发送邮件成功<br>…<br>向姓名999同学,发送邮件地址：姓名999@163.com, 邮件内容：恭喜你，中奖了发送邮件成功</p>
+<p>假设saveOriginMailRecord一定要在发送email之后,在for循环内 new 对象将消耗很大。</p>
+<h4 id="使用原型模式"><a href="#使用原型模式" class="headerlink" title="使用原型模式"></a>使用原型模式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">@Data</div><div class="line">public class Mail implements Cloneable &#123;</div><div class="line">    private String name;</div><div class="line">    private String emailAddress;</div><div class="line">    private String content;</div><div class="line"></div><div class="line">    public Mail()&#123;</div><div class="line">        System.out.println(&quot;Mail Class Contructor&quot;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public String toString() &#123;</div><div class="line">        return &quot;Mail&#123;&quot; +</div><div class="line">                &quot;name=&apos;&quot; + name + &apos;\&apos;&apos; +</div><div class="line">                &quot;, emailAddress=&apos;&quot; + emailAddress + &apos;\&apos;&apos; +</div><div class="line">                &quot;, content=&apos;&quot; + content + &apos;\&apos;&apos; +</div><div class="line">                &apos;&#125;&apos;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected Object clone() throws CloneNotSupportedException &#123;</div><div class="line">        System.out.println(&quot;clone mail object&quot;);</div><div class="line">        return super.clone();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="通过抽象类使用原型模式"><a href="#通过抽象类使用原型模式" class="headerlink" title="通过抽象类使用原型模式"></a>通过抽象类使用原型模式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * 通过抽象类实现原型模式</div><div class="line"> */</div><div class="line">public abstract class A implements Cloneable&#123;</div><div class="line">    @Override</div><div class="line">    protected Object clone() throws CloneNotSupportedException &#123;</div><div class="line">        return super.clone();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">/**</div><div class="line"> * 继承 A ，因此也有 clone 属性</div><div class="line"> */</div><div class="line">public class B extends A &#123;</div><div class="line">    public static void main(String[] args) throws CloneNotSupportedException &#123;</div><div class="line">        B b = new B();</div><div class="line">        b.clone();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="深克隆"><a href="#深克隆" class="headerlink" title="深克隆"></a>深克隆</h4><p>在实际使用中，建议对原型类中的引用属性进行深克隆，以避免不必要的坑。根据实际业务考<br>虑使用深克隆还是浅克隆。</p>
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2017年09月09日 10:56</p>
-        <p>原始链接： <a class="post-url" href="/2017/08/06/json详解/" title="Json详解">https://lukeyli.github.io/2017/08/06/json详解/</a></p>
+        <p>最后更新： 2020年01月28日 16:44</p>
+        <p>原始链接： <a class="post-url" href="/2020/01/28/原型模式/" title="原型模式">https://lukeyli.github.io/2020/01/28/原型模式/</a></p>
         <footer>
             <a href="https://lukeyli.github.io">
                 <img src="/images/logo.png" alt="LukeyLi">
@@ -185,7 +180,7 @@
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lukeyli.github.io/2017/08/06/json详解/&title=《Json详解》 — LukeyLi's Blog&pic=https://lukeyli.github.ioimages/logo.png" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lukeyli.github.io/2020/01/28/原型模式/&title=《原型模式》 — LukeyLi's Blog&pic=https://lukeyli.github.ioimages/logo.png" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -195,22 +190,22 @@
             </a>
           </li>
           <li>
-            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lukeyli.github.io/2017/08/06/json详解/&title=《Json详解》 — LukeyLi's Blog&source=" data-title="QQ">
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lukeyli.github.io/2020/01/28/原型模式/&title=《原型模式》 — LukeyLi's Blog&source=" data-title="QQ">
               <i class="fa fa-qq"></i>
             </a>
           </li>
           <li>
-            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lukeyli.github.io/2017/08/06/json详解/" data-title="Facebook">
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lukeyli.github.io/2020/01/28/原型模式/" data-title="Facebook">
               <i class="fa fa-facebook"></i>
             </a>
           </li>
           <li>
-            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Json详解》 — LukeyLi's Blog&url=https://lukeyli.github.io/2017/08/06/json详解/&via=https://lukeyli.github.io" data-title="Twitter">
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《原型模式》 — LukeyLi's Blog&url=https://lukeyli.github.io/2020/01/28/原型模式/&via=https://lukeyli.github.io" data-title="Twitter">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
           <li>
-            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lukeyli.github.io/2017/08/06/json详解/" data-title="Google+">
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lukeyli.github.io/2020/01/28/原型模式/" data-title="Google+">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -220,7 +215,7 @@
 <div class="post-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;" id="wxShare-close">×</a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://lukeyli.github.io/2017/08/06/json详解/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://lukeyli.github.io/2020/01/28/原型模式/" alt="微信分享二维码">
 </div>
 
 <div class="mask"></div>
@@ -232,7 +227,7 @@
   <li class="article-footer-tags">
     <i class="fa fa-tags"></i>
       
-    <a href="/tags/Json详解/" class="color2">Json详解</a>
+    <a href="/tags/设计模式/" class="color5">设计模式</a>
       
   </li>
 
@@ -245,26 +240,16 @@
 
     <aside class="post-toc-pos post-toc-top" id="post-toc">
         <nav class="post-toc-wrap">
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#JSON概念"><span class="post-toc-text">JSON概念</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#JSON的两种结构"><span class="post-toc-text">JSON的两种结构</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#JSON字符串和对象的转换"><span class="post-toc-text">JSON字符串和对象的转换</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#在JS中使用JSON"><span class="post-toc-text">在JS中使用JSON</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#处理客户端提交的JSON数据"><span class="post-toc-text">处理客户端提交的JSON数据</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#原型模式"><span class="post-toc-text">原型模式</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#适用场景"><span class="post-toc-text">适用场景</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Coding"><span class="post-toc-text">Coding</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#使用原型模式"><span class="post-toc-text">使用原型模式</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#通过抽象类使用原型模式"><span class="post-toc-text">通过抽象类使用原型模式</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#深克隆"><span class="post-toc-text">深克隆</span></a></li></ol>
         </nav>
     </aside>
     
 
 <nav id="article-nav">
   
-    <a href="/2017/08/17/git分支工作/" id="article-nav-newer" class="article-nav-link-wrap">
-
-      <span class="article-nav-title">
-        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
-        
-          Git分支上的工作
-        
-      </span>
-    </a>
   
-  
-    <a href="/2017/08/05/jQuery/" id="article-nav-older" class="article-nav-link-wrap">
-      <span class="article-nav-title">JAVAEE之jQuery</span>
+    <a href="/2020/01/27/单例模式/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">单例模式</span>
       <i class="fa fa-hand-o-right" aria-hidden="true"></i>
     </a>
   
