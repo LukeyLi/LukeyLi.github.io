@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>建造者模式 | LukeyLi&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Lukeyli,Lukeyli's Blog" />
+  
+  <meta name="description" content="设计模式定义：将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。用户只需要指定需要建造的类型就可以得到它们，建造过程及细节不需要知道。这个定义通俗的讲就是说建造者模式就是如何一步一步构建一个包含多个组件的对象，相同的构建过程可以创建不同的产品，比较适用于那些流程固定但是顺序不一定固定。个人觉得建造者模式就是根据业务场景针对那些一次性无法创建出最终的对象，比如 StringB">
+<meta property="og:type" content="article">
+<meta property="og:title" content="建造者模式">
+<meta property="og:url" content="https://lukeyli.github.io/2020/01/28/建造者模式/index.html">
+<meta property="og:site_name" content="LukeyLi&#39;s Blog">
+<meta property="og:description" content="设计模式定义：将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。用户只需要指定需要建造的类型就可以得到它们，建造过程及细节不需要知道。这个定义通俗的讲就是说建造者模式就是如何一步一步构建一个包含多个组件的对象，相同的构建过程可以创建不同的产品，比较适用于那些流程固定但是顺序不一定固定。个人觉得建造者模式就是根据业务场景针对那些一次性无法创建出最终的对象，比如 StringB">
+<meta property="og:image" content="https://lukeyli.github.io/2020/01/28/建造者模式/建造者.jpg">
+<meta property="og:image" content="https://lukeyli.github.io/2020/01/28/建造者模式/建造者2.jpg">
+<meta property="og:updated_time" content="2020-01-28T11:35:02.395Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="建造者模式">
+<meta name="twitter:description" content="设计模式定义：将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。用户只需要指定需要建造的类型就可以得到它们，建造过程及细节不需要知道。这个定义通俗的讲就是说建造者模式就是如何一步一步构建一个包含多个组件的对象，相同的构建过程可以创建不同的产品，比较适用于那些流程固定但是顺序不一定固定。个人觉得建造者模式就是根据业务场景针对那些一次性无法创建出最终的对象，比如 StringB">
+<meta name="twitter:image" content="https://lukeyli.github.io/2020/01/28/建造者模式/建造者.jpg">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">LukeyLi&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/home">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        LukeyLi&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个不断进步的程序猿的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="MinHow" target="_blank" href="/home">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="https://github.com/LukeyLi">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="Mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=f0dLS01PTkZNSj8ODlEcEBI">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-建造者模式" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      建造者模式
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/设计模式/">设计模式</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2020-01-28
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h4 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h4><p>定义：将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。用户只需要指定需要建造的类型就<br>可以得到它们，建造过程及细节不需要知道。这个定义通俗的讲就是说建造者模式就是如何一步一步构建一个包含多个组件的<br>对象，相同的构建过程可以创建不同的产品，比较适用于那些流程固定但是顺序不一定固定。个人觉得建造者模式就是根据业<br>务场景针对那些一次性无法创建出最终的对象，比如 StringBuilder ，在创建 String 时，有很多 append方法追加，直到不<br>再调用 append 时，String 对象才算最终创建完成。很多 ORM 框架的查询条件的创建也是运用了建造者模式。</p>
+<p>类型：创建型</p>
+<h4 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h4><p>1.如果一个对象有非常复杂的内部结构（它有很多属性）<br>2.想把复杂对象的创建和使用分离<br>3.当创造一个对象需要很多步骤时适合使用建造者模式，而当需要一个简单的方法就可以简单的创建整个对象时适合使用工厂<br>相关模式。</p>
+<p>优点:<br>1.封装性好，创建和使用分离<br>2.扩展性好、建造类之间独立，一定程度上解耦<br>缺点:<br>1.会产生多余的 Builder 对象<br>2.产品内部发生变化，建造者都要修改，成本比较大</p>
+<p>建造者模式和工厂模式的区别：<br>1.注重点不同，建造者模式更注重于方法的调用顺序，而工厂模式注重于创建产品<br>2.创建对象的粒度不同，建造者模式可以创建复杂的产品，由各种复杂的部件组成，工厂模式创建出来的都是一个样子<br>3.关注点不同，工厂模式注重的把这个对象创建出来就行了，而建造者模式不止要创建出这个产品，还要知道这个产品都是由哪些<br>部件组成的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div></pre></td><td class="code"><pre><div class="line">@Data</div><div class="line">public class Course &#123;</div><div class="line">    private String courseName;</div><div class="line">    private String coursePPT;</div><div class="line">    private String courseVideo;</div><div class="line">    private String courseArticle;</div><div class="line">    private String CourseQA;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public abstract class CourseBuilder &#123;</div><div class="line">    public abstract void builderCourseName(String courseName);</div><div class="line">    public abstract void builderCoursePPT(String coursePPT);</div><div class="line">    public abstract void builderCourseVideo(String courseVideo);</div><div class="line">    public abstract void builderCourseArticle(String courseArticle);</div><div class="line">    public abstract void builderCourseQA(String courseQA);</div><div class="line"></div><div class="line">    public abstract Course makeCourse();</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> * 课程的建造者实现类</div><div class="line"> */</div><div class="line">public class CourseActualBuilder extends CourseBuilder &#123;</div><div class="line"></div><div class="line">    private Course course = new Course();</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void builderCourseName(String courseName) &#123;</div><div class="line">        course.setCourseName(courseName);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void builderCoursePPT(String coursePPT) &#123;</div><div class="line">        course.setCoursePPT(coursePPT);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void builderCourseVideo(String courseVideo) &#123;</div><div class="line">        course.setCourseVideo(courseVideo);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void builderCourseArticle(String courseArticle) &#123;</div><div class="line">        course.setCourseArticle(courseArticle);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void builderCourseQA(String courseQA) &#123;</div><div class="line">        course.setCourseQA(courseQA);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public Course makeCourse() &#123;</div><div class="line">        return course;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> * 指挥如何建造者如何创建 Course </div><div class="line"> */</div><div class="line">public class Teacher &#123;</div><div class="line"></div><div class="line">    private CourseBuilder courseBuilder;</div><div class="line"></div><div class="line">    public void setCourseBuilder(CourseBuilder courseBuilder) &#123;</div><div class="line">        this.courseBuilder = courseBuilder;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public Course makeCourse(String courseName, String coursePPT, String courseVideo, String courseArticle, String courseQA) &#123;</div><div class="line">        this.courseBuilder.builderCourseName(courseName);</div><div class="line">        this.courseBuilder.builderCoursePPT(coursePPT);</div><div class="line">        this.courseBuilder.builderCourseVideo(courseVideo);</div><div class="line">        this.courseBuilder.builderCourseArticle(courseArticle);</div><div class="line">        this.courseBuilder.builderCourseQA(courseQA);</div><div class="line">        return this.courseBuilder.makeCourse();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class Test &#123;</div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        CourseBuilder courseBuilder = new CourseActualBuilder();</div><div class="line">        Teacher teacher = new Teacher();</div><div class="line">        teacher.setCourseBuilder(courseBuilder);</div><div class="line">        Course course = teacher.makeCourse(&quot;设计模式&quot;, &quot;PPT&quot;,</div><div class="line">                &quot;视频&quot;, &quot;手记&quot;, &quot;问答&quot;);</div><div class="line">        System.out.println(course);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><img src="//lukeyli.github.io/2020/01/28/建造者模式/建造者.jpg" alt=""></p>
+<h4 id="演进版本"><a href="#演进版本" class="headerlink" title="演进版本"></a>演进版本</h4><p>可以将建造者类当做被构造类的内部类存在<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line">public class Course &#123;</div><div class="line">    private String courseName;</div><div class="line">    private String coursePPT;</div><div class="line">    private String courseVideo;</div><div class="line">    private String courseArticle;</div><div class="line">    private String courseQA;</div><div class="line"></div><div class="line">    public Course(CourseBuilder courseBuilder) &#123;</div><div class="line">        this.courseName = courseBuilder.courseName;</div><div class="line">        this.coursePPT = courseBuilder.coursePPT;</div><div class="line">        this.courseVideo = courseBuilder.courseVideo;</div><div class="line">        this.courseArticle = courseBuilder.courseArticle;</div><div class="line">        this.courseQA = courseBuilder.courseQA;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static class CourseBuilder &#123;</div><div class="line">        private String courseName;</div><div class="line">        private String coursePPT;</div><div class="line">        private String courseVideo;</div><div class="line">        private String courseArticle;</div><div class="line">        private String courseQA;</div><div class="line"></div><div class="line">        public CourseBuilder builderCourseName(String courseName) &#123;</div><div class="line">            this.courseName = courseName;</div><div class="line">            return this;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        public CourseBuilder buildCoursePPT(String coursePPT) &#123;</div><div class="line">            this.coursePPT = coursePPT;</div><div class="line">            return this;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        public CourseBuilder buildCourseVideo(String courseVideo) &#123;</div><div class="line">            this.courseVideo = courseVideo;</div><div class="line">            return this;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        public CourseBuilder buildCourseArticle(String courseArticle) &#123;</div><div class="line">            this.courseArticle = courseArticle;</div><div class="line">            return this;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        public CourseBuilder buildCourseQA(String courseQA) &#123;</div><div class="line">            this.courseQA = courseQA;</div><div class="line">            return this;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        public Course build()&#123;</div><div class="line">            return new Course(this);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class Test &#123;</div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        Course course = new Course.CourseBuilder().builderCourseName(&quot;设计模式&quot;).buildCoursePPT(&quot;PPT&quot;).buildCourseVideo(&quot;视频&quot;).build();</div><div class="line">        System.out.println(course);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><img src="//lukeyli.github.io/2020/01/28/建造者模式/建造者2.jpg" alt=""></p>
+<h4 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h4><p>StringBuilder（StringBuffer） 就是经典的建造者模式吗， append 方法。<br>Activitie 工作流框架里面 Deployment + DeploymentBuilder 也应用了建造者模式。</p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2020年01月28日 19:35</p>
+        <p>原始链接： <a class="post-url" href="/2020/01/28/建造者模式/" title="建造者模式">https://lukeyli.github.io/2020/01/28/建造者模式/</a></p>
+        <footer>
+            <a href="https://lukeyli.github.io">
+                <img src="/images/logo.png" alt="LukeyLi">
+                LukeyLi
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lukeyli.github.io/2020/01/28/建造者模式/&title=《建造者模式》 — LukeyLi's Blog&pic=https://lukeyli.github.ioimages/logo.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lukeyli.github.io/2020/01/28/建造者模式/&title=《建造者模式》 — LukeyLi's Blog&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lukeyli.github.io/2020/01/28/建造者模式/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《建造者模式》 — LukeyLi's Blog&url=https://lukeyli.github.io/2020/01/28/建造者模式/&via=https://lukeyli.github.io" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lukeyli.github.io/2020/01/28/建造者模式/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://lukeyli.github.io/2020/01/28/建造者模式/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#设计模式"><span class="post-toc-text">设计模式</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#适用场景"><span class="post-toc-text">适用场景</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#演进版本"><span class="post-toc-text">演进版本</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#源码分析"><span class="post-toc-text">源码分析</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+  
+    <a href="/2020/01/28/原型模式/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">原型模式</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+          <div id="uyan_frame"></div>
+  <script src="http://v2.uyan.cc/code/uyan.js?uid=2147648"></script>
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+
+  <div class="outer">
+
+    <div id="footer-info" class="inner">
+      
+    <script type="text/javascript" src="/live2d/script.js"></script>
+    <canvas id="live2dcanvas" width="300" height="600" class="live2d"></canvas>
+    <style>
+      #live2dcanvas {
+        position: fixed;
+        right: 0px;
+        z-index: 999;
+        pointer-events: none;
+        bottom: 3px;
+      }
+    </style>
+    <script>loadlive2d("live2dcanvas" ,"/live2d/assets/haru/haru.model.json",0.5)</script>
+  
+      
+
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2020 LukeyLi<br>
+      </p>
+    </div>
+
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://lukeyli.github.io",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/Java基础/">Java基础</a><a class="category-link" href="/categories/Json详解/">Json详解</a><a class="category-link" href="/categories/git/">git</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/后端框架/">后端框架</a><a class="category-link" href="/categories/设计模式/">设计模式</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/servlet/" style="font-size: 15px;">servlet</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/设计模式/" style="font-size: 20px;">设计模式</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/home">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/servlet/" style="font-size: 15px;">servlet</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/设计模式/" style="font-size: 20px;">设计模式</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+
+  </div>
+</body>
+</html>
