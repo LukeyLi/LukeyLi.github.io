@@ -104,6 +104,312 @@
       <div class="outer">
         <section id="main" class="body-wrap">
   
+    <article id="post-建造者模式" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/28/建造者模式/"  target="_blank"  >建造者模式</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/设计模式/">设计模式</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2020/01/28/建造者模式/"  target="_blank" >
+                
+                <img src="https://lukeyli.github.io/images/banner.jpg" alt="建造者模式" title="建造者模式">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                设计模式定义：将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。用户只需要指定需要建造的类型就可以得到它们，建造过程及细节不需要知道。这个定义通俗的讲就是说建造者模式就是如何一步一步构建一个包含多个组件的对象，相同的构建过程可以创建不同的产品，比较适用于那些流程固定但是顺序不一定固定。个人觉得建造者模式就是根据业务场景针对那些一次性无法创建出最终的...
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2020-01-28</li>
+            
+            
+        </ul>
+        
+            <a href="/2020/01/28/建造者模式/#more" class="article-more-link"  target="_blank" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-原型模式" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/28/原型模式/"  target="_blank"  >原型模式</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/设计模式/">设计模式</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2020/01/28/原型模式/"  target="_blank" >
+                
+                <img src="https://lukeyli.github.io/images/banner.jpg" alt="原型模式" title="原型模式">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                原型模式定义：指原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。不需要知道任何创建的细节，不调用构造函数（这里说的不调用构造函数是指不通过new的方式创建，查看jdk源码是通过反射机制实现对象的创建）
+类型：创建型
+适用场景1.类初始化消耗较多资源2.new 产生的一个对象需要非常繁琐的过程（数据准备、访问权限等）3.构造函数比较复杂4.循环体中创建大量对象...
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2020-01-28</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/设计模式/" class="color5">设计模式</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2020/01/28/原型模式/#more" class="article-more-link"  target="_blank" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-单例模式" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/27/单例模式/"  target="_blank"  >单例模式</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/设计模式/">设计模式</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2020/01/27/单例模式/"  target="_blank" >
+                
+                <img src="https://lukeyli.github.io/images/banner.jpg" alt="单例模式" title="单例模式">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                单例模式定义：保证一个类仅有一个实例，并提供一个全局访问点。
+类型：创建型
+适用场景想确保任何情况下都绝对只有一个实例
+优点：1.在内存里只有一个实例，减少了内存的开销2.可以对避免对资源的多重占用3.设置全局的访问点，严格控制访问。
+缺点：1.没有接口，扩展困难
+重点：1.私有构造器，禁止从单例类外部调用构造函数创建对象2.线程安全3.延迟加载，等使用到的时候再创建。懒...
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2020-01-27</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/设计模式/" class="color5">设计模式</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2020/01/27/单例模式/#more" class="article-more-link"  target="_blank" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-抽象工厂" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/27/抽象工厂/"  target="_blank"  >抽象工厂</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/设计模式/">设计模式</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2020/01/27/抽象工厂/"  target="_blank" >
+                
+                <img src="https://lukeyli.github.io/images/banner.jpg" alt="抽象工厂" title="抽象工厂">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                抽象工厂定义：抽象工厂模式提供了一个创建一系列相关或相互依赖对象的接口，无需指定他们具体的类。抽象工厂可以将一组具有同一主题单独的工厂封装起来。在正常使用中客户端程序需要创建抽象工厂的具体实现，然后使用抽象工厂作为接口来创建这一主题的具体对象，在使用的时候是不需要知道或关心他从这些内部的工厂方法中获得对象的具体类型，因为我们的客户端程序仅仅使用这些通用的接口，抽象工厂模式...
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2020-01-27</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/设计模式/" class="color5">设计模式</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2020/01/27/抽象工厂/#more" class="article-more-link"  target="_blank" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-工厂方法" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/26/工厂方法/"  target="_blank"  >工厂方法</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/设计模式/">设计模式</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2020/01/26/工厂方法/"  target="_blank" >
+                
+                <img src="https://lukeyli.github.io/images/banner.jpg" alt="工厂方法" title="工厂方法">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                工厂方法类型: 创建型定义：定义一个创建对象接口，但是让实现这个接口的类来决定实例化哪个类，工厂方法让类的实例化推迟到子类中进行。解决同一产品等级的业务抽象问题。
+简单工厂模式如果产品太多，那么工厂类的逻辑判断也会很多，如果再加上创建对象时的一些判断逻辑，那该工厂类的代码会显得很臃肿。用工厂方法模式可以起到拆分的效果，即同一产品等级下利用产品对应的工厂实例创建各自的产品实...
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2020-01-26</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/设计模式/" class="color5">设计模式</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2020/01/26/工厂方法/#more" class="article-more-link"  target="_blank" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
     <article id="post-简单工厂" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -221,65 +527,6 @@
 
 
   
-    <article id="post-git分支工作" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/17/git分支工作/"  target="_blank"  >Git分支上的工作</a>
-    </h1>
-  
-
-          
-              <span class="header-cate">
-                <i class="fa fa-map-marker"></i>
-                  
-                  <a href="/categories/git/">git</a>
-                  
-              </span>
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/2017/08/17/git分支工作/"  target="_blank" >
-                
-                <img src="https://lukeyli.github.io/images/banner.jpg" alt="Git分支上的工作" title="Git分支上的工作">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                我们一定在某个分支上工作——master分支，这是git特性决定的。关于这一点，我们可以在gitdemo目录下执行git branch命令来查看，会得到这样的结果：
-* master
-   这个命令列出现存本地分支，并以星号（*）高亮当前所在的分支。
-git branch -r列出远程分支
-git branch -a列出远程分支和本地分支
-我们需要在分支上工作几乎所有的版...
-            </p>
-        </div>
-      
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2017-08-17</li>
-            
-            
-        </ul>
-        
-            <a href="/2017/08/17/git分支工作/#more" class="article-more-link"  target="_blank" >more&gt;&gt;</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
     <article id="post-使用git完成基本版本的控制" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -347,6 +594,65 @@ Git为目前世界上先进的分布式版本控制系统。学习git是为了�
 
 
   
+    <article id="post-git分支工作" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/17/git分支工作/"  target="_blank"  >Git分支上的工作</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/git/">git</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2017/08/17/git分支工作/"  target="_blank" >
+                
+                <img src="https://lukeyli.github.io/images/banner.jpg" alt="Git分支上的工作" title="Git分支上的工作">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                我们一定在某个分支上工作——master分支，这是git特性决定的。关于这一点，我们可以在gitdemo目录下执行git branch命令来查看，会得到这样的结果：
+* master
+   这个命令列出现存本地分支，并以星号（*）高亮当前所在的分支。
+git branch -r列出远程分支
+git branch -a列出远程分支和本地分支
+我们需要在分支上工作几乎所有的版...
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2017-08-17</li>
+            
+            
+        </ul>
+        
+            <a href="/2017/08/17/git分支工作/#more" class="article-more-link"  target="_blank" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
     <article id="post-json详解" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -399,327 +705,6 @@ JSON有两种结构：1、对象。2、数组...
         </ul>
         
             <a href="/2017/08/06/json详解/#more" class="article-more-link"  target="_blank" >more&gt;&gt;</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article id="post-jQuery" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/05/jQuery/"  target="_blank"  >JAVAEE之jQuery</a>
-    </h1>
-  
-
-          
-              <span class="header-cate">
-                <i class="fa fa-map-marker"></i>
-                  
-                  <a href="/categories/前端/">前端</a>
-                  
-              </span>
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/2017/08/05/jQuery/"  target="_blank" >
-                
-                <img src="https://lukeyli.github.io/images/banner.jpg" alt="JAVAEE之jQuery" title="JAVAEE之jQuery">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                jQuery的编程模式：1、选择对象 2、do something
-4、jQuery注册事件[重点]（1）常用事件与原生JS中的事件是一样的，但注册方式不一样；（2）jQuery事件注册方式：
-jQuery对象.事件（fn）;  ----- 理解 this 关键字
-
-jQuery对象.on(事件，fn) ----- 注册任意事件
- 5.重点掌握datagrid控件   1...
-            </p>
-        </div>
-      
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2017-08-05</li>
-            
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/jQuery/" class="color2">jQuery</a>
-      
-  </li>
-
-        </ul>
-        
-            <a href="/2017/08/05/jQuery/#more" class="article-more-link"  target="_blank" >more&gt;&gt;</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article id="post-Servlet中URL请求参数获取" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/29/Servlet中URL请求参数获取/"  target="_blank"  >Servlet中URL请求参数获取</a>
-    </h1>
-  
-
-          
-              <span class="header-cate">
-                <i class="fa fa-map-marker"></i>
-                  
-                  <a href="/categories/Java基础/">Java基础</a>
-                  
-              </span>
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/2017/07/29/Servlet中URL请求参数获取/"  target="_blank" >
-                
-                <img src="https://lukeyli.github.io/images/banner.jpg" alt="Servlet中URL请求参数获取" title="Servlet中URL请求参数获取">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                
-本篇介绍servle请求参数获取,整理记录自己的学习笔记。
-
-                                                  
-1234567891011121314151617181920212223242526272829303132//获取单一参数,request.getParameter()返回为一个String类型Syste...
-            </p>
-        </div>
-      
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2017-07-29</li>
-            
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/Servlet/" class="color3">Servlet</a>
-      
-  </li>
-
-        </ul>
-        
-            <a href="/2017/07/29/Servlet中URL请求参数获取/#more" class="article-more-link"  target="_blank" >more&gt;&gt;</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article id="post-Servlet会话跟踪技术" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/29/Servlet会话跟踪技术/"  target="_blank"  >Servlet会话跟踪技术</a>
-    </h1>
-  
-
-          
-              <span class="header-cate">
-                <i class="fa fa-map-marker"></i>
-                  
-                  <a href="/categories/Java基础/">Java基础</a>
-                  
-              </span>
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/2017/07/29/Servlet会话跟踪技术/"  target="_blank" >
-                
-                <img src="https://lukeyli.github.io/images/banner.jpg" alt="Servlet会话跟踪技术" title="Servlet会话跟踪技术">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                前面引用一些大纵、通俗易懂的描述。笔记贴，有错还请提出，互相进步，谢谢。
-一、会话的概念　　会话可简单理解为：用户开一个浏览器，点击多个超链接，访问服务器多个web资源，然后关闭浏览器，整个过程称之为一个会话。　　有状态会话：一个同学来过教室，下次再来教室，我们会知道这个同学曾经来过，这称之为有状态会话。
-二、会话过程中要解决的一些问题？　    每个用户在使用浏览器与服...
-            </p>
-        </div>
-      
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2017-07-29</li>
-            
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/Servlet/" class="color3">Servlet</a>
-      
-  </li>
-
-        </ul>
-        
-            <a href="/2017/07/29/Servlet会话跟踪技术/#more" class="article-more-link"  target="_blank" >more&gt;&gt;</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article id="post-JAVAEE之Servlet进阶" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/29/JAVAEE之Servlet进阶/"  target="_blank"  >JAVAEE之Servlet进阶</a>
-    </h1>
-  
-
-          
-              <span class="header-cate">
-                <i class="fa fa-map-marker"></i>
-                  
-                  <a href="/categories/Java基础/">Java基础</a>
-                  
-              </span>
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/2017/07/29/JAVAEE之Servlet进阶/"  target="_blank" >
-                
-                <img src="https://lukeyli.github.io/images/banner.jpg" alt="JAVAEE之Servlet进阶" title="JAVAEE之Servlet进阶">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                
-Servlet中的九大内置对象ServletConfig|config1、ServletConfig 对象 ： init-param 节点中注册的初使化参数被封装ServletConfig对象中;2、此对象在init方法被调用时由服务器自动创建,并通过参数传递给用户;
---- 通过 init 方法拿到 ServletConfig 对象;
---- getServletCo...
-            </p>
-        </div>
-      
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2017-07-29</li>
-            
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/servlet/" class="color3">servlet</a>
-      
-  </li>
-
-        </ul>
-        
-            <a href="/2017/07/29/JAVAEE之Servlet进阶/#more" class="article-more-link"  target="_blank" >more&gt;&gt;</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article id="post-JAVAEE之Servlet入门" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/22/JAVAEE之Servlet入门/"  target="_blank"  >JAVAEE之Servlet入门</a>
-    </h1>
-  
-
-          
-              <span class="header-cate">
-                <i class="fa fa-map-marker"></i>
-                  
-                  <a href="/categories/Java基础/">Java基础</a>
-                  
-              </span>
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/2017/07/22/JAVAEE之Servlet入门/"  target="_blank" >
-                
-                <img src="https://lukeyli.github.io/images/banner.jpg" alt="JAVAEE之Servlet入门" title="JAVAEE之Servlet入门">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                
-理解Servlet
-Servlet：A servlet is a small Java program that runs within a Web server. Servlets receive and respond to requests from Web clients, usually across HTTP, the HyperText Transfer ...
-            </p>
-        </div>
-      
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2017-07-22</li>
-            
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/servlet/" class="color3">servlet</a>
-      
-  </li>
-
-        </ul>
-        
-            <a href="/2017/07/22/JAVAEE之Servlet入门/#more" class="article-more-link"  target="_blank" >more&gt;&gt;</a>
         
     </footer>
   </div>

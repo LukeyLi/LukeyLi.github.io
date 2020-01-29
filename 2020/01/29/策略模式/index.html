@@ -3,21 +3,23 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Mybatis学习 | LukeyLi&#39;s Blog</title>
+  <title>策略模式 | LukeyLi&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="Lukeyli,Lukeyli's Blog" />
   
-  <meta name="description" content="本篇为笔记贴，主要介绍Mybatis踩过的坑">
+  <meta name="description" content="策略模式定义：定义了算法家族，分别封装起来，让它们之间可以互相替换，此模式让算法的变化不会影响到使用算法的用户。 类型：行为型 适用场景1.系统有很多类，而他们的区别仅仅在于他们的行为不同2.一个系统需要动态地在几种算法中选择一种 优点1.符合开闭原则2.避免使用多重条件转移语句3.提高算法的保密性和安全性 缺点：1.客户端必须知道所有的策略类，并自行决定使用哪一个策略类2.产生很多策略类。 co">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Mybatis学习">
-<meta property="og:url" content="https://lukeyli.github.io/2017/08/21/Mybatis学习/index.html">
+<meta property="og:title" content="策略模式">
+<meta property="og:url" content="https://lukeyli.github.io/2020/01/29/策略模式/index.html">
 <meta property="og:site_name" content="LukeyLi&#39;s Blog">
-<meta property="og:description" content="本篇为笔记贴，主要介绍Mybatis踩过的坑">
-<meta property="og:updated_time" content="2020-01-28T09:06:17.098Z">
+<meta property="og:description" content="策略模式定义：定义了算法家族，分别封装起来，让它们之间可以互相替换，此模式让算法的变化不会影响到使用算法的用户。 类型：行为型 适用场景1.系统有很多类，而他们的区别仅仅在于他们的行为不同2.一个系统需要动态地在几种算法中选择一种 优点1.符合开闭原则2.避免使用多重条件转移语句3.提高算法的保密性和安全性 缺点：1.客户端必须知道所有的策略类，并自行决定使用哪一个策略类2.产生很多策略类。 co">
+<meta property="og:image" content="https://lukeyli.github.io/2020/01/29/策略模式/策略模式.jpg">
+<meta property="og:updated_time" content="2020-01-29T12:06:52.597Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Mybatis学习">
-<meta name="twitter:description" content="本篇为笔记贴，主要介绍Mybatis踩过的坑">
+<meta name="twitter:title" content="策略模式">
+<meta name="twitter:description" content="策略模式定义：定义了算法家族，分别封装起来，让它们之间可以互相替换，此模式让算法的变化不会影响到使用算法的用户。 类型：行为型 适用场景1.系统有很多类，而他们的区别仅仅在于他们的行为不同2.一个系统需要动态地在几种算法中选择一种 优点1.符合开闭原则2.避免使用多重条件转移语句3.提高算法的保密性和安全性 缺点：1.客户端必须知道所有的策略类，并自行决定使用哪一个策略类2.产生很多策略类。 co">
+<meta name="twitter:image" content="https://lukeyli.github.io/2020/01/29/策略模式/策略模式.jpg">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -106,14 +108,14 @@
     </div>
 </header>
       <div class="outer">
-        <section id="main" class="body-wrap"><article id="post-Mybatis学习" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main" class="body-wrap"><article id="post-策略模式" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="post-title" itemprop="name">
-      Mybatis学习
+      策略模式
     </h1>
     <div class="post-title-bar">
       <ul>
@@ -121,12 +123,12 @@
               <li>
                   <i class="fa fa-book"></i>
                   
-                      <a href="/categories/后端框架/">后端框架</a>
+                      <a href="/categories/设计模式/">设计模式</a>
                   
               </li>
           
         <li>
-          <i class="fa fa-calendar"></i>  2017-08-21
+          <i class="fa fa-calendar"></i>  2020-01-29
         </li>
         <li>
           <i class="fa fa-eye"></i>
@@ -142,13 +144,18 @@
     <div class="article-entry post-content" itemprop="articleBody">
       
             
-            <p>在学习Mybatis的过程中，<br>      　　<strong>写程序练手，遇到的最烦的问题是org.apache.ibatis.binding.BindingException: Invalid bound statement (not found)，这还是我只调用increase方法向数据库增加一条信息。打印了sqlSession，可以打印出信息。</strong></p>
-<p>　　<strong>初步猜测，是mybatis-config.xml和BookMapper.xml中，猜测文件路径映射错误。检查验证发现没错，很是无奈。</strong><br>org.apache.ibatis.binding.BindingException: Invalid bound statement (not found): org.lzy.mappers.BookMapper.increase。<br>　　<strong>再次检查Mapper XML文件中SQL映射语句配置，检查，书写无误。（即使只调用一个increase，但是其他SQL映射配置错误，也是会报错。）</strong><br>　　<strong>之后查看Web Depolyment Assembly，整理文件结构，（在eclipse中新建web项目，再转成maven项目，目录结构有点乱）。推测可能是没有编译到的问题。</strong><br>　　<strong>清理，运行编译，发现property name=”driver与jdbc.properties中名字jdbc.driverName对应错误。</strong><br>       <strong>总结：基本解决思路：在看错误异常提示，找到对应Mapper.XML中寻找错误，主要注意namespace命名，其次sql映射。实在不行，就先锁定区域注释其他语句，准确确定出错代码块，再分析。</strong></p>
+            <h4 id="策略模式"><a href="#策略模式" class="headerlink" title="策略模式"></a>策略模式</h4><p>定义：定义了算法家族，分别封装起来，让它们之间可以互相替换，此模式让算法的变化不会影响到使用算法的用户。</p>
+<p>类型：行为型</p>
+<h4 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h4><p>1.系统有很多类，而他们的区别仅仅在于他们的行为不同<br>2.一个系统需要动态地在几种算法中选择一种</p>
+<p>优点<br>1.符合开闭原则<br>2.避免使用多重条件转移语句<br>3.提高算法的保密性和安全性</p>
+<p>缺点：<br>1.客户端必须知道所有的策略类，并自行决定使用哪一个策略类<br>2.产生很多策略类。</p>
+<h4 id="coding"><a href="#coding" class="headerlink" title="coding"></a>coding</h4><p>以下是活动搞促销<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">public interface PromotionStrategy &#123;</div><div class="line">    void doPromotion();</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class FanXianPromotionStrategy implements PromotionStrategy&#123;</div><div class="line">    @Override</div><div class="line">    public void doPromotion() &#123;</div><div class="line">        System.out.println(&quot;返现促销,返回的金额存放到慕课网用户的余额中&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class LiJianPromotionStrategy implements PromotionStrategy &#123;</div><div class="line">    @Override</div><div class="line">    public void doPromotion() &#123;</div><div class="line">        System.out.println(&quot;立减促销,课程的价格直接减去配置的价格&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class ManJianPromotionStrategy implements PromotionStrategy&#123;</div><div class="line">    @Override</div><div class="line">    public void doPromotion() &#123;</div><div class="line">        System.out.println(&quot;满减促销,满200-20元&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class PromotionActivity &#123;</div><div class="line">    private PromotionStrategy promotionStrategy;</div><div class="line"></div><div class="line">    public PromotionActivity(PromotionStrategy promotionStrategy) &#123;</div><div class="line">        this.promotionStrategy = promotionStrategy;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void executePromotionStrategy()&#123;</div><div class="line">        promotionStrategy.doPromotion();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">public class Test &#123;</div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        PromotionActivity promotionActivity618 = new PromotionActivity(new LiJianPromotionStrategy());</div><div class="line">        PromotionActivity promotionActivity1111 = new PromotionActivity(new FanXianPromotionStrategy());</div><div class="line"></div><div class="line">        promotionActivity618.executePromotionStrategy();</div><div class="line">        promotionActivity1111.executePromotionStrategy();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><img src="//lukeyli.github.io/2020/01/29/策略模式/策略模式.jpg" alt=""></p>
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2020年01月28日 17:06</p>
-        <p>原始链接： <a class="post-url" href="/2017/08/21/Mybatis学习/" title="Mybatis学习">https://lukeyli.github.io/2017/08/21/Mybatis学习/</a></p>
+        <p>最后更新： 2020年01月29日 20:06</p>
+        <p>原始链接： <a class="post-url" href="/2020/01/29/策略模式/" title="策略模式">https://lukeyli.github.io/2020/01/29/策略模式/</a></p>
         <footer>
             <a href="https://lukeyli.github.io">
                 <img src="/images/logo.png" alt="LukeyLi">
@@ -170,7 +177,7 @@
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lukeyli.github.io/2017/08/21/Mybatis学习/&title=《Mybatis学习》 — LukeyLi's Blog&pic=https://lukeyli.github.ioimages/logo.png" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lukeyli.github.io/2020/01/29/策略模式/&title=《策略模式》 — LukeyLi's Blog&pic=https://lukeyli.github.ioimages/logo.png" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -180,22 +187,22 @@
             </a>
           </li>
           <li>
-            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lukeyli.github.io/2017/08/21/Mybatis学习/&title=《Mybatis学习》 — LukeyLi's Blog&source=" data-title="QQ">
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lukeyli.github.io/2020/01/29/策略模式/&title=《策略模式》 — LukeyLi's Blog&source=" data-title="QQ">
               <i class="fa fa-qq"></i>
             </a>
           </li>
           <li>
-            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lukeyli.github.io/2017/08/21/Mybatis学习/" data-title="Facebook">
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lukeyli.github.io/2020/01/29/策略模式/" data-title="Facebook">
               <i class="fa fa-facebook"></i>
             </a>
           </li>
           <li>
-            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Mybatis学习》 — LukeyLi's Blog&url=https://lukeyli.github.io/2017/08/21/Mybatis学习/&via=https://lukeyli.github.io" data-title="Twitter">
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《策略模式》 — LukeyLi's Blog&url=https://lukeyli.github.io/2020/01/29/策略模式/&via=https://lukeyli.github.io" data-title="Twitter">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
           <li>
-            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lukeyli.github.io/2017/08/21/Mybatis学习/" data-title="Google+">
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lukeyli.github.io/2020/01/29/策略模式/" data-title="Google+">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -205,7 +212,7 @@
 <div class="post-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;" id="wxShare-close">×</a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://lukeyli.github.io/2017/08/21/Mybatis学习/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://lukeyli.github.io/2020/01/29/策略模式/" alt="微信分享二维码">
 </div>
 
 <div class="mask"></div>
@@ -221,22 +228,18 @@
 </article>
 
 
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#策略模式"><span class="post-toc-text">策略模式</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#适用场景"><span class="post-toc-text">适用场景</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#coding"><span class="post-toc-text">coding</span></a></li></ol>
+        </nav>
+    </aside>
+    
 
 <nav id="article-nav">
   
-    <a href="/2020/01/24/简单工厂/" id="article-nav-newer" class="article-nav-link-wrap">
-
-      <span class="article-nav-title">
-        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
-        
-          简单工厂
-        
-      </span>
-    </a>
   
-  
-    <a href="/2017/08/17/使用git完成基本版本的控制/" id="article-nav-older" class="article-nav-link-wrap">
-      <span class="article-nav-title">使用git完成基本的版本控制</span>
+    <a href="/2020/01/29/迭代器模式/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">迭代器模式</span>
       <i class="fa fa-hand-o-right" aria-hidden="true"></i>
     </a>
   
