@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="LukeyLi&#39;s Blog">
 <meta property="og:description" content="工厂方法,定义一个创建对象接口，但是让实现这个接口的类来决定实例化哪个类，工厂方法让类的实例化推迟到子类中进行。解决同一产品等级的业务抽象问题。">
 <meta property="og:image" content="https://lukeyli.github.io/2020/01/26/工厂方法/工厂方法1.jpg">
-<meta property="og:updated_time" content="2020-01-29T06:27:59.884Z">
+<meta property="og:updated_time" content="2020-01-29T12:49:06.118Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="工厂方法">
 <meta name="twitter:description" content="工厂方法,定义一个创建对象接口，但是让实现这个接口的类来决定实例化哪个类，工厂方法让类的实例化推迟到子类中进行。解决同一产品等级的业务抽象问题。">
@@ -147,7 +147,9 @@
             
             <h3 id="工厂方法"><a href="#工厂方法" class="headerlink" title="工厂方法"></a>工厂方法</h3><p>类型: 创建型<br>定义：定义一个创建对象接口，但是让实现这个接口的类来决定实例化哪个类，工厂方法让类的实例化推迟到子类中进行。解决同一产品等级的业务抽象问题。</p>
 <p>简单工厂模式如果产品太多，那么工厂类的逻辑判断也会很多，如果再加上创建对象时的一些判断逻辑，那该工厂类的代码会显得很臃肿。用工厂方法模式可以起到拆分的效果，即同一产品等级下利用产品对应的工厂实例创建各自的产品实例。</p>
-<h4 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h4><p>1.创建对象需要大量重复的代码，可以考虑工厂方法是不是适用在这里。<br>2.客户端（应用层）不依赖于产品类实例如何被创建、实现等细节，只需要知道所对应的工厂，具体产品对象由对应工厂创建。<br>3.一个类通过其子类来指定创建哪个对象。<br>优点：<br>1.用户只需要关心所需产品对应的工厂，无需关心创建细节<br>2.加入新产品符合开闭原则，提高可扩展性。<br>tip：<br>缺点：<br>1.类的个数容易过多，增加复杂度（增加新的类的时候，就需要同时添加该类对应的工厂类）<br>2.增加了系统的抽象性和理解难度</p>
+<h4 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h4><p>1.创建对象需要大量重复的代码，可以考虑工厂方法是不是适用在这里。<br>2.客户端（应用层）不依赖于产品类实例如何被创建、实现等细节，只需要知道所对应的工厂，具体产品对象由对应工厂创建。<br>3.一个类通过其子类来指定创建哪个对象。</p>
+<p>优点：<br>1.用户只需要关心所需产品对应的工厂，无需关心创建细节<br>2.加入新产品符合开闭原则，提高可扩展性。</p>
+<p>缺点：<br>1.类的个数容易过多，增加复杂度（增加新的类的时候，就需要同时添加该类对应的工厂类）<br>2.增加了系统的抽象性和理解难度</p>
 <h4 id="coding"><a href="#coding" class="headerlink" title="coding"></a>coding</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">//菜品</div><div class="line">public abstract class Cuisine &#123;</div><div class="line">    public abstract void cookie();</div><div class="line">&#125;</div><div class="line">//粤菜</div><div class="line">public class CantoneseCuisine extends Cuisine &#123;</div><div class="line">    @Override</div><div class="line">    public void cookie() &#123;</div><div class="line">        System.out.println(&quot;做粤菜&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">//川菜</div><div class="line">public class SichuanCuisine extends Cuisine &#123;</div><div class="line">    @Override</div><div class="line">    public void cookie() &#123;</div><div class="line">        System.out.println(&quot;做川菜&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">public abstract class CuisineFactory &#123;</div><div class="line">    public abstract Cuisine getCuisine();</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class CantoneseCuisineFactory extends CuisineFactory &#123;</div><div class="line">    @Override</div><div class="line">    public Cuisine getCuisine() &#123;</div><div class="line">        return new CantoneseCuisine();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class SichuanCuisineFactory extends CuisineFactory &#123;</div><div class="line">    @Override</div><div class="line">    public Cuisine getCuisine() &#123;</div><div class="line">        return new SichuanCuisine();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">public class Test &#123;</div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        // 父类的声明指向子类的应用,根据需要创建对应菜系的工厂类即可</div><div class="line">        CuisineFactory cantoneseCuisineFactory = new CantoneseCuisineFactory();</div><div class="line">        CuisineFactory sichuanCuisineFactory = new SichuanCuisineFactory();</div><div class="line">        Cuisine sichuanCuisine = sichuanCuisineFactory.getCuisine();</div><div class="line">        sichuanCuisine.cookie();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p><img src="//lukeyli.github.io/2020/01/26/工厂方法/工厂方法1.jpg" alt=""><br>理解下产品等级概念, 宝马车、奇瑞、悍马、路虎，都属于车的产品等级，苹果、香蕉、梨子都是水果的产品等级。</p>
 <p>从上面可以发现，如果需需要扩展，只需要添加对应产品以及对应的产品工厂了即可。做到了对扩展开放对修改关闭。</p>
@@ -156,7 +158,7 @@
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2020年01月29日 14:27</p>
+        <p>最后更新： 2020年01月29日 20:49</p>
         <p>原始链接： <a class="post-url" href="/2020/01/26/工厂方法/" title="工厂方法">https://lukeyli.github.io/2020/01/26/工厂方法/</a></p>
         <footer>
             <a href="https://lukeyli.github.io">
@@ -341,7 +343,7 @@
 <div class="sidebar-menu-box" id="sidebar-menu-box">
     <div class="sidebar-menu-box-container">
         <div id="sidebar-menu-box-categories">
-            <a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/Java基础/">Java基础</a><a class="category-link" href="/categories/Json详解/">Json详解</a><a class="category-link" href="/categories/git/">git</a><a class="category-link" href="/categories/代理模式/">代理模式</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/后端框架/">后端框架</a><a class="category-link" href="/categories/设计模式/">设计模式</a>
+            <a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/Java基础/">Java基础</a><a class="category-link" href="/categories/Json详解/">Json详解</a><a class="category-link" href="/categories/git/">git</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/后端框架/">后端框架</a><a class="category-link" href="/categories/设计模式/">设计模式</a>
         </div>
         <div id="sidebar-menu-box-tags">
             <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/servlet/" style="font-size: 15px;">servlet</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/设计模式/" style="font-size: 20px;">设计模式</a>
