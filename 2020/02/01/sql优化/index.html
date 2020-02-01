@@ -3,17 +3,21 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2017/8 | LukeyLi&#39;s Blog</title>
+  <title>sql优化 | LukeyLi&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="Lukeyli,Lukeyli's Blog" />
   
-  <meta property="og:type" content="website">
-<meta property="og:title" content="LukeyLi&#39;s Blog">
-<meta property="og:url" content="https://lukeyli.github.io/archives/2017/08/index.html">
+  <meta name="description" content="1.避免全表，应该考虑在where及order by涉及的列上建立索引 2.NULL列使用索引。where语句中的is null或is not null的语句是不使用索引的。可设置默认值0，确保没有null值。  where 子句中使用!=或&amp;lt;&amp;gt;操作符，将导致全表扫描.12345- 索引无效select .. from .. where num != 100;- 索引生效#select">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sql优化">
+<meta property="og:url" content="https://lukeyli.github.io/2020/02/01/sql优化/index.html">
 <meta property="og:site_name" content="LukeyLi&#39;s Blog">
+<meta property="og:description" content="1.避免全表，应该考虑在where及order by涉及的列上建立索引 2.NULL列使用索引。where语句中的is null或is not null的语句是不使用索引的。可设置默认值0，确保没有null值。  where 子句中使用!=或&amp;lt;&amp;gt;操作符，将导致全表扫描.12345- 索引无效select .. from .. where num != 100;- 索引生效#select">
+<meta property="og:updated_time" content="2020-02-01T14:41:56.561Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LukeyLi&#39;s Blog">
+<meta name="twitter:title" content="sql优化">
+<meta name="twitter:description" content="1.避免全表，应该考虑在where及order by涉及的列上建立索引 2.NULL列使用索引。where语句中的is null或is not null的语句是不使用索引的。可设置默认值0，确保没有null值。  where 子句中使用!=或&amp;lt;&amp;gt;操作符，将导致全表扫描.12345- 索引无效select .. from .. where num != 100;- 索引生效#select">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -102,150 +106,149 @@
     </div>
 </header>
       <div class="outer">
-        <section id="main" class="body-wrap">
-  
-  
+        <section id="main" class="body-wrap"><article id="post-sql优化" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/21/Mybatis学习/" class="archive-article-date">
-  <time datetime="2017-08-21T11:12:16.000Z" itemprop="datePublished">08-21</time>
-</a>
-      
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/21/Mybatis学习/"  target="_blank"  >Mybatis学习</a>
+    <h1 class="post-title" itemprop="name">
+      sql优化
     </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/sql/">sql</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2020-02-01
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
   
 
-    </header>
-      
-  </div>
-</article>
-
-  
+          
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/17/使用git完成基本版本的控制/" class="archive-article-date">
-  <time datetime="2017-08-17T11:12:16.000Z" itemprop="datePublished">08-17</time>
-</a>
+    <div class="article-entry post-content" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/17/使用git完成基本版本的控制/"  target="_blank"  >使用git完成基本的版本控制</a>
-    </h1>
-  
-
-    </header>
-      
-        <div class="archive-post-footer">
             
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/git/" class="color4">git</a>
-      
-    <a href="/tags/版本控制/" class="color5">版本控制</a>
-      
-  </li>
+            <p>1.避免全表，应该考虑在where及order by涉及的列上建立索引</p>
+<p>2.NULL列使用索引。where语句中的is null或is not null的语句是不使用索引的。可设置默认值0，确保没有null值。</p>
+<ol>
+<li>where 子句中使用!=或&lt;&gt;操作符，将导致全表扫描.<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">- 索引无效</div><div class="line">select .. from .. where num != 100;</div><div class="line">- 索引生效</div><div class="line">#select .. from .. where num &lt; 100 or num &gt;100  </div><div class="line">select .. from .. where num &lt; 100  union all  select .. from .. where num &gt; 100;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>4.where子句中使用or连接条件。or在myisam能用到索引（还得是独立索引），innodb不行。<br>如第3点替代方案union all<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- 低效</div><div class="line">select .. from .. where num = 10 or num = 20</div><div class="line">- 高效</div><div class="line">select .. from .. where num in (10,20)</div></pre></td></tr></table></figure></p>
+<p>5.exists 和in。子查询表小的用in, 反之用exists效率更快。取值连续用between替代。(考虑用连接替代)<br>外查询 &gt; 内查询  in<br>外查询 &lt; 内查询 exists</p>
+<p>6.使用not in那么内外表都将进行全表扫描，没有用到索引。not extsts的子查询依然能用到表上的索引。</p>
+<p>7.like %a 通配符出现在首位，无法使用索引。如果通配符非得在首位，推荐instr替代like</p>
+<p>8.避免在where子句中对字段进行函数操作，这将导致引擎放弃使用索引而进行全表扫描。</p>
+<p>9.在使用索引字段作为条件时，如果该索引是复合索引，那么必须使用到该索引中的第一个字段作为条件时才能保证系统使用该索引，否则该索引将不会被使用，并且应尽可能的让字段顺序与索引顺序相一致。<br><a href="https://www.jianshu.com/p/788d6cf026f2" target="_blank" rel="external">复合索引参考</a></p>
 
-        </div>
-      
-  </div>
-</article>
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2020年02月01日 22:41</p>
+        <p>原始链接： <a class="post-url" href="/2020/02/01/sql优化/" title="sql优化">https://lukeyli.github.io/2020/02/01/sql优化/</a></p>
+        <footer>
+            <a href="https://lukeyli.github.io">
+                <img src="/images/logo.png" alt="LukeyLi">
+                LukeyLi
+            </a>
+        </footer>
+    </div>
+</div>
 
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/17/git分支工作/" class="archive-article-date">
-  <time datetime="2017-08-17T11:12:16.000Z" itemprop="datePublished">08-17</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/17/git分支工作/"  target="_blank"  >Git分支上的工作</a>
-    </h1>
-  
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lukeyli.github.io/2020/02/01/sql优化/&title=《sql优化》 — LukeyLi's Blog&pic=https://lukeyli.github.ioimages/logo.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lukeyli.github.io/2020/02/01/sql优化/&title=《sql优化》 — LukeyLi's Blog&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lukeyli.github.io/2020/02/01/sql优化/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《sql优化》 — LukeyLi's Blog&url=https://lukeyli.github.io/2020/02/01/sql优化/&via=https://lukeyli.github.io" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lukeyli.github.io/2020/02/01/sql优化/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://lukeyli.github.io/2020/02/01/sql优化/" alt="微信分享二维码">
+</div>
 
-    </header>
-      
-  </div>
-</article>
+<div class="mask"></div>
 
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/06/json详解/" class="archive-article-date">
-  <time datetime="2017-08-06T12:10:11.000Z" itemprop="datePublished">08-06</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/06/json详解/"  target="_blank"  >Json详解</a>
-    </h1>
-  
-
-    </header>
-      
-  </div>
-</article>
-
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/08/05/jQuery/" class="archive-article-date">
-  <time datetime="2017-08-05T11:13:44.000Z" itemprop="datePublished">08-05</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/05/jQuery/"  target="_blank"  >JAVAEE之jQuery</a>
-    </h1>
-  
-
-    </header>
-      
-        <div class="archive-post-footer">
+        
+        <ul class="article-footer-menu">
             
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/jQuery/" class="color2">jQuery</a>
-      
-  </li>
-
-        </div>
-      
+            
+        </ul>
+        
+    </footer>
   </div>
 </article>
 
-  
-  
-    </div></section>
-  
 
+
+<nav id="article-nav">
+  
+  
+    <a href="/2020/02/01/mysql索引/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">mysql索引</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+          <div id="uyan_frame"></div>
+  <script src="http://v2.uyan.cc/code/uyan.js?uid=2147648"></script>
+
+    
 </section>
         
       </div>
