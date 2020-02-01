@@ -8,21 +8,22 @@
   
     <meta name="keywords" content="Lukeyli,Lukeyli's Blog" />
   
-  <meta name="description" content="rabbitmq流程一条消息在RabbitMQ中的流转过程： 主要流程:1.生产者发送消息的时候指定RoutingKey，然后消息被发送到Exchange2.Exchange根据一些列规则将消息路由到指定的队列中3.消费者从队列中消费消息 整个流程主要就4个参与者message，exchange，queue，consumer。 Message消息可以设置一些列属性    属性 作用     con">
+  <meta name="description" content="rabbitmq流程一条消息在RabbitMQ中的流转过程： github rabbitMQ demo地址主要流程:1.生产者发送消息的时候指定RoutingKey，然后消息被发送到Exchange2.Exchange根据一些列规则将消息路由到指定的队列中3.消费者从队列中消费消息 整个流程主要就4个参与者message，exchange，queue，consumer。 Message消息可以设置">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RabbitMQ总结">
 <meta property="og:url" content="https://lukeyli.github.io/2020/01/29/RabbitMQ总结/index.html">
 <meta property="og:site_name" content="LukeyLi&#39;s Blog">
-<meta property="og:description" content="rabbitmq流程一条消息在RabbitMQ中的流转过程： 主要流程:1.生产者发送消息的时候指定RoutingKey，然后消息被发送到Exchange2.Exchange根据一些列规则将消息路由到指定的队列中3.消费者从队列中消费消息 整个流程主要就4个参与者message，exchange，queue，consumer。 Message消息可以设置一些列属性    属性 作用     con">
+<meta property="og:description" content="rabbitmq流程一条消息在RabbitMQ中的流转过程： github rabbitMQ demo地址主要流程:1.生产者发送消息的时候指定RoutingKey，然后消息被发送到Exchange2.Exchange根据一些列规则将消息路由到指定的队列中3.消费者从队列中消费消息 整个流程主要就4个参与者message，exchange，queue，consumer。 Message消息可以设置">
 <meta property="og:image" content="https://lukeyli.github.io/2020/01/29/RabbitMQ总结/rabbitmq流程.jfif">
 <meta property="og:image" content="https://lukeyli.github.io/2020/01/29/RabbitMQ总结/FanoutExchange.jfif">
 <meta property="og:image" content="https://lukeyli.github.io/2020/01/29/RabbitMQ总结/DirectExchange.jfif">
 <meta property="og:image" content="https://lukeyli.github.io/2020/01/29/RabbitMQ总结/TopicExchange.jfif">
 <meta property="og:image" content="https://lukeyli.github.io/2020/01/29/RabbitMQ总结/topicTest.png">
-<meta property="og:updated_time" content="2020-01-31T16:18:18.675Z">
+<meta property="og:image" content="https://lukeyli.github.io/2020/01/29/RabbitMQ总结/性能.png">
+<meta property="og:updated_time" content="2020-02-01T08:41:09.800Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RabbitMQ总结">
-<meta name="twitter:description" content="rabbitmq流程一条消息在RabbitMQ中的流转过程： 主要流程:1.生产者发送消息的时候指定RoutingKey，然后消息被发送到Exchange2.Exchange根据一些列规则将消息路由到指定的队列中3.消费者从队列中消费消息 整个流程主要就4个参与者message，exchange，queue，consumer。 Message消息可以设置一些列属性    属性 作用     con">
+<meta name="twitter:description" content="rabbitmq流程一条消息在RabbitMQ中的流转过程： github rabbitMQ demo地址主要流程:1.生产者发送消息的时候指定RoutingKey，然后消息被发送到Exchange2.Exchange根据一些列规则将消息路由到指定的队列中3.消费者从队列中消费消息 整个流程主要就4个参与者message，exchange，queue，consumer。 Message消息可以设置">
 <meta name="twitter:image" content="https://lukeyli.github.io/2020/01/29/RabbitMQ总结/rabbitmq流程.jfif">
   
   
@@ -142,7 +143,7 @@
       
             
             <h4 id="rabbitmq流程"><a href="#rabbitmq流程" class="headerlink" title="rabbitmq流程"></a>rabbitmq流程</h4><p>一条消息在RabbitMQ中的流转过程：<br><img src="//lukeyli.github.io/2020/01/29/RabbitMQ总结/rabbitmq流程.jfif" alt=""></p>
-<p>主要流程:<br>1.生产者发送消息的时候指定RoutingKey，然后消息被发送到Exchange<br>2.Exchange根据一些列规则将消息路由到指定的队列中<br>3.消费者从队列中消费消息</p>
+<p><a href="https://github.com/LukeyLi/practice/tree/master/src/main/java/com/lzy/design/rabbitmq" target="_blank" rel="external">github rabbitMQ demo地址</a><br>主要流程:<br>1.生产者发送消息的时候指定RoutingKey，然后消息被发送到Exchange<br>2.Exchange根据一些列规则将消息路由到指定的队列中<br>3.消费者从队列中消费消息</p>
 <p>整个流程主要就4个参与者message，exchange，queue，consumer。</p>
 <h4 id="Message"><a href="#Message" class="headerlink" title="Message"></a>Message</h4><p>消息可以设置一些列属性</p>
 <table>
@@ -351,21 +352,72 @@
 <h4 id="t3-拉取消息"><a href="#t3-拉取消息" class="headerlink" title="t3_拉取消息"></a>t3_拉取消息</h4><p>消息的获得方式有2种<br>1.拉取消息。拉模式下，轮询，消费channel basicGet(String queue, boolean autoAck);<br>2.推送消息。推模式下，有通知机制，通过socket推送数据的。 channel.basicConsume</p>
 <p>那我们应该拉取消息还是推送消息？get是一个轮询模型，而consumer是一个推送模型。get模型会导致每条消息都会产生与RabbitMQ同步通信的开销，这一个请求由发送请求帧的客户端应用程序和发送应答的RabbitMQ组成。所以推送消息，避免拉取</p>
 <h4 id="t4-手动ack"><a href="#t4-手动ack" class="headerlink" title="t4_手动ack"></a>t4_手动ack</h4><p><strong> 消息的确认方式有2种 </strong><br>1.自动确认（autoAck = true）<br>2.手动确认（autoAck = false）<br><strong> 消费者在消费消息的时候，可以指定autoAck参数 </strong><br>String basicConsume(String queue, boolean autoAck, Consumer callback)</p>
-<p>autoAck=false，RabbitMQ会等待消费者显示回复确认消息后才从内存（或者磁盘）中移出消息<br>autoAck=true， RabbitMQ会自动把发送出去的消息置为确认，然后从内存（或者磁盘）中删除，而不管消费者是否真正消费了这些消息<br><strong> 手动确认的方法如下，有两个参数 </strong><br>basicAck(long deliveryTag, boolean multiple)<br>deliveryTag:: 用来标识信道中投递的消息。RabbitMQ 推送消息给Consumer时，会附带一个deliveryTag，以便Consumer可以在消息确认时告诉RabbitMQ到底时哪条消息被确认了。<br>RabbitMQ保证在每个信道中，每条deliveryTag从1开始递增<br>multiple=true。消息id&lt;=deliveryTag的消息，都会被确认<br>multiple=false. 消息id=deliveryTag的消息，都会被确认</p>
+<p>autoAck=false，RabbitMQ会等待消费者显示回复确认消息后才从内存（或者磁盘）中移出消息<br>autoAck=true， RabbitMQ会自动把发送出去的消息置为确认，然后从内存（或者磁盘）中删除，而不管消费者是否真正消费了这些消息<br><strong> 手动确认的方法如下，有两个参数 </strong><br>basicAck(long deliveryTag, boolean multiple)<br>deliveryTag: 用来标识信道中投递的消息。RabbitMQ 推送消息给Consumer时，会附带一个deliveryTag，以便Consumer可以在消息确认时告诉RabbitMQ到底时哪条消息被确认了。<br>RabbitMQ保证在每个信道中，每条deliveryTag从1开始递增<br>multiple=true。消息id&lt;=deliveryTag的消息，都会被确认<br>multiple=false. 消息id=deliveryTag的消息，都会被确认</p>
 <p><strong> 消息一直不确认会发送啥 </strong><br>如果队列中的消息发送到消费者后，消费者不对消息进行确认，那么消息会一直留在队列中，直到确认才会删除。<br>如果发送到A消费者的消息一直不确认，只有等到A消费者与rabbitmq的连接中断，rabbitmq才会考虑将A消费者未确认的消息重新投递给另一个消费者</p>
 <h4 id="t5-拒绝消息的两种方式"><a href="#t5-拒绝消息的两种方式" class="headerlink" title="t5_拒绝消息的两种方式"></a>t5_拒绝消息的两种方式</h4><p><strong> 确认消息只有一种方法 </strong><br>basicAck(long deliveryTag, boolean multiple)<br><strong> 拒绝消息有两种方式 </strong><br>1.basicNack(long deliveryTag, boolean multiple, boolean requeue)<br>2.basicReject(long deliveryTag, boolean requeue)<br>basicNack和basicReject的区别只有一个,basicNack支持批量拒绝<br>requeue=true: 消息会被再次发送到队列中<br>requeue=false：消息会被直接丢失</p>
-<h4 id="t6-失败通知"><a href="#t6-失败通知" class="headerlink" title="t6_失败通知"></a>t6_失败通知</h4><p><strong> 当消息不能被路由到某个queue时，如何获取到不能正确路由的消息</strong><br>1.在发送消息时设置mandatory为true<br>2.生产者可以通过调用channel.addReturnListener来添加ReturnListener监听器获取没有被路由到队列中的消息</p>
+<h4 id="t6-失败通知"><a href="#t6-失败通知" class="headerlink" title="t6_失败通知"></a>t6_失败通知</h4><p><strong> 当消息不能被路由到某个queue时，如何获取到不能正确路由的消息 </strong><br>1.在发送消息时设置mandatory为true<br>2.生产者可以通过调用channel.addReturnListener来添加ReturnListener监听器获取没有被路由到队列中的消息</p>
 <p>mandatory是channel.basicPublish()方法中的参数<br>mandatory=true。交换器无法根据路由键找到一个符合条件的队列，那么RabbitMQ会调用Basic.Return命令将消息返回给生产者<br>mandatory=false: 出现上述情形，则消息直接被丢弃</p>
 <h4 id="t7-发布者确认"><a href="#t7-发布者确认" class="headerlink" title="t7_发布者确认"></a>t7_发布者确认</h4><p>当消息被发送后，消息到底有没有到达exchange，默认情况生产者是不知道消息有没有到达exchange。<br><strong> RabbitMQ针对这个问题，提供了两种解决方式 </strong><br>1.事务<br>2.发布者确认</p>
 <p><strong> 发布者确认有三种编程方式 </strong><br>1.普通confirm模式。每发送一条消息后，调用waitForConfirms()方法，等待服务器端confirm。实际上是一种串行confirm了。<br>2.批量confirm模式。每发送一批消息后，调用waitForConfirms()方法，等待服务器端confirm。<br>3.异步confirm模式。提供一个回调方法，服务端confirm了一条或者多条消息后Client端会回调这个方法。<br>异步confirm模式性能最高。因此经常使用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">channel.addConfirmListener(new ConfirmListener() &#123;</div><div class="line">    @Override</div><div class="line">    public void handleAck(long deliveryTag, boolean multiple) throws IOException &#123;</div><div class="line">        log.info(&quot;handleAck, deliveryTag: &#123;&#125;, multiple: &#123;&#125;&quot;, deliveryTag, multiple);</div><div class="line">    &#125;</div><div class="line">    @Override</div><div class="line">    public void handleNack(long deliveryTag, boolean multiple) throws IOException &#123;</div><div class="line">        log.info(&quot;handleNack, deliveryTag: &#123;&#125;, multiple: &#123;&#125;&quot;, deliveryTag, multiple);</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
 <p>写过异步confirm代码的小伙伴应该对这段代码不陌生，可以看到这里也有deliveryTag和multiple。但是我要说的是这里的deliveryTag和multiple和消息的ack没有一点关系。</p>
 <p>confirmListener中的ack: rabbitmq控制的，用来确认消息是否到达exchange</p>
 <p>消息的ack: 上面t4说到可以自动确认，也可以手动确认，用来确认queue中的消息是否被consumer消费</p>
-<h4 id="t8-备用交换器"><a href="#t8-备用交换器" class="headerlink" title="t8_备用交换器"></a>t8_备用交换器</h4><p>生产者在发送消息的时候如果不设置 mandatory 参数那么消息在未被路由到queue的情况下将会丢失，如果设置了 mandatory 参数，那么需要添加 ReturnListener 的编程逻辑，生产者的代码将变得复杂。如果既不想复杂化生产者的编程逻辑，又不想消息丢失，那么可以使用备用交换器，这样可以将未被路由到queue的消息存储在RabbitMQ 中，在需要的时候去处理这些消息</p>
-<h4 id="t9-事物"><a href="#t9-事物" class="headerlink" title="t9_事物"></a>t9_事物</h4>
+<h4 id="t8-备用交换器"><a href="#t8-备用交换器" class="headerlink" title="t8_备用交换器"></a>t8_备用交换器</h4><p>备份交换器是为了实现没有路由到队列的消息，声明交换机的时候添加属性alternate-exchange，声明一个备用交换机，一般声明为fanout类型，这样交换机收到路由不到队列的消息就会发送到备用交换机绑定的队列中。<br>生产者在发送消息的时候如果不设置 mandatory 参数那么消息在未被路由到queue的情况下将会丢失，如果设置了 mandatory 参数，那么需要添加 ReturnListener 的编程逻辑，生产者的代码将变得复杂。如果既不想复杂化生产者的编程逻辑，又不想消息丢失，那么可以使用备用交换器，这样可以将未被路由到queue的消息存储在RabbitMQ 中，在需要的时候去处理这些消息</p>
+<h4 id="t9-事物"><a href="#t9-事物" class="headerlink" title="t9_事物"></a>t9_事物</h4><p>rabbitMQ中与事务机制相关的方法</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>channel.txSelect()</td>
+<td>将当前的信道设置成事务模式</td>
+</tr>
+<tr>
+<td>channel.txCommit()</td>
+<td>提交事务</td>
+</tr>
+<tr>
+<td>channel.txRollback()</td>
+<td>回滚事务</td>
+</tr>
+</tbody>
+</table>
+<p>消息成功被发送到RabbitMQ的exchange上，事务才能提交成功，否则便可在捕获异常之后进行事务回滚，与此同时可以进行消息重发<br>因为事务严重影响RabbitMQ的性能， 所以一般使用发布者确认代替事务</p>
+<h4 id="t10-消息持久化"><a href="#t10-消息持久化" class="headerlink" title="t10_消息持久化"></a>t10_消息持久化</h4><p><strong> 消息持久化，需要将消息属性的delivery-mode设置为2即可 </strong><br>RabbitMQ给我们封装了这个属性，即MessageProperties.PERSISTENT_TEXT_PLAIN<br>channel.queueBind(queueName, MsgDurableProducer.EXCHANGE_NAME, “error”);<br>只设置消息的持久化，重启之后队列消息，继而消息也会丢失。所以也要设置队列的持久化<br>channel.queueDeclare(String queue, boolean durable, boolean exclusive, boolean autoDelete,<br>                                Map<string, object=""> arguments) throws IOException;</string,></p>
+<h4 id="t11-死信队列"><a href="#t11-死信队列" class="headerlink" title="t11_死信队列"></a>t11_死信队列</h4><p>DLX，全称为Dead-Letter-Exchange，称之为死信交换器。当一个消息在队列中变成死信之后，它能被重新发送到另一个交换器中，这个交换器就是DLX，绑定DLX的队列就称之为死信队列。<br>DLX也是一个正常的交换器，和一般的交换器没有区别，实际上就是设置某个队列的属性<br><strong> 消息变成死信一般是由于以下几种情况 </strong><br>1.消息被拒绝且不重新投递<br>2.消息过期<br>3.队列达到最大长度<br><strong> 死信交换器和备用交换器的区别 </strong><br>备用交换器<br>1.消息无法路由时转到备用交换器<br>2.备用交换器是在声明主交换器的时候定义的<br>死信交换器<br>1.消息已经到达队列，但是被消费者拒绝等的消息会转到死信交换器。<br>2.死信交换器是在声明队列的时候定义的</p>
+<h4 id="t12-流量控制"><a href="#t12-流量控制" class="headerlink" title="t12_流量控制"></a>t12_流量控制</h4><p>qos即服务端限流，qos对于拉模式的消费方式无效<br><strong> 使用qos只要以下2个步骤 </strong><br>1.autoAck设置为false(autoAck=true的时候不生效)<br>2.调用basicConsume方法前先调用basicQos方法。<br>basicQos(int prefetchSize, int prefetchCount, boolean global)</p>
+<table>
+<thead>
+<tr>
+<th>参数名</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>prfetchSize</td>
+<td>批量取的消息的总大小，0为不限制</td>
+</tr>
+<tr>
+<td>prefetchCount</td>
+<td>消费完prefetchCount条（prefetchCount条消息被ack）才再次推送</td>
+</tr>
+<tr>
+<td>global</td>
+<td>global为true表示对channel进行限制，否则对每个消费者进行限制，因为一个channel允许有多个消费者</td>
+</tr>
+</tbody>
+</table>
+<p><strong> qos的作用 </strong><br>1.提高服务稳定性。假设消费端有一段时间不可用，导致队列中有上万条未处理的消息，如果开启客户端，巨量的消息推送过来，可能会导致消费端变卡，也有可能直接不可用，所以服务端限流很重要<br>2.提高吞吐量。当队列有多个消费者时，队列收到的消息以轮询的方式发送给消费者。但由于机器性能等的原因，每个消费者的消费能力不一样，这就会导致一些消费者处理完了消费的消息，而另一些则还堆积了一些消息，会造成整体应用吞吐量的下降</p>
+<p><img src="//lukeyli.github.io/2020/01/29/RabbitMQ总结/性能.png" alt=""></p>
+
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2020年02月01日 00:18</p>
+        <p>最后更新： 2020年02月01日 16:41</p>
         <p>原始链接： <a class="post-url" href="/2020/01/29/RabbitMQ总结/" title="RabbitMQ总结">https://lukeyli.github.io/2020/01/29/RabbitMQ总结/</a></p>
         <footer>
             <a href="https://lukeyli.github.io">
@@ -441,7 +493,7 @@
 
     <aside class="post-toc-pos post-toc-top" id="post-toc">
         <nav class="post-toc-wrap">
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#rabbitmq流程"><span class="post-toc-text">rabbitmq流程</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Message"><span class="post-toc-text">Message</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Exchange"><span class="post-toc-text">Exchange</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#Fanout-Exchange"><span class="post-toc-text">Fanout Exchange</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#Direct-Exchange"><span class="post-toc-text">Direct Exchange</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#Topic-Exchange"><span class="post-toc-text">Topic Exchange</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Headers-Exchange"><span class="post-toc-text">Headers Exchange</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Queue"><span class="post-toc-text">Queue</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#t2-exchange使用"><span class="post-toc-text">t2_exchange使用</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#t3-拉取消息"><span class="post-toc-text">t3_拉取消息</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#t4-手动ack"><span class="post-toc-text">t4_手动ack</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#t5-拒绝消息的两种方式"><span class="post-toc-text">t5_拒绝消息的两种方式</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#t6-失败通知"><span class="post-toc-text">t6_失败通知</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#t7-发布者确认"><span class="post-toc-text">t7_发布者确认</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#t8-备用交换器"><span class="post-toc-text">t8_备用交换器</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#t9-事物"><span class="post-toc-text">t9_事物</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#rabbitmq流程"><span class="post-toc-text">rabbitmq流程</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Message"><span class="post-toc-text">Message</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Exchange"><span class="post-toc-text">Exchange</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#Fanout-Exchange"><span class="post-toc-text">Fanout Exchange</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#Direct-Exchange"><span class="post-toc-text">Direct Exchange</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#Topic-Exchange"><span class="post-toc-text">Topic Exchange</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Headers-Exchange"><span class="post-toc-text">Headers Exchange</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Queue"><span class="post-toc-text">Queue</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#t2-exchange使用"><span class="post-toc-text">t2_exchange使用</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#t3-拉取消息"><span class="post-toc-text">t3_拉取消息</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#t4-手动ack"><span class="post-toc-text">t4_手动ack</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#t5-拒绝消息的两种方式"><span class="post-toc-text">t5_拒绝消息的两种方式</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#t6-失败通知"><span class="post-toc-text">t6_失败通知</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#t7-发布者确认"><span class="post-toc-text">t7_发布者确认</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#t8-备用交换器"><span class="post-toc-text">t8_备用交换器</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#t9-事物"><span class="post-toc-text">t9_事物</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#t10-消息持久化"><span class="post-toc-text">t10_消息持久化</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#t11-死信队列"><span class="post-toc-text">t11_死信队列</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#t12-流量控制"><span class="post-toc-text">t12_流量控制</span></a></li></ol>
         </nav>
     </aside>
     
