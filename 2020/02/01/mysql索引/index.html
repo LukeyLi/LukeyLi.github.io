@@ -8,13 +8,17 @@
   
     <meta name="keywords" content="Lukeyli,Lukeyli's Blog" />
   
-  <meta property="og:type" content="article">
+  <meta name="description" content="MySQL(Innodb)索引的原理 建立索引的情况1.一张表的索引最好不超过6个，大量索引占用磁盘空间，降低insert、update、delete的性能。2.经常查询的字段创建索引，如在where子句的字段做索引。避免对经常更新的表做索引。3.索引对于数据量大的表有优化效果，数据量小没有。4.在条件表达式中经常用到不同值较多的列上创建索引，在不同值很少的列上不要建立索引。比如性别字段只有“男”">
+<meta name="keywords" content="索引">
+<meta property="og:type" content="article">
 <meta property="og:title" content="mysql索引">
 <meta property="og:url" content="https://lukeyli.github.io/2020/02/01/mysql索引/index.html">
 <meta property="og:site_name" content="LukeyLi&#39;s Blog">
-<meta property="og:updated_time" content="2020-02-01T08:58:30.532Z">
+<meta property="og:description" content="MySQL(Innodb)索引的原理 建立索引的情况1.一张表的索引最好不超过6个，大量索引占用磁盘空间，降低insert、update、delete的性能。2.经常查询的字段创建索引，如在where子句的字段做索引。避免对经常更新的表做索引。3.索引对于数据量大的表有优化效果，数据量小没有。4.在条件表达式中经常用到不同值较多的列上创建索引，在不同值很少的列上不要建立索引。比如性别字段只有“男”">
+<meta property="og:updated_time" content="2020-02-02T15:02:11.966Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql索引">
+<meta name="twitter:description" content="MySQL(Innodb)索引的原理 建立索引的情况1.一张表的索引最好不超过6个，大量索引占用磁盘空间，降低insert、update、delete的性能。2.经常查询的字段创建索引，如在where子句的字段做索引。避免对经常更新的表做索引。3.索引对于数据量大的表有优化效果，数据量小没有。4.在条件表达式中经常用到不同值较多的列上创建索引，在不同值很少的列上不要建立索引。比如性别字段只有“男”">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -115,6 +119,13 @@
     <div class="post-title-bar">
       <ul>
           
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/sql/">sql</a>
+                  
+              </li>
+          
         <li>
           <i class="fa fa-calendar"></i>  2020-02-01
         </li>
@@ -132,10 +143,19 @@
     <div class="article-entry post-content" itemprop="articleBody">
       
             
-            
+            <p><a href="https://mp.weixin.qq.com/s?__biz=MzIwMDgzMjc3NA==&amp;mid=2247484040&amp;idx=1&amp;sn=5918c27351f366a777484b440aeeaa22&amp;chksm=96f660e1a181e9f7e9dc6f6b0570352c20650c9de51ffbd236e0d71d4edaf99805334361ac72&amp;scene=21#wechat_redirect" target="_blank" rel="external">MySQL(Innodb)索引的原理</a></p>
+<h4 id="建立索引的情况"><a href="#建立索引的情况" class="headerlink" title="建立索引的情况"></a>建立索引的情况</h4><p>1.一张表的索引最好不超过6个，大量索引占用磁盘空间，降低insert、update、delete的性能。<br>2.经常查询的字段创建索引，如在where子句的字段做索引。避免对经常更新的表做索引。<br>3.索引对于数据量大的表有优化效果，数据量小没有。<br>4.在条件表达式中经常用到不同值较多的列上创建索引，在不同值很少的列上不要建立索引。比如性别字段只有“男”“女”俩个值，就无需建立索引。如果建立了索引不但不会提升效率，反而严重减低数据的更新速度<br>5.在频繁进行排序或者分组的列上建立索引，如果排序的列有多个，可以在这些列上建立联合索引。</p>
+<h4 id="索引分类"><a href="#索引分类" class="headerlink" title="索引分类"></a>索引分类</h4><p><font color="#FF0040">物理存储角度：</font><br>聚簇索引和非聚簇索引</p>
+<p><font color="#FF0040">从数据结构角度：</font><br>B+树索引、hash索引、FULLTEXT索引、R-Tree索引</p>
+<p><font color="#FF0040">从逻辑角度：</font><br>主键索引：主键索引是一种特殊的唯一索引，不允许有空值<br>普通索引或者单列索引<br>多列索引（复合索引）：复合索引指多个字段上创建的索引，只有在查询条件中使用了创建索引时的第一个字段，索引才会被使用。使用复合索引时遵循最左前缀集合<br>唯一索引或者非唯一索引<br>空间索引：空间索引是对空间数据类型的字段建立的索引，MYSQL中的空间数据类型有4种，分别是GEOMETRY、POINT、LINESTRING、POLYGON。</p>
+<h4 id="索引覆盖与回表查询"><a href="#索引覆盖与回表查询" class="headerlink" title="索引覆盖与回表查询"></a>索引覆盖与回表查询</h4><p>如果一个索引包含(或覆盖)所有需要查询的字段的值，称为‘覆盖索引’。即只需扫描索引而无须回表。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">- 表table1,有一个联合索引(a,b)</div><div class="line">select a,b from table1</div><div class="line">#在索引上就能找到结果，就不用回表去查询。</div><div class="line">select a,b,c from table2</div><div class="line">#c列在索引上不存在，就需要回表查询。</div></pre></td></tr></table></figure></p>
+<h4 id="唯一索引"><a href="#唯一索引" class="headerlink" title="唯一索引"></a>唯一索引</h4><blockquote>
+<p>【强制】业务上具有唯一特性的字段，即使是多个字段的组合，也必须建成唯一索引<br>说明：不要以为唯一索引影响了 insert 速度，这个速度损耗可以忽略，但提高查找速度是明显的；另外，即使在应用层做了非常完善的校验控制，只要没有唯一索引，根据墨菲定律，必然有脏数据产生。</p>
+</blockquote>
+
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2020年02月01日 16:58</p>
+        <p>最后更新： 2020年02月02日 23:02</p>
         <p>原始链接： <a class="post-url" href="/2020/02/01/mysql索引/" title="mysql索引">https://lukeyli.github.io/2020/02/01/mysql索引/</a></p>
         <footer>
             <a href="https://lukeyli.github.io">
@@ -202,6 +222,13 @@
         <ul class="article-footer-menu">
             
             
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/索引/" class="color3">索引</a>
+      
+  </li>
+
         </ul>
         
     </footer>
@@ -209,6 +236,12 @@
 </article>
 
 
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#建立索引的情况"><span class="post-toc-text">建立索引的情况</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#索引分类"><span class="post-toc-text">索引分类</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#索引覆盖与回表查询"><span class="post-toc-text">索引覆盖与回表查询</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#唯一索引"><span class="post-toc-text">唯一索引</span></a></li></ol>
+        </nav>
+    </aside>
+    
 
 <nav id="article-nav">
   
@@ -307,10 +340,10 @@
 <div class="sidebar-menu-box" id="sidebar-menu-box">
     <div class="sidebar-menu-box-container">
         <div id="sidebar-menu-box-categories">
-            <a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/Java基础/">Java基础</a><a class="category-link" href="/categories/Json详解/">Json详解</a><a class="category-link" href="/categories/git/">git</a><a class="category-link" href="/categories/rabbitMQ/">rabbitMQ</a><a class="category-link" href="/categories/sql/">sql</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/后端框架/">后端框架</a><a class="category-link" href="/categories/设计模式/">设计模式</a>
+            <a class="category-link" href="/categories/Java基础/">Java基础</a><a class="category-link" href="/categories/Json详解/">Json详解</a><a class="category-link" href="/categories/git/">git</a><a class="category-link" href="/categories/rabbitMQ/">rabbitMQ</a><a class="category-link" href="/categories/sql/">sql</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/后端框架/">后端框架</a><a class="category-link" href="/categories/设计模式/">设计模式</a>
         </div>
         <div id="sidebar-menu-box-tags">
-            <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/servlet/" style="font-size: 15px;">servlet</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/设计模式/" style="font-size: 20px;">设计模式</a>
+            <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/servlet/" style="font-size: 15px;">servlet</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a> <a href="/tags/设计模式/" style="font-size: 20px;">设计模式</a>
         </div>
     </div>
     <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
@@ -343,7 +376,7 @@
     <div class="mobile-header-tag-container">
         <span class="title">Tags</span>
         <div id="mobile-header-container-tags">
-            <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/servlet/" style="font-size: 15px;">servlet</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/设计模式/" style="font-size: 20px;">设计模式</a>
+            <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/servlet/" style="font-size: 15px;">servlet</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a> <a href="/tags/设计模式/" style="font-size: 20px;">设计模式</a>
         </div>
     </div>
 </div>

@@ -3,23 +3,22 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Java之数据结构 | LukeyLi&#39;s Blog</title>
+  <title>mysql表设计注意点 | LukeyLi&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="Lukeyli,Lukeyli's Blog" />
   
-  <meta name="description" content="本篇为笔记贴，介绍关于Java数据结构">
+  <meta name="description" content="1.设置主键在不设置主键的情况下，innodb也会帮你生成一个隐藏列，作为自增主键。指定主键，显式用上主键索引，提高查询效率。 2.主键用自增比UUID更好。innodb中的主键是聚簇索引。当主键式自增的，每次插入信新的记录，记录就会顺着添加到当前索引节点的后续位置。当一页写满，就会自动开辟一个新的页。如果不是自增主键，那么可能会在中间插入，就会引发页的分页，产生很多表碎片。 3.主键不能含有业务">
+<meta name="keywords" content="mysql">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java之数据结构">
-<meta property="og:url" content="https://lukeyli.github.io/2017/07/01/Java数据结构/index.html">
+<meta property="og:title" content="mysql表设计注意点">
+<meta property="og:url" content="https://lukeyli.github.io/2020/02/02/mysql表设计注意点/index.html">
 <meta property="og:site_name" content="LukeyLi&#39;s Blog">
-<meta property="og:description" content="本篇为笔记贴，介绍关于Java数据结构">
-<meta property="og:image" content="http://img.blog.csdn.net/20170908234822847?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjk3NDc2ODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2020-01-28T09:05:12.146Z">
+<meta property="og:description" content="1.设置主键在不设置主键的情况下，innodb也会帮你生成一个隐藏列，作为自增主键。指定主键，显式用上主键索引，提高查询效率。 2.主键用自增比UUID更好。innodb中的主键是聚簇索引。当主键式自增的，每次插入信新的记录，记录就会顺着添加到当前索引节点的后续位置。当一页写满，就会自动开辟一个新的页。如果不是自增主键，那么可能会在中间插入，就会引发页的分页，产生很多表碎片。 3.主键不能含有业务">
+<meta property="og:updated_time" content="2020-02-02T12:54:39.088Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java之数据结构">
-<meta name="twitter:description" content="本篇为笔记贴，介绍关于Java数据结构">
-<meta name="twitter:image" content="http://img.blog.csdn.net/20170908234822847?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjk3NDc2ODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta name="twitter:title" content="mysql表设计注意点">
+<meta name="twitter:description" content="1.设置主键在不设置主键的情况下，innodb也会帮你生成一个隐藏列，作为自增主键。指定主键，显式用上主键索引，提高查询效率。 2.主键用自增比UUID更好。innodb中的主键是聚簇索引。当主键式自增的，每次插入信新的记录，记录就会顺着添加到当前索引节点的后续位置。当一页写满，就会自动开辟一个新的页。如果不是自增主键，那么可能会在中间插入，就会引发页的分页，产生很多表碎片。 3.主键不能含有业务">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -108,14 +107,14 @@
     </div>
 </header>
       <div class="outer">
-        <section id="main" class="body-wrap"><article id="post-Java数据结构" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main" class="body-wrap"><article id="post-mysql表设计注意点" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="post-title" itemprop="name">
-      Java之数据结构
+      mysql表设计注意点
     </h1>
     <div class="post-title-bar">
       <ul>
@@ -123,12 +122,12 @@
               <li>
                   <i class="fa fa-book"></i>
                   
-                      <a href="/categories/Java基础/">Java基础</a>
+                      <a href="/categories/sql/">sql</a>
                   
               </li>
           
         <li>
-          <i class="fa fa-calendar"></i>  2017-07-01
+          <i class="fa fa-calendar"></i>  2020-02-02
         </li>
         <li>
           <i class="fa fa-eye"></i>
@@ -144,13 +143,20 @@
     <div class="article-entry post-content" itemprop="articleBody">
       
             
-            <pre><code>学习笔记专用，持续更新。
-</code></pre><p><img src="http://img.blog.csdn.net/20170908234822847?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjk3NDc2ODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+            <p>1.设置主键<br>在不设置主键的情况下，innodb也会帮你生成一个隐藏列，作为自增主键。指定主键，显式用上主键索引，提高查询效率。</p>
+<p>2.主键用自增比UUID更好。innodb中的主键是聚簇索引。当主键式自增的，每次插入信新的记录，记录就会顺着添加到当前索引节点的后续位置。当一页写满，就会自动开辟一个新的页。如果不是自增主键，那么可能会在中间插入，就会引发页的分页，产生很多表碎片。</p>
+<p>3.主键不能含有业务含义<br>（1）因为任何有业务含义的列都有改变的可能性,主键一旦带上了业务含义，那么主键就有可能发生变更。主键一旦发生变更，该数据在磁盘上的存储位置就会发生变更，有可能会引发页分裂，产生空间碎片。<br>（2）带有业务含义的主键，不一定是顺序自增的。那么就会导致数据的插入顺序，并不能保证后面插入数据的主键一定比前面的数据大。如果出现了，后面插入数据的主键比前面的小，就有可能引发页分裂，产生空间碎片。</p>
+<p>4.表示枚举的字段用tinyint不用enum类型。<br>（1）ENUM类型的order by 操作效率低，需要额外操作<br>（2）如果枚举值是数值，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">CREATE TABLE a (status ENUM(&apos;0&apos;, &apos;1&apos;, &apos;2&apos;));</div><div class="line">- 此时插入一条数据</div><div class="line">INSERT INTO a values(1);</div><div class="line">- 执行后插入的status 为0</div><div class="line">INSERT INTO test VALUES (`1`) #为正确</div></pre></td></tr></table></figure></p>
+<p>5.货币字段最好单位应该用分，用Int类型来表示。如果坚持用元，用decimal。不能用float和double是以二元制存储，精度有误差。</p>
+<p>6.时间字段类型<br>(1)varchar, 优点在于显示直观。缺点在于插入数据没有校验，做时间比较运算，STR_TO_DATE将无法命中索引。<br>(2)timestamp,该类型是四个字节的整数，它能表示的时间范围为1970-01-01 08:00:01到2038-01-19 11:14:07。2038年后的时间无法用timestamp类型存储。优势timestamp类型有时区信息的。一旦你系统中的时区发生改变，项目该字段的值发生改变。适合国际化项目，跨时区应用。<br>(3)datetiem,datetime储存占用8个字节，它存储的时间范围为1000-01-01 00:00:00 ~ 9999-12-31 23:59:59。但是不带有时区信息，改变数据库的时区，不会发生改变。<br>(4)bigint, 自己维护一个时间戳，自己维护，不大方便。</p>
+<p>7.不推荐使用text和blob类型。在实际应用，用HDFS来储存文件。</p>
+<p>8.字段定义not null。<br>（1）Mysql难以优化引用可空列查询，它会使索引、索引统计和值更加复杂。可空列需要更多的存储空间，还需要mysql内部进行特殊处理。可空列被索引后，每条记录都需要一个额外的字节，还能导致MYisam 中固定大小的索引变成可变大小的索引。<br>（2）会查询问题。count不精准</p>
+<p>以上内容来自于<br>孤独烟的blog:<a href="https://mp.weixin.qq.com/s?__biz=MzIwMDgzMjc3NA==&amp;mid=2247484617&amp;idx=1&amp;sn=afddfe5c3d66a9fcaba65516a0ab5d18&amp;chksm=96f666a0a181efb60f2109714cf34f4bc68e424ed364d15375284b23f81259e8181c60f7ad10&amp;scene=21#wechat_redirect" target="_blank" rel="external">mysql表设计要注意什么</a></p>
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2020年01月28日 17:05</p>
-        <p>原始链接： <a class="post-url" href="/2017/07/01/Java数据结构/" title="Java之数据结构">https://lukeyli.github.io/2017/07/01/Java数据结构/</a></p>
+        <p>最后更新： 2020年02月02日 20:54</p>
+        <p>原始链接： <a class="post-url" href="/2020/02/02/mysql表设计注意点/" title="mysql表设计注意点">https://lukeyli.github.io/2020/02/02/mysql表设计注意点/</a></p>
         <footer>
             <a href="https://lukeyli.github.io">
                 <img src="/images/logo.png" alt="LukeyLi">
@@ -172,7 +178,7 @@
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lukeyli.github.io/2017/07/01/Java数据结构/&title=《Java之数据结构》 — LukeyLi's Blog&pic=https://lukeyli.github.ioimages/logo.png" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lukeyli.github.io/2020/02/02/mysql表设计注意点/&title=《mysql表设计注意点》 — LukeyLi's Blog&pic=https://lukeyli.github.ioimages/logo.png" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -182,22 +188,22 @@
             </a>
           </li>
           <li>
-            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lukeyli.github.io/2017/07/01/Java数据结构/&title=《Java之数据结构》 — LukeyLi's Blog&source=" data-title="QQ">
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lukeyli.github.io/2020/02/02/mysql表设计注意点/&title=《mysql表设计注意点》 — LukeyLi's Blog&source=" data-title="QQ">
               <i class="fa fa-qq"></i>
             </a>
           </li>
           <li>
-            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lukeyli.github.io/2017/07/01/Java数据结构/" data-title="Facebook">
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lukeyli.github.io/2020/02/02/mysql表设计注意点/" data-title="Facebook">
               <i class="fa fa-facebook"></i>
             </a>
           </li>
           <li>
-            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Java之数据结构》 — LukeyLi's Blog&url=https://lukeyli.github.io/2017/07/01/Java数据结构/&via=https://lukeyli.github.io" data-title="Twitter">
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《mysql表设计注意点》 — LukeyLi's Blog&url=https://lukeyli.github.io/2020/02/02/mysql表设计注意点/&via=https://lukeyli.github.io" data-title="Twitter">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
           <li>
-            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lukeyli.github.io/2017/07/01/Java数据结构/" data-title="Google+">
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lukeyli.github.io/2020/02/02/mysql表设计注意点/" data-title="Google+">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -207,7 +213,7 @@
 <div class="post-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;" id="wxShare-close">×</a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://lukeyli.github.io/2017/07/01/Java数据结构/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://lukeyli.github.io/2020/02/02/mysql表设计注意点/" alt="微信分享二维码">
 </div>
 
 <div class="mask"></div>
@@ -216,6 +222,13 @@
         <ul class="article-footer-menu">
             
             
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/mysql/" class="color1">mysql</a>
+      
+  </li>
+
         </ul>
         
     </footer>
@@ -226,19 +239,9 @@
 
 <nav id="article-nav">
   
-    <a href="/2017/07/08/Java之异常处理/" id="article-nav-newer" class="article-nav-link-wrap">
-
-      <span class="article-nav-title">
-        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
-        
-          Java之异常处理
-        
-      </span>
-    </a>
   
-  
-    <a href="/2017/07/01/java网络编程/" id="article-nav-older" class="article-nav-link-wrap">
-      <span class="article-nav-title">Java之网络编程</span>
+    <a href="/2020/02/01/sql优化/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">sql优化</span>
       <i class="fa fa-hand-o-right" aria-hidden="true"></i>
     </a>
   

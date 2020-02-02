@@ -8,16 +8,16 @@
   
     <meta name="keywords" content="Lukeyli,Lukeyli's Blog" />
   
-  <meta name="description" content="1.避免全表，应该考虑在where及order by涉及的列上建立索引 2.NULL列使用索引。where语句中的is null或is not null的语句是不使用索引的。可设置默认值0，确保没有null值。  where 子句中使用!=或&amp;lt;&amp;gt;操作符，将导致全表扫描.12345- 索引无效select .. from .. where num != 100;- 索引生效#select">
+  <meta name="description" content="常规索引生效优化1.避免全表，应该考虑在where及order by涉及的列上建立索引 2.NULL列使用索引。where语句中的is null或is not null的语句是不使用索引的。可设置默认值0，确保没有null值。  where 子句中使用!=或&amp;lt;&amp;gt;操作符，将导致全表扫描.12345- 索引无效select .. from .. where num != 100;- 索引生">
 <meta property="og:type" content="article">
 <meta property="og:title" content="sql优化">
 <meta property="og:url" content="https://lukeyli.github.io/2020/02/01/sql优化/index.html">
 <meta property="og:site_name" content="LukeyLi&#39;s Blog">
-<meta property="og:description" content="1.避免全表，应该考虑在where及order by涉及的列上建立索引 2.NULL列使用索引。where语句中的is null或is not null的语句是不使用索引的。可设置默认值0，确保没有null值。  where 子句中使用!=或&amp;lt;&amp;gt;操作符，将导致全表扫描.12345- 索引无效select .. from .. where num != 100;- 索引生效#select">
-<meta property="og:updated_time" content="2020-02-01T14:41:56.561Z">
+<meta property="og:description" content="常规索引生效优化1.避免全表，应该考虑在where及order by涉及的列上建立索引 2.NULL列使用索引。where语句中的is null或is not null的语句是不使用索引的。可设置默认值0，确保没有null值。  where 子句中使用!=或&amp;lt;&amp;gt;操作符，将导致全表扫描.12345- 索引无效select .. from .. where num != 100;- 索引生">
+<meta property="og:updated_time" content="2020-02-02T09:42:26.326Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="sql优化">
-<meta name="twitter:description" content="1.避免全表，应该考虑在where及order by涉及的列上建立索引 2.NULL列使用索引。where语句中的is null或is not null的语句是不使用索引的。可设置默认值0，确保没有null值。  where 子句中使用!=或&amp;lt;&amp;gt;操作符，将导致全表扫描.12345- 索引无效select .. from .. where num != 100;- 索引生效#select">
+<meta name="twitter:description" content="常规索引生效优化1.避免全表，应该考虑在where及order by涉及的列上建立索引 2.NULL列使用索引。where语句中的is null或is not null的语句是不使用索引的。可设置默认值0，确保没有null值。  where 子句中使用!=或&amp;lt;&amp;gt;操作符，将导致全表扫描.12345- 索引无效select .. from .. where num != 100;- 索引生">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -142,22 +142,35 @@
     <div class="article-entry post-content" itemprop="articleBody">
       
             
-            <p>1.避免全表，应该考虑在where及order by涉及的列上建立索引</p>
+            <h4 id="常规索引生效优化"><a href="#常规索引生效优化" class="headerlink" title="常规索引生效优化"></a>常规索引生效优化</h4><p>1.避免全表，应该考虑在where及order by涉及的列上建立索引</p>
 <p>2.NULL列使用索引。where语句中的is null或is not null的语句是不使用索引的。可设置默认值0，确保没有null值。</p>
 <ol>
 <li>where 子句中使用!=或&lt;&gt;操作符，将导致全表扫描.<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">- 索引无效</div><div class="line">select .. from .. where num != 100;</div><div class="line">- 索引生效</div><div class="line">#select .. from .. where num &lt; 100 or num &gt;100  </div><div class="line">select .. from .. where num &lt; 100  union all  select .. from .. where num &gt; 100;</div></pre></td></tr></table></figure>
 </li>
 </ol>
 <p>4.where子句中使用or连接条件。or在myisam能用到索引（还得是独立索引），innodb不行。<br>如第3点替代方案union all<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- 低效</div><div class="line">select .. from .. where num = 10 or num = 20</div><div class="line">- 高效</div><div class="line">select .. from .. where num in (10,20)</div></pre></td></tr></table></figure></p>
-<p>5.exists 和in。子查询表小的用in, 反之用exists效率更快。取值连续用between替代。(考虑用连接替代)<br>外查询 &gt; 内查询  in<br>外查询 &lt; 内查询 exists</p>
+<p>5.exists 和in。子查询表小的用in, 反之用exists效率更快。取值连续用between替代。(考虑用外连接替代。再考虑外连接拆分)<br>外查询 &gt; 内查询  in<br>外查询 &lt; 内查询 exists</p>
 <p>6.使用not in那么内外表都将进行全表扫描，没有用到索引。not extsts的子查询依然能用到表上的索引。</p>
 <p>7.like %a 通配符出现在首位，无法使用索引。如果通配符非得在首位，推荐instr替代like</p>
-<p>8.避免在where子句中对字段进行函数操作，这将导致引擎放弃使用索引而进行全表扫描。</p>
+<p>8.避免在where子句中对字段进行函数操作，这将导致引擎放弃使用索引而进行全表扫描。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">select .. from .. where num/2 = 100  </div><div class="line">select .. from .. where year(nowdate) &lt; 2019</div><div class="line">-优化</div><div class="line">select .. from .. where num = 100*2</div><div class="line">select .. from .. where nowdate &lt; &apos;2019-01-01&apos;</div></pre></td></tr></table></figure></p>
 <p>9.在使用索引字段作为条件时，如果该索引是复合索引，那么必须使用到该索引中的第一个字段作为条件时才能保证系统使用该索引，否则该索引将不会被使用，并且应尽可能的让字段顺序与索引顺序相一致。<br><a href="https://www.jianshu.com/p/788d6cf026f2" target="_blank" rel="external">复合索引参考</a></p>
+<p>10.索引并不是越多越好，索引固然可以提高相应的 select 的效率，但同时也降低了 insert 及 update 的效率,因为 insert 或 update 时有可能会重建索引。一个表的索引数最好不要超过6个</p>
+<p>11.小心隐式类型转换<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#假设id类型为varchar</div><div class="line">- 全表扫描 </div><div class="line">select .. from .. where id = 100  </div><div class="line">- 等价于</div><div class="line">select .. from .. where CAST(id AS signed int) = 100</div><div class="line">- 走索引。如果id 是int,执行下面的语句还是会用到索引	</div><div class="line">select .. from .. where id = &apos;100&apos;</div></pre></td></tr></table></figure></p>
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><p>1.分解关联查询。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">select * from table_a a</div><div class="line">        join table_b b on b.table_id = a.id</div><div class="line">	join  table_c c on c.t_id = b.t_id	</div><div class="line">	where a.name = &apos;mysql</div><div class="line">- 分解后:</div><div class="line">select * from table_a where a.name =&apos;mysql&apos;;</div><div class="line">select * from table_b where b.table_id = 66;</div><div class="line">select * from table_c where c.t_id in (..);</div></pre></td></tr></table></figure></p>
+<p>好处：<br>(1)拆分关联查询，可以缓存。<br>(2)减少单个查询减少锁的竞争<br>(3)在应用层做关联,可以更容易进行拆分,更容易做到高性能扩展 </p>
+<p>2.拆分大的delete或insert语句。一次性insert或delete大量数据对服务器压力很大。<br>应分10000条，循环处理，大大降低对于服务器的影响,同事降低删除时锁的持有时间。</p>
+<p>3.只要看一条记录，利用limit 1 、top 1 取得一行</p>
+<ol>
+<li>limit分页优化<br>当偏移量特别时，limit效率会非常低<br>SELECT id FROM A LIMIT 1000,10   很快<br>SELECT id FROM A LIMIT 90000,10 很慢<br>优化后<br>1.select id from A order by id limit 90000,10;<br>2.select id,title from A where id&gt;=(select id from collect order by id limit 90000,1) limit 10;<br>3.select id from A order by id  between 10000000 and 10000010;</li>
+</ol>
+<p>5.性能 inner join &gt; left/right join &gt; 子查询。使用jOin，用小的结果驱动大的结果</p>
+<ol>
+<li>order by 排序<br>(1）从性能上考虑,应该尽量避免排序,或者尽可能避免对大量数据进行排序.<br>(2)尽量在主键上进行排序,因为主键会使用<a href="https://www.cnblogs.com/s-b-b/p/8334593.html" target="_blank" rel="external">簇集索引</a><br>(3)没有主键上排序,也请尽量在索引上排序,如果有多条排序,可以考虑组合索引,但是要注意索引的左匹配原则 </li>
+</ol>
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2020年02月01日 22:41</p>
+        <p>最后更新： 2020年02月02日 17:42</p>
         <p>原始链接： <a class="post-url" href="/2020/02/01/sql优化/" title="sql优化">https://lukeyli.github.io/2020/02/01/sql优化/</a></p>
         <footer>
             <a href="https://lukeyli.github.io">
@@ -231,8 +244,24 @@
 </article>
 
 
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#常规索引生效优化"><span class="post-toc-text">常规索引生效优化</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#其他"><span class="post-toc-text">其他</span></a></li></ol>
+        </nav>
+    </aside>
+    
 
 <nav id="article-nav">
+  
+    <a href="/2020/02/02/mysql表设计注意点/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          mysql表设计注意点
+        
+      </span>
+    </a>
   
   
     <a href="/2020/02/01/mysql索引/" id="article-nav-older" class="article-nav-link-wrap">
@@ -319,10 +348,10 @@
 <div class="sidebar-menu-box" id="sidebar-menu-box">
     <div class="sidebar-menu-box-container">
         <div id="sidebar-menu-box-categories">
-            <a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/Java基础/">Java基础</a><a class="category-link" href="/categories/Json详解/">Json详解</a><a class="category-link" href="/categories/git/">git</a><a class="category-link" href="/categories/rabbitMQ/">rabbitMQ</a><a class="category-link" href="/categories/sql/">sql</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/后端框架/">后端框架</a><a class="category-link" href="/categories/设计模式/">设计模式</a>
+            <a class="category-link" href="/categories/Java基础/">Java基础</a><a class="category-link" href="/categories/Json详解/">Json详解</a><a class="category-link" href="/categories/git/">git</a><a class="category-link" href="/categories/rabbitMQ/">rabbitMQ</a><a class="category-link" href="/categories/sql/">sql</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/后端框架/">后端框架</a><a class="category-link" href="/categories/设计模式/">设计模式</a>
         </div>
         <div id="sidebar-menu-box-tags">
-            <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/servlet/" style="font-size: 15px;">servlet</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/设计模式/" style="font-size: 20px;">设计模式</a>
+            <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/servlet/" style="font-size: 15px;">servlet</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a> <a href="/tags/设计模式/" style="font-size: 20px;">设计模式</a>
         </div>
     </div>
     <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
@@ -355,7 +384,7 @@
     <div class="mobile-header-tag-container">
         <span class="title">Tags</span>
         <div id="mobile-header-container-tags">
-            <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/servlet/" style="font-size: 15px;">servlet</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/设计模式/" style="font-size: 20px;">设计模式</a>
+            <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/servlet/" style="font-size: 15px;">servlet</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a> <a href="/tags/设计模式/" style="font-size: 20px;">设计模式</a>
         </div>
     </div>
 </div>

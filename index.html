@@ -104,6 +104,68 @@
       <div class="outer">
         <section id="main" class="body-wrap">
   
+    <article id="post-mysql表设计注意点" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/02/mysql表设计注意点/"  target="_blank"  >mysql表设计注意点</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/sql/">sql</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2020/02/02/mysql表设计注意点/"  target="_blank" >
+                
+                <img src="https://lukeyli.github.io/images/banner.jpg" alt="mysql表设计注意点" title="mysql表设计注意点">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                1.设置主键在不设置主键的情况下，innodb也会帮你生成一个隐藏列，作为自增主键。指定主键，显式用上主键索引，提高查询效率。
+2.主键用自增比UUID更好。innodb中的主键是聚簇索引。当主键式自增的，每次插入信新的记录，记录就会顺着添加到当前索引节点的后续位置。当一页写满，就会自动开辟一个新的页。如果不是自增主键，那么可能会在中间插入，就会引发页的分页，产生很多表碎...
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2020-02-02</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/mysql/" class="color1">mysql</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2020/02/02/mysql表设计注意点/#more" class="article-more-link"  target="_blank" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
     <article id="post-sql优化" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -136,10 +198,10 @@
         </div>
         <div class="article-feed">
             <p>
-                1.避免全表，应该考虑在where及order by涉及的列上建立索引
+                常规索引生效优化1.避免全表，应该考虑在where及order by涉及的列上建立索引
 2.NULL列使用索引。where语句中的is null或is not null的语句是不使用索引的。可设置默认值0，确保没有null值。
 
-where 子句中使用!=或&lt;&gt;操作符，将导致全表扫描.12345- 索引无效select .. from .. where num != 100;...
+where 子句中使用!=或&lt;&gt;操作符，将导致全表扫描.12345- 索引无效select .. from .. where num...
             </p>
         </div>
       
@@ -173,6 +235,13 @@ where 子句中使用!=或&lt;&gt;操作符，将导致全表扫描.12345- 索�
   
 
           
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/sql/">sql</a>
+                  
+              </span>
+          
       </header>
     
     <div class="article-entry " itemprop="articleBody">
@@ -186,7 +255,8 @@ where 子句中使用!=或&lt;&gt;操作符，将导致全表扫描.12345- 索�
         </div>
         <div class="article-feed">
             <p>
-                
+                MySQL(Innodb)索引的原理
+建立索引的情况1.一张表的索引最好不超过6个，大量索引占用磁盘空间，降低insert、update、delete的性能。2.经常查询的字段创建索引，如在where子句的字段做索引。避免对经常更新的表做索引。3.索引对于数据量大的表有优化效果，数据量小没有。4.在条件表达式中经常用到不同值较多的列上创建索引，在不同值很少的列上不要建立索...
             </p>
         </div>
       
@@ -198,6 +268,13 @@ where 子句中使用!=或&lt;&gt;操作符，将导致全表扫描.12345- 索�
                 <li><i class="fa fa-calendar"></i>2020-02-01</li>
             
             
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/索引/" class="color3">索引</a>
+      
+  </li>
+
         </ul>
         
             <a href="/2020/02/01/mysql索引/#more" class="article-more-link"  target="_blank" >more&gt;&gt;</a>
@@ -655,73 +732,10 @@ coding1234567891011121314151617181920212223242526272829...
 
 
   
-    <article id="post-享元模式" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/29/享元模式/"  target="_blank"  >享元模式</a>
-    </h1>
-  
-
-          
-              <span class="header-cate">
-                <i class="fa fa-map-marker"></i>
-                  
-                  <a href="/categories/设计模式/">设计模式</a>
-                  
-              </span>
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/2020/01/29/享元模式/"  target="_blank" >
-                
-                <img src="https://lukeyli.github.io/images/banner.jpg" alt="享元模式" title="享元模式">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                享元模式定义:提供了减少对象数量从而改善应用所需的对象结构的方式，运用共享技术有效的支持大量细粒度的对象。减少对象创建的数量，从而减少内存的占用，并且提高性能。是一种复用对象的思想。
-类型: 结构型
-适用场景1.常常应用于系统低层的开发，以便解决系统的性能问题。例如 Java 中的 String 类型，就是使用了享元模式，在使用String时，如果有则返回已有的字符串，没...
-            </p>
-        </div>
-      
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2020-01-29</li>
-            
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/设计模式/" class="color5">设计模式</a>
-      
-  </li>
-
-        </ul>
-        
-            <a href="/2020/01/29/享元模式/#more" class="article-more-link"  target="_blank" >more&gt;&gt;</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
 
 
   <nav id="page-nav">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next >></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next >></a>
   </nav>
 </section>
         
@@ -793,10 +807,10 @@ coding1234567891011121314151617181920212223242526272829...
 <div class="sidebar-menu-box" id="sidebar-menu-box">
     <div class="sidebar-menu-box-container">
         <div id="sidebar-menu-box-categories">
-            <a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/Java基础/">Java基础</a><a class="category-link" href="/categories/Json详解/">Json详解</a><a class="category-link" href="/categories/git/">git</a><a class="category-link" href="/categories/rabbitMQ/">rabbitMQ</a><a class="category-link" href="/categories/sql/">sql</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/后端框架/">后端框架</a><a class="category-link" href="/categories/设计模式/">设计模式</a>
+            <a class="category-link" href="/categories/Java基础/">Java基础</a><a class="category-link" href="/categories/Json详解/">Json详解</a><a class="category-link" href="/categories/git/">git</a><a class="category-link" href="/categories/rabbitMQ/">rabbitMQ</a><a class="category-link" href="/categories/sql/">sql</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/后端框架/">后端框架</a><a class="category-link" href="/categories/设计模式/">设计模式</a>
         </div>
         <div id="sidebar-menu-box-tags">
-            <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/servlet/" style="font-size: 15px;">servlet</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/设计模式/" style="font-size: 20px;">设计模式</a>
+            <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/servlet/" style="font-size: 15px;">servlet</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a> <a href="/tags/设计模式/" style="font-size: 20px;">设计模式</a>
         </div>
     </div>
     <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
@@ -829,7 +843,7 @@ coding1234567891011121314151617181920212223242526272829...
     <div class="mobile-header-tag-container">
         <span class="title">Tags</span>
         <div id="mobile-header-container-tags">
-            <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/servlet/" style="font-size: 15px;">servlet</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/设计模式/" style="font-size: 20px;">设计模式</a>
+            <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/servlet/" style="font-size: 15px;">servlet</a> <a href="/tags/多线程/" style="font-size: 10px;">多线程</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a> <a href="/tags/设计模式/" style="font-size: 20px;">设计模式</a>
         </div>
     </div>
 </div>
