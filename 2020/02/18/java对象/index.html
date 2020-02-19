@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>java对象 | LukeyLi&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Lukeyli,Lukeyli's Blog" />
+  
+  <meta name="description" content="学java的时候,大家都知道Java是面向对象的语言，可是这个对象包含哪些东西，怎么组成的，并没有多少人提出疑问。 Java对象保存在内存中，由三部分组成：1.对象头2.实例数据3.对齐填充字节 对象头对象头由三部分组成1.Mark Work2.指向类的指针3.数组长度（只有数组对象才有） Mark WordMark Word记录了对象和锁有关的信息。当这个对象被synchronized关键字当成">
+<meta name="keywords" content="java对象头,Mark Word">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java对象">
+<meta property="og:url" content="https://lukeyli.github.io/2020/02/18/java对象/index.html">
+<meta property="og:site_name" content="LukeyLi&#39;s Blog">
+<meta property="og:description" content="学java的时候,大家都知道Java是面向对象的语言，可是这个对象包含哪些东西，怎么组成的，并没有多少人提出疑问。 Java对象保存在内存中，由三部分组成：1.对象头2.实例数据3.对齐填充字节 对象头对象头由三部分组成1.Mark Work2.指向类的指针3.数组长度（只有数组对象才有） Mark WordMark Word记录了对象和锁有关的信息。当这个对象被synchronized关键字当成">
+<meta property="og:image" content="https://lukeyli.github.io/2020/02/18/java对象/32位虚拟机.jpg">
+<meta property="og:updated_time" content="2020-02-19T14:50:58.136Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java对象">
+<meta name="twitter:description" content="学java的时候,大家都知道Java是面向对象的语言，可是这个对象包含哪些东西，怎么组成的，并没有多少人提出疑问。 Java对象保存在内存中，由三部分组成：1.对象头2.实例数据3.对齐填充字节 对象头对象头由三部分组成1.Mark Work2.指向类的指针3.数组长度（只有数组对象才有） Mark WordMark Word记录了对象和锁有关的信息。当这个对象被synchronized关键字当成">
+<meta name="twitter:image" content="https://lukeyli.github.io/2020/02/18/java对象/32位虚拟机.jpg">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">LukeyLi&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/home">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        LukeyLi&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个不断进步的程序猿的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="MinHow" target="_blank" href="/home">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="https://github.com/LukeyLi">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="Mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=f0dLS01PTkZNSj8ODlEcEBI">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-java对象" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      java对象
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/java/">java</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2020-02-18
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>学java的时候,大家都知道Java是面向对象的语言，可是这个对象包含哪些东西，怎么组成的，并没有多少人提出疑问。</p>
+<p>Java对象保存在内存中，由三部分组成：<br>1.对象头<br>2.实例数据<br>3.对齐填充字节</p>
+<h4 id="对象头"><a href="#对象头" class="headerlink" title="对象头"></a>对象头</h4><p>对象头由三部分组成<br>1.Mark Work<br>2.指向类的指针<br>3.数组长度（只有数组对象才有）</p>
+<h5 id="Mark-Word"><a href="#Mark-Word" class="headerlink" title="Mark Word"></a>Mark Word</h5><p>Mark Word记录了对象和锁有关的信息。<br>当这个对象被synchronized关键字当成同步锁时，围绕这个锁的一系列操作都和Mark Word有关<br>Mark Word在32位JVM中的长度是32bit，在64位JVM中长度是64bit。<br><img src="//lukeyli.github.io/2020/02/18/java对象/32位虚拟机.jpg" alt=""><br>64位的JVM 锁状态为31bit,两块未使用的分别为25bit和1bit,其他都一样大小。<br>其中无锁和偏向锁的锁标志位都是01，只是在前面的1bit区分了这是无锁状态还是偏向锁状态。</p>
+<p>JDK1.6以后的版本在处理同步锁时存在锁升级的概念.<br>JVM对于同步锁的处理是从偏向锁开始的，随着竞争越来越激烈。<br>处理方式从偏向锁升级到轻量级锁，最终升级到重量级锁。</p>
+<h4 id="锁的升级过程"><a href="#锁的升级过程" class="headerlink" title="锁的升级过程"></a>锁的升级过程</h4><p>JVM使用锁和Mark Word:</p>
+<ol>
+<li>当没有被当成锁时，这就是一个普通的对象， Mark Word记录对象的HashCode,锁标志位是01,是否偏向锁那一位是0。</li>
+<li>当对象被当成同步锁并有一个线程抢到了锁时，锁标志位还是01，但是否偏向锁那一位改成1，前23bit记录抢到锁的线程id，表示进入偏向锁状态。</li>
+<li>当线程A再次试图获得这个锁，JVM发现同步锁的标志位是01，是否偏向锁是1，也就是偏向状态，Mark Word中记录的线程id就是线程A自己的id，表示线程A已经获得了这个偏向锁，可以执行同步锁的代码。</li>
+<li>当线程B试图获得这个锁，JVM发现这个同步锁处于偏向状态，但是Mark Word的线程id记录的不是B，那么线程B会先用CAS操作试图获得锁，这里的获得锁操作有可能成功的，因为线程A一般不会自动释放偏向锁。如果抢锁成功，就把Mark Word里的线程id改为线程B的id，代表线程B获得了这个偏向锁，可以执行同步锁代码。如果抢锁失败，则继续执行步骤5。</li>
+<li>偏向锁状态抢锁失败，代表当前锁有一定的竞争，偏向锁将升级为轻量级锁。JVM会在当前线程的线程栈中开辟一块单独的空间，里面保存指向对象锁Mark Word的指针，同时在对象锁Mark Word中保存指向这片空间的指针。<br>上述两个保存操作都是CAS操作，如果保存成功，代表线程抢到了同步锁，就把Mark Word中的锁标志位改成00，可以执行同步锁代码。如果保存失败，表示抢锁失败，竞争太激烈，继续执行步骤6。<br>6.轻量级锁抢锁失败，JVM会使用自旋锁，自旋锁不是一个锁状态，只是代表不断的重试，尝试抢锁。从JDK1.7开始，自旋锁默认启用，自旋次数由JVM决定。如果抢锁成功则执行同步锁代码，如果失败则继续执行步骤7。<br>7.自旋锁重试之后如果抢锁依然失败，同步锁会升级至重量级锁，锁标志位改为10。在这个状态下，未抢到锁的线程都会被阻塞。</li>
+</ol>
+<h5 id="指向类的指针"><a href="#指向类的指针" class="headerlink" title="指向类的指针"></a>指向类的指针</h5><p>该指针在32位JVM中的长度是32bit，在64位JVM中长度是64bit。<br>Java对象的类数据保存在方法区。</p>
+<h5 id="数组长度"><a href="#数组长度" class="headerlink" title="数组长度"></a>数组长度</h5><p>只有数组对象保存了这部分数据<br>该数据在32位和64位JVM中长度都是32bit。</p>
+<h5 id="实例数据"><a href="#实例数据" class="headerlink" title="实例数据"></a>实例数据</h5><p>对象的实例数据就是在java代码中能看到的属性和他们的值。</p>
+<h5 id="对齐填充字节"><a href="#对齐填充字节" class="headerlink" title="对齐填充字节"></a>对齐填充字节</h5><p>因为JVM要求java的对象占的内存大小应该是8bit的倍数，所以后面有几个字节用于把对象的大小补齐至8bit的倍数，没有特别的功能。s</p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2020年02月19日 22:50</p>
+        <p>原始链接： <a class="post-url" href="/2020/02/18/java对象/" title="java对象">https://lukeyli.github.io/2020/02/18/java对象/</a></p>
+        <footer>
+            <a href="https://lukeyli.github.io">
+                <img src="/images/logo.png" alt="LukeyLi">
+                LukeyLi
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lukeyli.github.io/2020/02/18/java对象/&title=《java对象》 — LukeyLi's Blog&pic=https://lukeyli.github.ioimages/logo.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lukeyli.github.io/2020/02/18/java对象/&title=《java对象》 — LukeyLi's Blog&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lukeyli.github.io/2020/02/18/java对象/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《java对象》 — LukeyLi's Blog&url=https://lukeyli.github.io/2020/02/18/java对象/&via=https://lukeyli.github.io" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lukeyli.github.io/2020/02/18/java对象/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://lukeyli.github.io/2020/02/18/java对象/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/java对象头/" class="color3">java对象头</a>
+      
+    <a href="/tags/MarkWord/" class="color5">Mark Word</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#对象头"><span class="post-toc-text">对象头</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#Mark-Word"><span class="post-toc-text">Mark Word</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#锁的升级过程"><span class="post-toc-text">锁的升级过程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#指向类的指针"><span class="post-toc-text">指向类的指针</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#数组长度"><span class="post-toc-text">数组长度</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#实例数据"><span class="post-toc-text">实例数据</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#对齐填充字节"><span class="post-toc-text">对齐填充字节</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+  
+    <a href="/2020/02/03/java的各种锁/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">java的各种锁</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+          <div id="uyan_frame"></div>
+  <script src="http://v2.uyan.cc/code/uyan.js?uid=2147648"></script>
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+
+  <div class="outer">
+
+    <div id="footer-info" class="inner">
+      
+    <script type="text/javascript" src="/live2d/script.js"></script>
+    <canvas id="live2dcanvas" width="300" height="600" class="live2d"></canvas>
+    <style>
+      #live2dcanvas {
+        position: fixed;
+        right: 0px;
+        z-index: 999;
+        pointer-events: none;
+        bottom: 3px;
+      }
+    </style>
+    <script>loadlive2d("live2dcanvas" ,"/live2d/assets/haru/haru.model.json",0.5)</script>
+  
+      
+
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2020 LukeyLi<br>
+      </p>
+    </div>
+
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://lukeyli.github.io",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Java基础/">Java基础</a><a class="category-link" href="/categories/Json详解/">Json详解</a><a class="category-link" href="/categories/git/">git</a><a class="category-link" href="/categories/java/">java</a><a class="category-link" href="/categories/rabbitMQ/">rabbitMQ</a><a class="category-link" href="/categories/sql/">sql</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/后端框架/">后端框架</a><a class="category-link" href="/categories/设计模式/">设计模式</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/Mark-Word/" style="font-size: 10px;">Mark Word</a> <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/java8/" style="font-size: 10px;">java8</a> <a href="/tags/java对象头/" style="font-size: 10px;">java对象头</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/servlet/" style="font-size: 15px;">servlet</a> <a href="/tags/乐观锁/" style="font-size: 10px;">乐观锁</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/悲观锁/" style="font-size: 10px;">悲观锁</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a> <a href="/tags/设计模式/" style="font-size: 20px;">设计模式</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/home">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/Mark-Word/" style="font-size: 10px;">Mark Word</a> <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/java8/" style="font-size: 10px;">java8</a> <a href="/tags/java对象头/" style="font-size: 10px;">java对象头</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/servlet/" style="font-size: 15px;">servlet</a> <a href="/tags/乐观锁/" style="font-size: 10px;">乐观锁</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/悲观锁/" style="font-size: 10px;">悲观锁</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a> <a href="/tags/设计模式/" style="font-size: 20px;">设计模式</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+
+  </div>
+</body>
+</html>
