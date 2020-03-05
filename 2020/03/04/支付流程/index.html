@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>支付与对账 | LukeyLi&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Lukeyli,Lukeyli's Blog" />
+  
+  <meta name="description" content="最近在敲商品项目，归纳总结流程以及开发。购物下单的流程创建订单的流程 开始支付微信支付1.生成二维码(1) 根据商户订单id和用户id查询订单的详情(2) 从redis中去获得这笔订单的微信支付二维码，如果订ding单状态没有支付没有就放入 ps这样的做法防止用户频繁刷新而调用微信接口(3) 生成预付单（自己的平台需要和微信进行支付交易生成的一个微信订单，称之为“预付单”），验签，调用微信统一下单">
+<meta name="keywords" content="支付,对账">
+<meta property="og:type" content="article">
+<meta property="og:title" content="支付与对账">
+<meta property="og:url" content="https://lukeyli.github.io/2020/03/04/支付流程/index.html">
+<meta property="og:site_name" content="LukeyLi&#39;s Blog">
+<meta property="og:description" content="最近在敲商品项目，归纳总结流程以及开发。购物下单的流程创建订单的流程 开始支付微信支付1.生成二维码(1) 根据商户订单id和用户id查询订单的详情(2) 从redis中去获得这笔订单的微信支付二维码，如果订ding单状态没有支付没有就放入 ps这样的做法防止用户频繁刷新而调用微信接口(3) 生成预付单（自己的平台需要和微信进行支付交易生成的一个微信订单，称之为“预付单”），验签，调用微信统一下单">
+<meta property="og:image" content="https://lukeyli.github.io/2020/03/04/支付流程/购物流程.jpg">
+<meta property="og:image" content="https://lukeyli.github.io/2020/03/04/支付流程/下单.jpg">
+<meta property="og:updated_time" content="2020-03-05T16:04:32.693Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="支付与对账">
+<meta name="twitter:description" content="最近在敲商品项目，归纳总结流程以及开发。购物下单的流程创建订单的流程 开始支付微信支付1.生成二维码(1) 根据商户订单id和用户id查询订单的详情(2) 从redis中去获得这笔订单的微信支付二维码，如果订ding单状态没有支付没有就放入 ps这样的做法防止用户频繁刷新而调用微信接口(3) 生成预付单（自己的平台需要和微信进行支付交易生成的一个微信订单，称之为“预付单”），验签，调用微信统一下单">
+<meta name="twitter:image" content="https://lukeyli.github.io/2020/03/04/支付流程/购物流程.jpg">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">LukeyLi&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/home">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/categories/diary">
+                        <i class="fa fa-coffee"></i>
+                        <span>diary</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        LukeyLi&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个不断进步的程序猿的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="MinHow" target="_blank" href="/home">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="https://github.com/LukeyLi">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="Mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=f0dLS01PTkZNSj8ODlEcEBI">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-支付流程" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      支付与对账
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/支付与对账/">支付与对账</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2020-03-04
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>最近在敲商品项目，归纳总结流程以及开发。<br>购物下单的流程<br><img src="//lukeyli.github.io/2020/03/04/支付流程/购物流程.jpg" alt=""><br>创建订单的流程<br><img src="//lukeyli.github.io/2020/03/04/支付流程/下单.jpg" alt=""></p>
+<h4 id="开始支付"><a href="#开始支付" class="headerlink" title="开始支付"></a>开始支付</h4><h5 id="微信支付"><a href="#微信支付" class="headerlink" title="微信支付"></a>微信支付</h5><p>1.生成二维码<br>(1) 根据商户订单id和用户id查询订单的详情<br>(2) 从redis中去获得这笔订单的微信支付二维码，如果订ding单状态没有支付没有就放入 ps这样的做法防止用户频繁刷新而调用微信接口<br>(3) 生成预付单（自己的平台需要和微信进行支付交易生成的一个微信订单，称之为“预付单”），验签，调用微信统一下单地址，将生成的二维码地址放入缓存。<br>2.支付成功，回调支付通知<br>(1) 获取支付结果，支付成功，支付中心更新订单状态，并通知用户端更新订单信息。<br>(2)// 通知微信已经收到消息，不要再给我发消息了，否则微信会10连击调用本接口</p>
+<h5 id="支付宝支付"><a href="#支付宝支付" class="headerlink" title="支付宝支付"></a>支付宝支付</h5><p>1.根据商户订单id和用户id查询订单的详情<br>2.初始化AlipayClient设置请求参数returnUrl（页面跳转同步通知页面路径），NotifyUrl（服务器异步通知页面路径）<br>3.alipayRequest.setBizContent，请求参数可查阅【电脑网站支付的API文档-alipay.trade.page.pay-请求参数】章节<br>4.alipayClient.pageExecute()<br>5.支付成功后的支付宝异步通知<br>(1)获取支付宝POST过来反馈信息<br>(2) 调用SDK验证签名,验证成功。支付中心更新订单状态，并通知用户端更新订单信息。</p>
+<h4 id="对账"><a href="#对账" class="headerlink" title="对账"></a>对账</h4><p>支付完，总不能不管系统有没用出错。对账，可以发现渠道方与我方交易中的差异。根据差异的不同，再做具体的操作。</p>
+<h5 id="对账系统1-0"><a href="#对账系统1-0" class="headerlink" title="对账系统1.0"></a>对账系统1.0</h5><p>1.系统自动从渠道下载对账单<br>2.查询系统交易流水<br>3.以渠道对账单为准，对比本地的支付交易流水<br>4.保存对账差异、对账结果。</p>
+<p>细分:<br>(1) 使用导入脚本，将渠道方对账单csv文件批量入库。 步骤表记录 + 1<br>(2) 将订单表与渠道表对账的字段跑批至中间表。 步骤表记录 + 1<br>(3) 在两张中间表内进行批量差错对比处理对比，保存结果进差错表。 步骤表记录 + 1<br>(4) 更新主表状态，差错处理。 步骤表记录 +<br>利用定时脚本，定时跑批，调用存储过程，无需浪费连接。<br>缺点：数据库压力过大，数据库日志过多，不好维护，阅读性差等等。</p>
+<h5 id="对账系统2-0"><a href="#对账系统2-0" class="headerlink" title="对账系统2.0"></a>对账系统2.0</h5><p>利用redis的set结构交集特性，可快速完成对账处理。<br>将所有历史差异都查询出来重新对账，避免漏单。<br>1.存入两个set,以订单号,金额等其他信息组合成string为value,存储至redis。key必须使用{}形式来指定，使我们要比对的集合都处于同一slot。<br>2.利用redis的set集合取交集，将差异入库。<br>弊端<br>1.对账过程中所有链路都是同步调用，数据量过大的情况下导致RPC调用超时。<br>2.渠道对账单中的数据存储至数据库中，量大的情况下，会导致数据插入耗时较长，且有大量RPC调用。</p>
+<h5 id="对账3-0"><a href="#对账3-0" class="headerlink" title="对账3.0"></a>对账3.0</h5><p>引入MQ, 将差异数据信息发送MQ消息，进入差错处理流程</p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2020年03月06日 00:04</p>
+        <p>原始链接： <a class="post-url" href="/2020/03/04/支付流程/" title="支付与对账">https://lukeyli.github.io/2020/03/04/支付流程/</a></p>
+        <footer>
+            <a href="https://lukeyli.github.io">
+                <img src="/images/logo.png" alt="LukeyLi">
+                LukeyLi
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lukeyli.github.io/2020/03/04/支付流程/&title=《支付与对账》 — LukeyLi's Blog&pic=https://lukeyli.github.ioimages/logo.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lukeyli.github.io/2020/03/04/支付流程/&title=《支付与对账》 — LukeyLi's Blog&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lukeyli.github.io/2020/03/04/支付流程/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《支付与对账》 — LukeyLi's Blog&url=https://lukeyli.github.io/2020/03/04/支付流程/&via=https://lukeyli.github.io" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lukeyli.github.io/2020/03/04/支付流程/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://lukeyli.github.io/2020/03/04/支付流程/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/支付/" class="color3">支付</a>
+      
+    <a href="/tags/对账/" class="color3">对账</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#开始支付"><span class="post-toc-text">开始支付</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#微信支付"><span class="post-toc-text">微信支付</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#支付宝支付"><span class="post-toc-text">支付宝支付</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#对账"><span class="post-toc-text">对账</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#对账系统1-0"><span class="post-toc-text">对账系统1.0</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#对账系统2-0"><span class="post-toc-text">对账系统2.0</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#对账3-0"><span class="post-toc-text">对账3.0</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+  
+    <a href="/2020/02/29/第一个日志/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">随笔</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+          <div id="uyan_frame"></div>
+  <script src="http://v2.uyan.cc/code/uyan.js?uid=2147648"></script>
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+
+  <div class="outer">
+
+    <div id="footer-info" class="inner">
+      
+    <script type="text/javascript" src="/live2d/script.js"></script>
+    <canvas id="live2dcanvas" width="300" height="600" class="live2d"></canvas>
+    <style>
+      #live2dcanvas {
+        position: fixed;
+        right: 0px;
+        z-index: 999;
+        pointer-events: none;
+        bottom: 3px;
+      }
+    </style>
+    <script>loadlive2d("live2dcanvas" ,"/live2d/assets/haru/haru.model.json",0.5)</script>
+  
+      
+
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2020 LukeyLi<br>
+      </p>
+    </div>
+
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://lukeyli.github.io",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Java基础/">Java基础</a><a class="category-link" href="/categories/Json详解/">Json详解</a><a class="category-link" href="/categories/diary/">diary</a><a class="category-link" href="/categories/git/">git</a><a class="category-link" href="/categories/java/">java</a><a class="category-link" href="/categories/rabbitMQ/">rabbitMQ</a><a class="category-link" href="/categories/sql/">sql</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/后端框架/">后端框架</a><a class="category-link" href="/categories/支付与对账/">支付与对账</a><a class="category-link" href="/categories/设计模式/">设计模式</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/Mark-Word/" style="font-size: 10px;">Mark Word</a> <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/java8/" style="font-size: 10px;">java8</a> <a href="/tags/java对象头/" style="font-size: 10px;">java对象头</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/servlet/" style="font-size: 15px;">servlet</a> <a href="/tags/乐观锁/" style="font-size: 10px;">乐观锁</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/对账/" style="font-size: 10px;">对账</a> <a href="/tags/悲观锁/" style="font-size: 10px;">悲观锁</a> <a href="/tags/支付/" style="font-size: 10px;">支付</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a> <a href="/tags/设计模式/" style="font-size: 20px;">设计模式</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/home">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/categories/diary">
+                    <i class="fa fa-coffee"></i><span>diary</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/Mark-Word/" style="font-size: 10px;">Mark Word</a> <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/java8/" style="font-size: 10px;">java8</a> <a href="/tags/java对象头/" style="font-size: 10px;">java对象头</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/servlet/" style="font-size: 15px;">servlet</a> <a href="/tags/乐观锁/" style="font-size: 10px;">乐观锁</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/对账/" style="font-size: 10px;">对账</a> <a href="/tags/悲观锁/" style="font-size: 10px;">悲观锁</a> <a href="/tags/支付/" style="font-size: 10px;">支付</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a> <a href="/tags/设计模式/" style="font-size: 20px;">设计模式</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+
+  </div>
+</body>
+</html>
