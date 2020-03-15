@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>redis | LukeyLi&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Lukeyli,Lukeyli's Blog" />
+  
+  <meta name="description" content="总结一下redis缓存，使用方面分为注解和redisTemplate两种方式。 数据结构redis有五种数据结构分别是：String, List, Hash, Set, Sorted Set 1.使用哈希表、列表及集合时，尽量不要使用big data及添加过多的数据，因为这样会导致存储结构从ziplist变为hash table、linkedlist等空间占用更大的数据结构2.如无必要的情况下，一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis">
+<meta property="og:url" content="https://lukeyli.github.io/2020/03/14/redis/index.html">
+<meta property="og:site_name" content="LukeyLi&#39;s Blog">
+<meta property="og:description" content="总结一下redis缓存，使用方面分为注解和redisTemplate两种方式。 数据结构redis有五种数据结构分别是：String, List, Hash, Set, Sorted Set 1.使用哈希表、列表及集合时，尽量不要使用big data及添加过多的数据，因为这样会导致存储结构从ziplist变为hash table、linkedlist等空间占用更大的数据结构2.如无必要的情况下，一">
+<meta property="og:image" content="https://lukeyli.github.io/2020/03/14/redis/redis数据结构.jpg">
+<meta property="og:image" content="https://lukeyli.github.io/2020/03/14/redis/Spring.jpg">
+<meta property="og:image" content="https://lukeyli.github.io/2020/03/14/redis/list结构.jpg">
+<meta property="og:image" content="https://lukeyli.github.io/2020/03/14/redis/hash结构.jpg">
+<meta property="og:image" content="https://lukeyli.github.io/2020/03/14/redis/hash结构.jpg">
+<meta property="og:updated_time" content="2020-03-15T15:10:40.146Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="redis">
+<meta name="twitter:description" content="总结一下redis缓存，使用方面分为注解和redisTemplate两种方式。 数据结构redis有五种数据结构分别是：String, List, Hash, Set, Sorted Set 1.使用哈希表、列表及集合时，尽量不要使用big data及添加过多的数据，因为这样会导致存储结构从ziplist变为hash table、linkedlist等空间占用更大的数据结构2.如无必要的情况下，一">
+<meta name="twitter:image" content="https://lukeyli.github.io/2020/03/14/redis/redis数据结构.jpg">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">LukeyLi&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/home">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/categories/diary">
+                        <i class="fa fa-coffee"></i>
+                        <span>diary</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        LukeyLi&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个不断进步的程序猿的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="MinHow" target="_blank" href="/home">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="https://github.com/LukeyLi">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="Mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=f0dLS01PTkZNSj8ODlEcEBI">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-redis" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      redis
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/缓存/">缓存</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2020-03-14
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>总结一下redis缓存，使用方面分为注解和redisTemplate两种方式。</p>
+<h4 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h4><p>redis有五种数据结构分别是：String, List, Hash, Set, Sorted Set<br><img src="//lukeyli.github.io/2020/03/14/redis/redis数据结构.jpg" alt=""></p>
+<p>1.使用哈希表、列表及集合时，尽量不要使用big data及添加过多的数据，因为这样会导致存储结构从ziplist变为hash table、linkedlist等空间占用更大的数据结构<br>2.如无必要的情况下，一个集合中不要将string和int混合存储，这会导致内存占用变大<br>3.String不要过长，小于39字符时，使用embstr编码格式，占用更少内存<br>4.set可以用来做数据运算，如交、并等大量数据的运算</p>
+<h5 id="String"><a href="#String" class="headerlink" title="String"></a>String</h5><p><img src="//lukeyli.github.io/2020/03/14/redis/Spring.jpg" alt=""></p>
+<ul>
+<li>String数据结构是简单的Key-Value类型，value不仅可以是String, 也可是数字（数字类型为Long时候，encoding为整型，其他都存储在 sdshdr 当做字符串）。String在redis内部存储默认就是一个字符串，被redisObject所引用，当遇到incr,decr等操作时会转成数值型进行计算，此时redisObject的encoding字段为int。</li>
+<li>常规计数：微博数，粉丝数等。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">SET key value    设置key=value</div><div class="line">GET key          获得键key对应的值</div><div class="line">GETSET key value  设置键的字符串值，并返回旧值</div><div class="line">MGET key1 [key2 ...]  得到所有的给定键的值</div><div class="line">SETNX key value   设置键的值，只有当该键不存在</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="list类型"><a href="#list类型" class="headerlink" title="list类型"></a>list类型</h5><p><img src="//lukeyli.github.io/2020/03/14/redis/list结构.jpg" alt=""></p>
+<p>当列表中的object数量小于512个时，redis使用ziplist这种占用空间更小的结构</p>
+<p>redis的list类型其实就是每个元素都是String类型的双向链表。我们可以从链表的头部和尾部添加或者删除元素。这样的List既可以作为栈，也可以作为队列使用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">+ lpush --- 在key对应的list的头部添加一个元素</div><div class="line">+ lrange --- 获取key对应的list的指定下标范围的元素，-1表示获取所有元素。</div><div class="line">+ lpop --- 从key对应的list的尾部删除一个元素，并返回该元素。</div></pre></td></tr></table></figure>
+<h5 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash</h5><p><img src="//lukeyli.github.io/2020/03/14/redis/hash结构.jpg" alt=""><br>Hash是一个String类型的field和value之间的映射表，即redis的hash数据类型key(hash表名称)对应的value实际的内部存储结构为一个HashMap,因此Hash特别适合存储对象。相当于把一个对象的每个属相存储为String类型，将整个对象存储在hash类型中会占用更少内存。<br>redis的Hash结构可以使你像在数据库中Update一个属性一样只修改某一项属性值。（存储、读取、修改用户属性）<br>当前HashMap的实现有两种方式：当HashMap的成员比较少时Redis为了节省内存会采用类似一维数组的方式来紧凑存储，而不会采用真正的HashMap结构，这时对应的value的redisObject的encoding为zipmap，当成员数量增大时会自动转成真正的Hashmap，此时encoding为ht.</p>
+<ul>
+<li>应用场景：用一个对象来存储用户信息，商品信息，订单信息等等。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">hset --- 设置key对应的hashMap中的field的value</div><div class="line">hget --- 获取key对应的hashMap中的filed的value</div><div class="line">hgetall --- 获取key对应的HashMap中的所有field的value</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="Set集合"><a href="#Set集合" class="headerlink" title="Set集合"></a>Set集合</h5><p><img src="//lukeyli.github.io/2020/03/14/redis/hash结构.jpg" alt=""><br>当一个set中全是数字时，采用intset为底层，占用空间小，因为尽量不要把少数string和大量int存储在一个set里<br>Redis集合(set类型)是一个无序的String类型数据的集合，类似List的一个列表，与List不同的是Set不能有重复的数据。实际上，Set的内部是用HashMap实现的，Set只用了HashMap的key列来存储对象。</p>
+<ul>
+<li>集合有取交集、并集、差集等操作，因此可以求共同好友、共同兴趣、分类标签等<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sadd --- 在key对应的set中添加一个元素</div><div class="line">smembers --- 获取key对应的set的所有元素</div><div class="line">spop --- 随机返回并删除key对应的set中的一个元素</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="SortSet"><a href="#SortSet" class="headerlink" title="SortSet"></a>SortSet</h5><p>SortSet顾名思义，是一个排好序的Set，它在Set的基础上增加了一个顺序属性score，这个属性在添加修改元素时可以指定，每次指定后，SortSet会自动重新按新的值来旭。<br>使用场景：如按时间排序的时间轴<br>1.带有权重的元素，比如一个游戏的用户得分排行榜<br>2.比较复杂的数据结构，一般用到的场景不算太多</p>
+<h4 id="注解的支持"><a href="#注解的支持" class="headerlink" title="注解的支持"></a>注解的支持</h4><p>Spring为我们提供了主键来支持Spring Cache, 主要核心对某个方法进行缓存，其实质就是缓存该方法的返回结果，并把方法参数和结果用<font color="#FF0040">键值对的方式</font>存放到缓存中，当再次调用该方法使用相应的参数时，就会直接从缓存里面取出指定的结果进行返回。</p>
+<h5 id="EnableCaching"><a href="#EnableCaching" class="headerlink" title="@EnableCaching"></a>@EnableCaching</h5><p>该注解主要用于开启基于注解的缓存功能。<br>ps:在SpringBoot中使用SpringCache可以由自动配置功能来完成CacheManager的注册，SpringBoot会自动发现项目中拥有的缓存系统，而注册对应的缓存管理器，也可以手动指定。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">@EnableCaching</div><div class="line">@Configuration</div><div class="line">public class CacheConfig &#123;</div><div class="line">    @Bean</div><div class="line">    public CacheManager cacheManager() &#123;</div><div class="line">        SimpleCacheManager cacheManager = new SimpleCacheManager();</div><div class="line">        cacheManager.setCaches(Arrays.asList(new ConcurrentMapCache(&quot;default&quot;)));</div><div class="line">        return cacheManager;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">//等价于</div><div class="line">&lt;beans&gt;</div><div class="line">    &lt;cache:annotation-driven/&gt;</div><div class="line">    &lt;bean id=&quot;cacheManager&quot; class=&quot;org.springframework.cache.support.SimpleCacheManager&gt;</div><div class="line">        &lt;property name=&quot;caches&quot;&gt;</div><div class="line">            &lt;set&gt;</div><div class="line">                &lt;bean class=&quot;org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean&gt;</div><div class="line">                    &lt;property name=&quot;name&quot; value=&quot;default&quot;/&gt;</div><div class="line">                &lt;/bean&gt;</div><div class="line">            &lt;/set&gt;</div><div class="line">        &lt;/property&gt;</div><div class="line">    &lt;/bean&gt;</div><div class="line">&lt;/beans&gt;</div></pre></td></tr></table></figure></p>
+<p>源码解析：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">@Target(ElementType.TYPE)</div><div class="line">@Retention(RetentionPolicy.RUNTIME)</div><div class="line">@Documented</div><div class="line">@Import(CachingConfigurationSelector.class)</div><div class="line">public @interface EnableCaching &#123;</div><div class="line">    // 用于设置使用哪种代理方式，默认为基于接口的JDK动态代理（false），</div><div class="line">    // 设置为true，则使用基于继承的CGLIB动态代理</div><div class="line">    boolean proxyTargetClass() default false;</div><div class="line">    // 用于设置切面织入方式(设置面向切面编程的实现方式)，</div><div class="line">    // 默认为使用动态代理的方式织入，当然也可以设置为ASPECTJ的方式来实现AOP</div><div class="line">    AdviceMode mode() default AdviceMode.PROXY;</div><div class="line">    // 用于设置在一个切点存在多个通知的时候各个通知的执行顺序，默认为最低优先级，</div><div class="line">    // 其中数字却大优先级越低，这里默认为最低优先级，int LOWEST_PRECEDENCE =</div><div class="line">    // Integer.MAX_VALUE;，却是整数的最大值</div><div class="line">    int order() default Ordered.LOWEST_PRECEDENCE;</div><div class="line">&#125;</div><div class="line">public enum AdviceMode &#123;</div><div class="line">    PROXY,</div><div class="line">    ASPECTJ</div><div class="line">&#125;</div><div class="line">public interface Ordered &#123;</div><div class="line">    int HIGHEST_PRECEDENCE = Integer.MIN_VALUE;</div><div class="line">    int LOWEST_PRECEDENCE = Integer.MAX_VALUE;</div><div class="line">    int getOrder();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>由上面的源码可以看出，缓存功能是依靠AOP来实现的。<font color="#FF0040"> 类内部的方法调用类内部的缓存方法不会走代理，不会走代理，就不能正常创建缓存，所以每次都需要去调用数据库。</font></p>
+<ol>
+<li>@Cacheable可以指定三个属性：value、key、condition。value 指定Cache名称，value值是必须指定。<br>其表示该方法缓存的返回结果是被缓存在哪个Cache上的，对应Cache的名称。</li>
+<li>@CacheEvict可以指定的属性有value、key、condition、allEntries和beforeInvocation。 allEntries是表示是否需要清除缓存中所有的元素。beforeInvocation清除操作默认是在方法成功执行之后触发的。使用beforeInvocation可以改变触发清除操作的时间，当我们设置为true时，Spring会在调用该方法之前进行缓存的清除。</li>
+<li>@CachePut会清除对应的key值得缓存(或者更新)<br>(1) 如果返回值null，下次进行该key值查询时，还会查一次数据库，此时相当于 @CacheEvict注解;<br>(2) 如果返回值不为null，此时会进行该key值缓存的更新，更新缓存值为返回的数据；</li>
+<li>@Caching注解可以让我们在一个方法或者类上同时指定多个Spring Cache相关注解，其中拥有属性：cacheable、put、evict。</li>
+</ol>
+<h5 id="redisTemplate"><a href="#redisTemplate" class="headerlink" title="redisTemplate"></a>redisTemplate</h5><p>RedisTemplate是Spring Data Redis提供给用户的最高级的抽象客户端，用户可直接通过RedisTemplate进行多种操作<br>spring-data-redis的提供了如下:<br>1.连接池自动管理，提供了一个高度封装的“RedisTemplate”类<br>2.进行了归类封装,将同一类型操作封装为operation接口<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">ValueOperations：简单K-V操作</div><div class="line">SetOperations：set类型数据操作</div><div class="line">ZSetOperations：zset类型数据操作</div><div class="line">HashOperations：针对map类型的数据操作</div><div class="line">ListOperations：针对list类型的数据操作</div><div class="line">```	</div><div class="line">3.提供了对key的“bound”(绑定)便捷化操作API，可以通过bound封装指定的key，然后进行一系列的操作而无须“显式”的再次指定Key，即BoundKeyOperations：</div></pre></td></tr></table></figure></p>
+<p>BoundValueOperations<br>BoundSetOperations<br>BoundListOperations<br>BoundSetOperations<br>BoundHashOperations<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">4.将事务操作封装，有容器控制。</div><div class="line">5.针对数据的“序列化/反序列化”，提供了多种可选择策略(RedisSerializer)</div></pre></td></tr></table></figure></p>
+<p>1.JdkSerializationRedisSerializer：POJO对象的存取场景，使用JDK本身序列化机制，将pojo类通过ObjectInputStream/ObjectOutputStream进行序列化操作，最终redis-server中将存储字节序列。是目前最常用的序列化策略。</p>
+<p>2.StringRedisSerializer：Key或者value为字符串的场景，根据指定的charset对数据的字节序列编码成string，是“newString(bytes,charset)”和“string.getBytes(charset)”的直接封装。是最轻量级和高效的策略。</p>
+<p>3.JacksonJsonRedisSerializer：jackson-json工具提供了javabean与json之间的转换能力，可以将pojo实例序列化成json格式存储在redis中，也可以将json格式的数据转换成pojo实例。因为jackson工具在序列化和反序列化时，需要明确指定Class类型，因此此策略封装起来稍微复杂。</p>
+<p>4.OxmSerializer：提供了将javabean与xml之间的转换能力，目前可用的三方支持包括jaxb，apache-xmlbeans；redis存储的数据将是xml工具。不过使用此策略，编程将会有些难度，而且效率最低；不建议使用。【需要spring-oxm模块的支持】</p>
+<p>```</p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2020年03月15日 23:10</p>
+        <p>原始链接： <a class="post-url" href="/2020/03/14/redis/" title="redis">https://lukeyli.github.io/2020/03/14/redis/</a></p>
+        <footer>
+            <a href="https://lukeyli.github.io">
+                <img src="/images/logo.png" alt="LukeyLi">
+                LukeyLi
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lukeyli.github.io/2020/03/14/redis/&title=《redis》 — LukeyLi's Blog&pic=https://lukeyli.github.ioimages/logo.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lukeyli.github.io/2020/03/14/redis/&title=《redis》 — LukeyLi's Blog&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lukeyli.github.io/2020/03/14/redis/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《redis》 — LukeyLi's Blog&url=https://lukeyli.github.io/2020/03/14/redis/&via=https://lukeyli.github.io" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lukeyli.github.io/2020/03/14/redis/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://lukeyli.github.io/2020/03/14/redis/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#数据结构"><span class="post-toc-text">数据结构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#String"><span class="post-toc-text">String</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#list类型"><span class="post-toc-text">list类型</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#Hash"><span class="post-toc-text">Hash</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#Set集合"><span class="post-toc-text">Set集合</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#SortSet"><span class="post-toc-text">SortSet</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#注解的支持"><span class="post-toc-text">注解的支持</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#EnableCaching"><span class="post-toc-text">@EnableCaching</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#redisTemplate"><span class="post-toc-text">redisTemplate</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+  
+    <a href="/2020/03/07/nginx/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">nginx</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+          <div id="uyan_frame"></div>
+  <script src="http://v2.uyan.cc/code/uyan.js?uid=2147648"></script>
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+
+  <div class="outer">
+
+    <div id="footer-info" class="inner">
+      
+    <script type="text/javascript" src="/live2d/script.js"></script>
+    <canvas id="live2dcanvas" width="300" height="600" class="live2d"></canvas>
+    <style>
+      #live2dcanvas {
+        position: fixed;
+        right: 0px;
+        z-index: 999;
+        pointer-events: none;
+        bottom: 3px;
+      }
+    </style>
+    <script>loadlive2d("live2dcanvas" ,"/live2d/assets/haru/haru.model.json",0.5)</script>
+  
+      
+
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2020 LukeyLi<br>
+      </p>
+    </div>
+
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://lukeyli.github.io",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Java基础/">Java基础</a><a class="category-link" href="/categories/Json详解/">Json详解</a><a class="category-link" href="/categories/diary/">diary</a><a class="category-link" href="/categories/git/">git</a><a class="category-link" href="/categories/java/">java</a><a class="category-link" href="/categories/nginx/">nginx</a><a class="category-link" href="/categories/rabbitMQ/">rabbitMQ</a><a class="category-link" href="/categories/sql/">sql</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/后端框架/">后端框架</a><a class="category-link" href="/categories/支付与对账/">支付与对账</a><a class="category-link" href="/categories/缓存/">缓存</a><a class="category-link" href="/categories/设计模式/">设计模式</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/Mark-Word/" style="font-size: 10px;">Mark Word</a> <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/java8/" style="font-size: 10px;">java8</a> <a href="/tags/java对象头/" style="font-size: 10px;">java对象头</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/servlet/" style="font-size: 15px;">servlet</a> <a href="/tags/乐观锁/" style="font-size: 10px;">乐观锁</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/对账/" style="font-size: 10px;">对账</a> <a href="/tags/悲观锁/" style="font-size: 10px;">悲观锁</a> <a href="/tags/支付/" style="font-size: 10px;">支付</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a> <a href="/tags/设计模式/" style="font-size: 20px;">设计模式</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/home">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/categories/diary">
+                    <i class="fa fa-coffee"></i><span>diary</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/Mark-Word/" style="font-size: 10px;">Mark Word</a> <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/java8/" style="font-size: 10px;">java8</a> <a href="/tags/java对象头/" style="font-size: 10px;">java对象头</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/servlet/" style="font-size: 15px;">servlet</a> <a href="/tags/乐观锁/" style="font-size: 10px;">乐观锁</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/对账/" style="font-size: 10px;">对账</a> <a href="/tags/悲观锁/" style="font-size: 10px;">悲观锁</a> <a href="/tags/支付/" style="font-size: 10px;">支付</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a> <a href="/tags/设计模式/" style="font-size: 20px;">设计模式</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+
+  </div>
+</body>
+</html>

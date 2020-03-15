@@ -109,6 +109,129 @@
       <div class="outer">
         <section id="main" class="body-wrap">
   
+    <article id="post-RabbitMQ总结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/29/RabbitMQ总结/"  target="_blank"  >RabbitMQ总结</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/rabbitMQ/">rabbitMQ</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2020/01/29/RabbitMQ总结/"  target="_blank" >
+                
+                <img src="https://lukeyli.github.io/images/banner.jpg" alt="RabbitMQ总结" title="RabbitMQ总结">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                rabbitmq流程一条消息在RabbitMQ中的流转过程：
+Github rabbitMQ demo地址主要流程:1.生产者发送消息的时候指定RoutingKey，然后消息被发送到Exchange2.Exchange根据一些列规则将消息路由到指定的队列中3.消费者从队列中消费消息
+整个流程主要就4个参与者message，exchange，queue，consumer。
+...
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2020-01-29</li>
+            
+            
+        </ul>
+        
+            <a href="/2020/01/29/RabbitMQ总结/#more" class="article-more-link"  target="_blank" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-观察者模式" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/29/观察者模式/"  target="_blank"  >观察者模式</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/设计模式/">设计模式</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2020/01/29/观察者模式/"  target="_blank" >
+                
+                <img src="https://lukeyli.github.io/images/banner.jpg" alt="观察者模式" title="观察者模式">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                观察者模式定义: 对象之间的一对多依赖，让多个观察者对象同时监听某一个主题对象，当主题对象发生变化时，它的所有依赖者(观察者)都会收到通知并更新。
+类型：行为型
+适用场景1.关联行为场景，建立一套触发机制。
+优点1.观察者和被观察者之间建立一个抽象的耦合2.观察者模式支持广播通信
+缺点1.观察者之间有过多的细节依赖、提高时间消耗及程序复杂度2.使用要得当，要避免循环调用
+...
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2020-01-29</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/设计模式/" class="color5">设计模式</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2020/01/29/观察者模式/#more" class="article-more-link"  target="_blank" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
     <article id="post-策略模式" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -624,124 +747,6 @@ coding1234567891011121314151617181920212223242526272829...
 
 
   
-    <article id="post-装饰者模式" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/28/装饰者模式/"  target="_blank"  >装饰者模式</a>
-    </h1>
-  
-
-          
-              <span class="header-cate">
-                <i class="fa fa-map-marker"></i>
-                  
-                  <a href="/categories/设计模式/">设计模式</a>
-                  
-              </span>
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/2020/01/28/装饰者模式/"  target="_blank" >
-                
-                <img src="https://lukeyli.github.io/images/banner.jpg" alt="装饰者模式" title="装饰者模式">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                装饰者模式定义：在不改变原有对象的基础上，将功能附加到对象上，提供了比继承更有弹性的替代方案（扩展原有对象功能）
-类型：结构型
-适用场景1.扩展一个类的功能或给一个类添加附加职责2.动态的给一个对象添加功能，这些功能可以再动态的撤销
-优点:1.是继承的有力补充，比继承灵活，不改变原有对象的情况下给对象扩展功能。通常可以使用继承来实现功能的扩展，如果需要扩展的功能的和种类繁...
-            </p>
-        </div>
-      
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2020-01-28</li>
-            
-            
-        </ul>
-        
-            <a href="/2020/01/28/装饰者模式/#more" class="article-more-link"  target="_blank" >more&gt;&gt;</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article id="post-外观模式" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/28/外观模式/"  target="_blank"  >外观模式</a>
-    </h1>
-  
-
-          
-              <span class="header-cate">
-                <i class="fa fa-map-marker"></i>
-                  
-                  <a href="/categories/设计模式/">设计模式</a>
-                  
-              </span>
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/2020/01/28/外观模式/"  target="_blank" >
-                
-                <img src="https://lukeyli.github.io/images/banner.jpg" alt="外观模式" title="外观模式">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                外观模式定义：外观模式又叫门面模式，提供了一个统一的接口，用来访问子系统中的一群接口，外观模式定义了一个高层接口，让子系统更容易使用。可能应用层实现某个功能的时候需要调用多个服务类的方法，这样应用层就和各个服务类耦合度很高，那么通过提供出来一个接口方法，将实现这个功能的这些类的方法根据业务需求组织到一个类的方法里面，只对应用层提供该类的方法即可实现同样的功能，这样不仅降低...
-            </p>
-        </div>
-      
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2020-01-28</li>
-            
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/设计模式/" class="color5">设计模式</a>
-      
-  </li>
-
-        </ul>
-        
-            <a href="/2020/01/28/外观模式/#more" class="article-more-link"  target="_blank" >more&gt;&gt;</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
 
 
   <nav id="page-nav">
@@ -817,7 +822,7 @@ coding1234567891011121314151617181920212223242526272829...
 <div class="sidebar-menu-box" id="sidebar-menu-box">
     <div class="sidebar-menu-box-container">
         <div id="sidebar-menu-box-categories">
-            <a class="category-link" href="/categories/Java基础/">Java基础</a><a class="category-link" href="/categories/Json详解/">Json详解</a><a class="category-link" href="/categories/diary/">diary</a><a class="category-link" href="/categories/git/">git</a><a class="category-link" href="/categories/java/">java</a><a class="category-link" href="/categories/rabbitMQ/">rabbitMQ</a><a class="category-link" href="/categories/sql/">sql</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/后端框架/">后端框架</a><a class="category-link" href="/categories/支付与对账/">支付与对账</a><a class="category-link" href="/categories/设计模式/">设计模式</a>
+            <a class="category-link" href="/categories/Java基础/">Java基础</a><a class="category-link" href="/categories/Json详解/">Json详解</a><a class="category-link" href="/categories/diary/">diary</a><a class="category-link" href="/categories/git/">git</a><a class="category-link" href="/categories/java/">java</a><a class="category-link" href="/categories/nginx/">nginx</a><a class="category-link" href="/categories/rabbitMQ/">rabbitMQ</a><a class="category-link" href="/categories/sql/">sql</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/后端框架/">后端框架</a><a class="category-link" href="/categories/支付与对账/">支付与对账</a><a class="category-link" href="/categories/缓存/">缓存</a><a class="category-link" href="/categories/设计模式/">设计模式</a>
         </div>
         <div id="sidebar-menu-box-tags">
             <a href="/tags/Mark-Word/" style="font-size: 10px;">Mark Word</a> <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/java8/" style="font-size: 10px;">java8</a> <a href="/tags/java对象头/" style="font-size: 10px;">java对象头</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/servlet/" style="font-size: 15px;">servlet</a> <a href="/tags/乐观锁/" style="font-size: 10px;">乐观锁</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/对账/" style="font-size: 10px;">对账</a> <a href="/tags/悲观锁/" style="font-size: 10px;">悲观锁</a> <a href="/tags/支付/" style="font-size: 10px;">支付</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a> <a href="/tags/设计模式/" style="font-size: 20px;">设计模式</a>
