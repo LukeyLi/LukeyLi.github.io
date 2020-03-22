@@ -3,17 +3,24 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2020 | LukeyLi&#39;s Blog</title>
+  <title>生产环境的热更新 | LukeyLi&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="Lukeyli,Lukeyli's Blog" />
   
-  <meta property="og:type" content="website">
-<meta property="og:title" content="LukeyLi&#39;s Blog">
-<meta property="og:url" content="https://lukeyli.github.io/archives/2020/page/2/index.html">
+  <meta name="description" content="在服务器部署java应用，生成单一 Jar 文件部署的时候，单一文件为我们开发单来的极大的便利性，保障程序的完整性。但同时对我们修改程序中的任何一处都带来重启服务的麻烦。生产环境不热更新就是很头疼的问题，发布极其麻烦。 热加载原理：热加载的实现原理主要依赖jvm的类加载机制，在运行时对被修改过的类进行重新载入。实现方式：在容器启动的时候起一条后台线程，定时的检测类文件的时间戳变化，如果类的时间戳变">
+<meta name="keywords" content="热更新,nginx">
+<meta property="og:type" content="article">
+<meta property="og:title" content="生产环境的热更新">
+<meta property="og:url" content="https://lukeyli.github.io/2020/03/19/生产环境的热更新/index.html">
 <meta property="og:site_name" content="LukeyLi&#39;s Blog">
+<meta property="og:description" content="在服务器部署java应用，生成单一 Jar 文件部署的时候，单一文件为我们开发单来的极大的便利性，保障程序的完整性。但同时对我们修改程序中的任何一处都带来重启服务的麻烦。生产环境不热更新就是很头疼的问题，发布极其麻烦。 热加载原理：热加载的实现原理主要依赖jvm的类加载机制，在运行时对被修改过的类进行重新载入。实现方式：在容器启动的时候起一条后台线程，定时的检测类文件的时间戳变化，如果类的时间戳变">
+<meta property="og:image" content="https://lukeyli.github.io/2020/03/19/生产环境的热更新/热加载.jpg">
+<meta property="og:updated_time" content="2020-03-20T14:18:58.691Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LukeyLi&#39;s Blog">
+<meta name="twitter:title" content="生产环境的热更新">
+<meta name="twitter:description" content="在服务器部署java应用，生成单一 Jar 文件部署的时候，单一文件为我们开发单来的极大的便利性，保障程序的完整性。但同时对我们修改程序中的任何一处都带来重启服务的麻烦。生产环境不热更新就是很头疼的问题，发布极其麻烦。 热加载原理：热加载的实现原理主要依赖jvm的类加载机制，在运行时对被修改过的类进行重新载入。实现方式：在容器启动的时候起一条后台线程，定时的检测类文件的时间戳变化，如果类的时间戳变">
+<meta name="twitter:image" content="https://lukeyli.github.io/2020/03/19/生产环境的热更新/热加载.jpg">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -107,323 +114,156 @@
     </div>
 </header>
       <div class="outer">
-        <section id="main" class="body-wrap">
-  
-  
+        <section id="main" class="body-wrap"><article id="post-生产环境的热更新" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/02/01/sql优化/" class="archive-article-date">
-  <time datetime="2020-02-01T09:02:55.000Z" itemprop="datePublished">2020-02-01 05:02</time>
-</a>
-      
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/01/sql优化/"  target="_blank"  >sql优化</a>
+    <h1 class="post-title" itemprop="name">
+      生产环境的热更新
     </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/生产环境/">生产环境</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2020-03-19
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
   
 
-    </header>
-      
-  </div>
-</article>
-
-  
+          
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/02/01/mysql索引/" class="archive-article-date">
-  <time datetime="2020-02-01T08:58:30.000Z" itemprop="datePublished">2020-02-01 04:58</time>
-</a>
+    <div class="article-entry post-content" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/01/mysql索引/"  target="_blank"  >mysql索引</a>
-    </h1>
-  
+            
+            <p>在服务器部署java应用，生成单一 Jar 文件部署的时候，单一文件为我们开发单来的极大的便利性，保障程序的完整性。但同时对我们修改程序中的任何一处都带来重启服务的麻烦。<br>生产环境不热更新就是很头疼的问题，发布极其麻烦。</p>
+<h4 id="热加载"><a href="#热加载" class="headerlink" title="热加载"></a>热加载</h4><p><img src="//lukeyli.github.io/2020/03/19/生产环境的热更新/热加载.jpg" alt=""><br>原理：热加载的实现原理主要依赖jvm的类加载机制，在运行时对被修改过的类进行重新载入。<br>实现方式：在容器启动的时候起一条后台线程，定时的检测类文件的时间戳变化，如果类的时间戳变掉了，则将类重新载入。<br>适用场景：热加载会直接修改jvm中的字节码，这种方式对既有代码行为的影响难以控制，风险较大，几乎不会在生产环境使用该方案。</p>
+<h4 id="热部署"><a href="#热部署" class="headerlink" title="热部署"></a>热部署</h4><p>原理：热加载是指在服务器运行时重新部署项目，它是直接重新加载整个应用，这种方式会释放内存，比热加载更加干净彻底，但同时也更费时间。<br>实现方式: Weblogic、tomcat都可以通过配置支持热部署，但主要用于开发测试环境，较少应用于生产环境。<br>适用场景：热部署大大简化了发布操作，在开发和测试环境使用很普遍；但由于开通热部署后会增大系统开销，因此较少在生产环境使用。</p>
+<h4 id="集群分批热部署"><a href="#集群分批热部署" class="headerlink" title="集群分批热部署"></a>集群分批热部署</h4><p>原理：利用nginx、apache等代理服务器自动对后端服务器的有效性进行判断，转发请求到有效的服务器上。在此基础上对后端服务器先后逐个更新，达到不停机部署的目的。<br>实现方式：在集群的前端代理服务器上配置有效性检测和自动剔除失效的后端服务器。<br>适用场景：适用于多台后端服务器的集群环境，该方案普遍应用于生产环境。</p>
 
-    </header>
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2020年03月20日 22:18</p>
+        <p>原始链接： <a class="post-url" href="/2020/03/19/生产环境的热更新/" title="生产环境的热更新">https://lukeyli.github.io/2020/03/19/生产环境的热更新/</a></p>
+        <footer>
+            <a href="https://lukeyli.github.io">
+                <img src="/images/logo.png" alt="LukeyLi">
+                LukeyLi
+            </a>
+        </footer>
+    </div>
+</div>
+
       
-        <div class="archive-post-footer">
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lukeyli.github.io/2020/03/19/生产环境的热更新/&title=《生产环境的热更新》 — LukeyLi's Blog&pic=https://lukeyli.github.ioimages/logo.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lukeyli.github.io/2020/03/19/生产环境的热更新/&title=《生产环境的热更新》 — LukeyLi's Blog&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lukeyli.github.io/2020/03/19/生产环境的热更新/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《生产环境的热更新》 — LukeyLi's Blog&url=https://lukeyli.github.io/2020/03/19/生产环境的热更新/&via=https://lukeyli.github.io" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lukeyli.github.io/2020/03/19/生产环境的热更新/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://lukeyli.github.io/2020/03/19/生产环境的热更新/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
             
   <li class="article-footer-tags">
     <i class="fa fa-tags"></i>
       
-    <a href="/tags/索引/" class="color3">索引</a>
+    <a href="/tags/热更新/" class="color4">热更新</a>
+      
+    <a href="/tags/nginx/" class="color1">nginx</a>
       
   </li>
 
-        </div>
-      
+        </ul>
+        
+    </footer>
   </div>
 </article>
 
-  
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#热加载"><span class="post-toc-text">热加载</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#热部署"><span class="post-toc-text">热部署</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#集群分批热部署"><span class="post-toc-text">集群分批热部署</span></a></li></ol>
+        </nav>
+    </aside>
     
+
+<nav id="article-nav">
+  
+  
+    <a href="/2020/03/17/高并发/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">高并发</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
     
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/01/29/RabbitMQ总结/" class="archive-article-date">
-  <time datetime="2020-01-29T13:45:34.000Z" itemprop="datePublished">2020-01-29 09:45</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/29/RabbitMQ总结/"  target="_blank"  >RabbitMQ总结</a>
-    </h1>
-  
+          <div id="uyan_frame"></div>
+  <script src="http://v2.uyan.cc/code/uyan.js?uid=2147648"></script>
 
-    </header>
-      
-  </div>
-</article>
-
-  
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/01/29/观察者模式/" class="archive-article-date">
-  <time datetime="2020-01-29T12:26:48.000Z" itemprop="datePublished">2020-01-29 08:26</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/29/观察者模式/"  target="_blank"  >观察者模式</a>
-    </h1>
-  
-
-    </header>
-      
-        <div class="archive-post-footer">
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/设计模式/" class="color5">设计模式</a>
-      
-  </li>
-
-        </div>
-      
-  </div>
-</article>
-
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/01/29/策略模式/" class="archive-article-date">
-  <time datetime="2020-01-29T11:51:25.000Z" itemprop="datePublished">2020-01-29 07:51</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/29/策略模式/"  target="_blank"  >策略模式</a>
-    </h1>
-  
-
-    </header>
-      
-        <div class="archive-post-footer">
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/设计模式/" class="color5">设计模式</a>
-      
-  </li>
-
-        </div>
-      
-  </div>
-</article>
-
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/01/29/迭代器模式/" class="archive-article-date">
-  <time datetime="2020-01-29T11:01:44.000Z" itemprop="datePublished">2020-01-29 07:01</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/29/迭代器模式/"  target="_blank"  >迭代器模式</a>
-    </h1>
-  
-
-    </header>
-      
-        <div class="archive-post-footer">
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/设计模式/" class="color5">设计模式</a>
-      
-  </li>
-
-        </div>
-      
-  </div>
-</article>
-
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/01/29/模板方法模式/" class="archive-article-date">
-  <time datetime="2020-01-29T10:13:13.000Z" itemprop="datePublished">2020-01-29 06:13</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/29/模板方法模式/"  target="_blank"  >模板方法模式</a>
-    </h1>
-  
-
-    </header>
-      
-        <div class="archive-post-footer">
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/设计模式/" class="color5">设计模式</a>
-      
-  </li>
-
-        </div>
-      
-  </div>
-</article>
-
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/01/29/桥接模式/" class="archive-article-date">
-  <time datetime="2020-01-29T08:20:36.000Z" itemprop="datePublished">2020-01-29 04:20</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/29/桥接模式/"  target="_blank"  >桥接模式</a>
-    </h1>
-  
-
-    </header>
-      
-        <div class="archive-post-footer">
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/设计模式/" class="color5">设计模式</a>
-      
-  </li>
-
-        </div>
-      
-  </div>
-</article>
-
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/01/29/组合模式/" class="archive-article-date">
-  <time datetime="2020-01-29T07:32:00.000Z" itemprop="datePublished">2020-01-29 03:32</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/29/组合模式/"  target="_blank"  >组合模式</a>
-    </h1>
-  
-
-    </header>
-      
-        <div class="archive-post-footer">
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/设计模式/" class="color5">设计模式</a>
-      
-  </li>
-
-        </div>
-      
-  </div>
-</article>
-
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/01/29/享元模式/" class="archive-article-date">
-  <time datetime="2020-01-29T03:40:57.000Z" itemprop="datePublished">2020-01-29 11:40</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/29/享元模式/"  target="_blank"  >享元模式</a>
-    </h1>
-  
-
-    </header>
-      
-        <div class="archive-post-footer">
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/设计模式/" class="color5">设计模式</a>
-      
-  </li>
-
-        </div>
-      
-  </div>
-</article>
-
-  
-  
-    </div></section>
-  
-
-
-  <nav id="page-nav">
-    <a class="extend prev" rel="prev" href="/archives/2020/"><< Prev</a><a class="page-number" href="/archives/2020/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/2020/page/3/">3</a><a class="extend next" rel="next" href="/archives/2020/page/3/">Next >></a>
-  </nav>
 </section>
         
       </div>

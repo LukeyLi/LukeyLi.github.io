@@ -109,6 +109,70 @@
       <div class="outer">
         <section id="main" class="body-wrap">
   
+    <article id="post-生产环境的热更新" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/19/生产环境的热更新/"  target="_blank"  >生产环境的热更新</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/生产环境/">生产环境</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2020/03/19/生产环境的热更新/"  target="_blank" >
+                
+                <img src="https://lukeyli.github.io/images/banner.jpg" alt="生产环境的热更新" title="生产环境的热更新">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                在服务器部署java应用，生成单一 Jar 文件部署的时候，单一文件为我们开发单来的极大的便利性，保障程序的完整性。但同时对我们修改程序中的任何一处都带来重启服务的麻烦。生产环境不热更新就是很头疼的问题，发布极其麻烦。
+热加载原理：热加载的实现原理主要依赖jvm的类加载机制，在运行时对被修改过的类进行重新载入。实现方式：在容器启动的时候起一条后台线程，定时的检测类文件的时...
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2020-03-19</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/热更新/" class="color4">热更新</a>
+      
+    <a href="/tags/nginx/" class="color1">nginx</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2020/03/19/生产环境的热更新/#more" class="article-more-link"  target="_blank" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
     <article id="post-高并发" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -665,63 +729,6 @@ Date如果没有格式化，打印出的日期可读性差。使用SimpleDateFor
 
 
   
-    <article id="post-sql优化" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/01/sql优化/"  target="_blank"  >sql优化</a>
-    </h1>
-  
-
-          
-              <span class="header-cate">
-                <i class="fa fa-map-marker"></i>
-                  
-                  <a href="/categories/sql/">sql</a>
-                  
-              </span>
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/2020/02/01/sql优化/"  target="_blank" >
-                
-                <img src="https://lukeyli.github.io/images/banner.jpg" alt="sql优化" title="sql优化">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                常规索引生效优化1.避免全表，应该考虑在where及order by涉及的列上建立索引
-2.NULL列使用索引。where语句中的is null或is not null的语句是不使用索引的。可设置默认值0，确保没有null值。
-
-where 子句中使用!=或&lt;&gt;操作符，将导致全表扫描.12345- 索引无效select .. from .. where num...
-            </p>
-        </div>
-      
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2020-02-01</li>
-            
-            
-        </ul>
-        
-            <a href="/2020/02/01/sql优化/#more" class="article-more-link"  target="_blank" >more&gt;&gt;</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
 
 
   <nav id="page-nav">
@@ -797,10 +804,10 @@ where 子句中使用!=或&lt;&gt;操作符，将导致全表扫描.12345- 索�
 <div class="sidebar-menu-box" id="sidebar-menu-box">
     <div class="sidebar-menu-box-container">
         <div id="sidebar-menu-box-categories">
-            <a class="category-link" href="/categories/Java基础/">Java基础</a><a class="category-link" href="/categories/Json详解/">Json详解</a><a class="category-link" href="/categories/diary/">diary</a><a class="category-link" href="/categories/git/">git</a><a class="category-link" href="/categories/java/">java</a><a class="category-link" href="/categories/rabbitMQ/">rabbitMQ</a><a class="category-link" href="/categories/sql/">sql</a><a class="category-link" href="/categories/代码/">代码</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/后端框架/">后端框架</a><a class="category-link" href="/categories/并发/">并发</a><a class="category-link" href="/categories/支付与对账/">支付与对账</a><a class="category-link" href="/categories/缓存/">缓存</a><a class="category-link" href="/categories/设计模式/">设计模式</a>
+            <a class="category-link" href="/categories/Java基础/">Java基础</a><a class="category-link" href="/categories/Json详解/">Json详解</a><a class="category-link" href="/categories/diary/">diary</a><a class="category-link" href="/categories/git/">git</a><a class="category-link" href="/categories/java/">java</a><a class="category-link" href="/categories/rabbitMQ/">rabbitMQ</a><a class="category-link" href="/categories/sql/">sql</a><a class="category-link" href="/categories/代码/">代码</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/后端框架/">后端框架</a><a class="category-link" href="/categories/并发/">并发</a><a class="category-link" href="/categories/支付与对账/">支付与对账</a><a class="category-link" href="/categories/生产环境/">生产环境</a><a class="category-link" href="/categories/缓存/">缓存</a><a class="category-link" href="/categories/设计模式/">设计模式</a>
         </div>
         <div id="sidebar-menu-box-tags">
-            <a href="/tags/Mark-Word/" style="font-size: 10px;">Mark Word</a> <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/java8/" style="font-size: 10px;">java8</a> <a href="/tags/java对象头/" style="font-size: 10px;">java对象头</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/servlet/" style="font-size: 15px;">servlet</a> <a href="/tags/业务/" style="font-size: 10px;">业务</a> <a href="/tags/乐观锁/" style="font-size: 10px;">乐观锁</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/对账/" style="font-size: 10px;">对账</a> <a href="/tags/悲观锁/" style="font-size: 10px;">悲观锁</a> <a href="/tags/支付/" style="font-size: 10px;">支付</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a> <a href="/tags/规范/" style="font-size: 10px;">规范</a> <a href="/tags/设计模式/" style="font-size: 20px;">设计模式</a>
+            <a href="/tags/Mark-Word/" style="font-size: 10px;">Mark Word</a> <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/java8/" style="font-size: 10px;">java8</a> <a href="/tags/java对象头/" style="font-size: 10px;">java对象头</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/servlet/" style="font-size: 15px;">servlet</a> <a href="/tags/业务/" style="font-size: 10px;">业务</a> <a href="/tags/乐观锁/" style="font-size: 10px;">乐观锁</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/对账/" style="font-size: 10px;">对账</a> <a href="/tags/悲观锁/" style="font-size: 10px;">悲观锁</a> <a href="/tags/支付/" style="font-size: 10px;">支付</a> <a href="/tags/热更新/" style="font-size: 10px;">热更新</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a> <a href="/tags/规范/" style="font-size: 10px;">规范</a> <a href="/tags/设计模式/" style="font-size: 20px;">设计模式</a>
         </div>
     </div>
     <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
@@ -839,7 +846,7 @@ where 子句中使用!=或&lt;&gt;操作符，将导致全表扫描.12345- 索�
     <div class="mobile-header-tag-container">
         <span class="title">Tags</span>
         <div id="mobile-header-container-tags">
-            <a href="/tags/Mark-Word/" style="font-size: 10px;">Mark Word</a> <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/java8/" style="font-size: 10px;">java8</a> <a href="/tags/java对象头/" style="font-size: 10px;">java对象头</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/servlet/" style="font-size: 15px;">servlet</a> <a href="/tags/业务/" style="font-size: 10px;">业务</a> <a href="/tags/乐观锁/" style="font-size: 10px;">乐观锁</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/对账/" style="font-size: 10px;">对账</a> <a href="/tags/悲观锁/" style="font-size: 10px;">悲观锁</a> <a href="/tags/支付/" style="font-size: 10px;">支付</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a> <a href="/tags/规范/" style="font-size: 10px;">规范</a> <a href="/tags/设计模式/" style="font-size: 20px;">设计模式</a>
+            <a href="/tags/Mark-Word/" style="font-size: 10px;">Mark Word</a> <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/java8/" style="font-size: 10px;">java8</a> <a href="/tags/java对象头/" style="font-size: 10px;">java对象头</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/servlet/" style="font-size: 15px;">servlet</a> <a href="/tags/业务/" style="font-size: 10px;">业务</a> <a href="/tags/乐观锁/" style="font-size: 10px;">乐观锁</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/对账/" style="font-size: 10px;">对账</a> <a href="/tags/悲观锁/" style="font-size: 10px;">悲观锁</a> <a href="/tags/支付/" style="font-size: 10px;">支付</a> <a href="/tags/热更新/" style="font-size: 10px;">热更新</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a> <a href="/tags/规范/" style="font-size: 10px;">规范</a> <a href="/tags/设计模式/" style="font-size: 20px;">设计模式</a>
         </div>
     </div>
 </div>
