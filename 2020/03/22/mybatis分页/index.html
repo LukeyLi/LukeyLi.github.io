@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>mybatis分页 | LukeyLi&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Lukeyli,Lukeyli's Blog" />
+  
+  <meta name="description" content="项目中用github上的mybatis的分页插件PageHelper，使用方式是很简单，但是知其然还要知其所以然。要不然他干了什么，性能瓶颈在哪里，是个深究的问题  获取分页信息追踪PageMethod的startPage方法123456789101112131415161718 public static &amp;lt;E&amp;gt; Page&amp;lt;E&amp;gt; startPage(int pageNum">
+<meta name="keywords" content="分页机制">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mybatis分页">
+<meta property="og:url" content="https://lukeyli.github.io/2020/03/22/mybatis分页/index.html">
+<meta property="og:site_name" content="LukeyLi&#39;s Blog">
+<meta property="og:description" content="项目中用github上的mybatis的分页插件PageHelper，使用方式是很简单，但是知其然还要知其所以然。要不然他干了什么，性能瓶颈在哪里，是个深究的问题  获取分页信息追踪PageMethod的startPage方法123456789101112131415161718 public static &amp;lt;E&amp;gt; Page&amp;lt;E&amp;gt; startPage(int pageNum">
+<meta property="og:image" content="https://lukeyli.github.io/2020/03/22/mybatis分页/pageHelper.jpg">
+<meta property="og:updated_time" content="2020-03-23T15:57:01.881Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mybatis分页">
+<meta name="twitter:description" content="项目中用github上的mybatis的分页插件PageHelper，使用方式是很简单，但是知其然还要知其所以然。要不然他干了什么，性能瓶颈在哪里，是个深究的问题  获取分页信息追踪PageMethod的startPage方法123456789101112131415161718 public static &amp;lt;E&amp;gt; Page&amp;lt;E&amp;gt; startPage(int pageNum">
+<meta name="twitter:image" content="https://lukeyli.github.io/2020/03/22/mybatis分页/pageHelper.jpg">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">LukeyLi&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/home">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/categories/diary">
+                        <i class="fa fa-coffee"></i>
+                        <span>diary</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        LukeyLi&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个不断进步的程序猿的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="MinHow" target="_blank" href="/home">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="https://github.com/LukeyLi">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="Mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=f0dLS01PTkZNSj8ODlEcEBI">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-mybatis分页" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      mybatis分页
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/java/">java</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2020-03-22
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>项目中用github上的mybatis的分页插件PageHelper，使用方式是很简单，但是知其然还要知其所以然。要不然他干了什么，性能瓶颈在哪里，是个深究的问题</p>
+<p><img src="//lukeyli.github.io/2020/03/22/mybatis分页/pageHelper.jpg" alt=""></p>
+<h4 id="获取分页信息"><a href="#获取分页信息" class="headerlink" title="获取分页信息"></a>获取分页信息</h4><p>追踪PageMethod的startPage方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"> public static &lt;E&gt; Page&lt;E&gt; startPage(int pageNum, int pageSize, boolean count, Boolean reasonable, Boolean pageSizeZero) &#123;</div><div class="line">        Page&lt;E&gt; page = new Page(pageNum, pageSize, count);</div><div class="line">        page.setReasonable(reasonable);</div><div class="line">        page.setPageSizeZero(pageSizeZero);</div><div class="line">        Page&lt;E&gt; oldPage = getLocalPage();</div><div class="line">        if (oldPage != null &amp;&amp; oldPage.isOrderByOnly()) &#123;</div><div class="line">            page.setOrderBy(oldPage.getOrderBy());</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        setLocalPage(page);</div><div class="line">        return page;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">protected static final ThreadLocal&lt;Page&gt; LOCAL_PAGE = new ThreadLocal&lt;Page&gt;();</div><div class="line"></div><div class="line">protected static void setLocalPage(Page page) &#123;</div><div class="line">LOCAL_PAGE.set(page);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>存放ThreadLocal地方，有set必然有remove<br>PageInterceptor.intercept(Invocation)中使用代理<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">finally &#123;</div><div class="line">    dialect.afterAll();</div><div class="line">&#125;</div><div class="line"></div><div class="line">@Override</div><div class="line">public void afterAll() &#123;</div><div class="line">    //这个方法即使不分页也会被执行，所以要判断 null</div><div class="line">    AbstractHelperDialect delegate = autoDialect.getDelegate();</div><div class="line">    if (delegate != null) &#123;</div><div class="line">        delegate.afterAll();</div><div class="line">        autoDialect.clearDelegate();</div><div class="line">    &#125;</div><div class="line">    clearPage();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>就是先使用PageHelper.startPage这样的语句在当前线程上下文中设置一个ThreadLocal变量，再利用mybatis提供的拦截器（插件）实现一个PageInterceptor接口，分页拦截器拦截到后会从ThreadLocal中拿到分页的信息，如果有分页信息，进行分页查询，最后再把ThreadLocal中的东西清除掉。</p>
+<h4 id="plugin加载"><a href="#plugin加载" class="headerlink" title="plugin加载"></a>plugin加载</h4><p>那么plugin插件是如何加载到sql上去的？</p>
+<ul>
+<li>SqlSqlSession是MyBatis的关键对象, 那么加载分页插件肯定是追踪与他相关。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line"> public SqlSessionFactory build(Reader reader, String environment, Properties properties) &#123;</div><div class="line">        SqlSessionFactory var5;</div><div class="line">        try &#123;</div><div class="line">            XMLConfigBuilder parser = new XMLConfigBuilder(reader, environment, properties);</div><div class="line">	    //配置文件解析</div><div class="line">            var5 = this.build(parser.parse());</div><div class="line">        &#125; catch (Exception var14) &#123;</div><div class="line">            throw ExceptionFactory.wrapException(&quot;Error building SqlSession.&quot;, var14);</div><div class="line">        &#125; finally &#123;</div><div class="line">            ErrorContext.instance().reset();</div><div class="line"></div><div class="line">            try &#123;</div><div class="line">                reader.close();</div><div class="line">            &#125; catch (IOException var13) &#123;</div><div class="line">                ;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">        &#125;</div><div class="line">        return var5;</div><div class="line">    &#125;</div><div class="line">// next step 发现了解析配置</div><div class="line">public Configuration parse() &#123;</div><div class="line">if (this.parsed) &#123;</div><div class="line">    throw new BuilderException(&quot;Each XMLConfigBuilder can only be used once.&quot;);</div><div class="line">&#125; else &#123;</div><div class="line">    this.parsed = true;</div><div class="line">    this.parseConfiguration(this.parser.evalNode(&quot;/configuration&quot;));</div><div class="line">    return this.configuration;</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 然后看到了</div><div class="line">private void parseConfiguration(XNode root) &#123;</div><div class="line">try &#123;</div><div class="line">    this.propertiesElement(root.evalNode(&quot;properties&quot;));</div><div class="line">    Properties settings = this.settingsAsProperties(root.evalNode(&quot;settings&quot;));</div><div class="line">    this.loadCustomVfs(settings);</div><div class="line">    this.loadCustomLogImpl(settings);</div><div class="line">    this.typeAliasesElement(root.evalNode(&quot;typeAliases&quot;));</div><div class="line">	// &lt;font color = #FF0040&gt;解析plugin的方法&lt;/font&gt;</div><div class="line">    this.pluginElement(root.evalNode(&quot;plugins&quot;));</div><div class="line">    this.objectFactoryElement(root.evalNode(&quot;objectFactory&quot;));</div><div class="line">    this.objectWrapperFactoryElement(root.evalNode(&quot;objectWrapperFactory&quot;));</div><div class="line">    this.reflectorFactoryElement(root.evalNode(&quot;reflectorFactory&quot;));</div><div class="line">    this.settingsElement(settings);</div><div class="line">    this.environmentsElement(root.evalNode(&quot;environments&quot;));</div><div class="line">    this.databaseIdProviderElement(root.evalNode(&quot;databaseIdProvider&quot;));</div><div class="line">    this.typeHandlerElement(root.evalNode(&quot;typeHandlers&quot;));</div><div class="line">    this.mapperElement(root.evalNode(&quot;mappers&quot;));</div><div class="line">&#125; catch (Exception var3) &#123;</div><div class="line">    throw new BuilderException(&quot;Error parsing SQL Mapper Configuration. Cause: &quot; + var3, var3);</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>然后接着追踪SqlSessionFactory对象的build过程，加载了全局配置文件及映射文件同时还将配置的拦截器添加到了拦截器链中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">pagehelper:</div><div class="line">  helperDialect: mysql</div></pre></td></tr></table></figure></p>
+<h4 id="Executor"><a href="#Executor" class="headerlink" title="Executor"></a>Executor</h4><p>接下来SqlSessionFactory 创建SqlSession，过程中发生了什么<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div></pre></td><td class="code"><pre><div class="line">   private SqlSession openSessionFromDataSource(ExecutorType execType, TransactionIsolationLevel level, boolean autoCommit) &#123;</div><div class="line">        Transaction tx = null;</div><div class="line"></div><div class="line">        DefaultSqlSession var8;</div><div class="line">        try &#123;</div><div class="line">            Environment environment = this.configuration.getEnvironment();</div><div class="line">            TransactionFactory transactionFactory = this.getTransactionFactoryFromEnvironment(environment);</div><div class="line">            tx = transactionFactory.newTransaction(environment.getDataSource(), level, autoCommit);</div><div class="line">	    // 关键 Executor 执行过程</div><div class="line">            Executor executor = this.configuration.newExecutor(tx, execType);</div><div class="line">            var8 = new DefaultSqlSession(this.configuration, executor, autoCommit);</div><div class="line">        &#125; catch (Exception var12) &#123;</div><div class="line">            this.closeTransaction(tx);</div><div class="line">            throw ExceptionFactory.wrapException(&quot;Error opening session.  Cause: &quot; + var12, var12);</div><div class="line">        &#125; finally &#123;</div><div class="line">            ErrorContext.instance().reset();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        return var8;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">public Executor newExecutor(Transaction transaction, ExecutorType executorType) &#123;</div><div class="line">	executorType = executorType == null ? this.defaultExecutorType : executorType;</div><div class="line">	executorType = executorType == null ? ExecutorType.SIMPLE : executorType;</div><div class="line">	Object executor;</div><div class="line">	if (ExecutorType.BATCH == executorType) &#123;</div><div class="line">	    executor = new BatchExecutor(this, transaction);</div><div class="line">	&#125; else if (ExecutorType.REUSE == executorType) &#123;</div><div class="line">	    executor = new ReuseExecutor(this, transaction);</div><div class="line">	&#125; else &#123;</div><div class="line">	    executor = new SimpleExecutor(this, transaction);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	if (this.cacheEnabled) &#123;</div><div class="line">	    executor = new CachingExecutor((Executor)executor);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	//拦截器链</div><div class="line">	Executor executor = (Executor)this.interceptorChain.pluginAll(executor);</div><div class="line">	</div><div class="line">	return executor;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public Object pluginAll(Object target) &#123;</div><div class="line">        Interceptor interceptor;</div><div class="line">        for(Iterator var2 = this.interceptors.iterator(); var2.hasNext(); target = interceptor.plugin(target)) &#123;</div><div class="line">            interceptor = (Interceptor)var2.next();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        return target;</div><div class="line">&#125;</div><div class="line">//拦截器的plugin方法</div><div class="line">default Object plugin(Object target) &#123;</div><div class="line">//需要拦截的类型，增强</div><div class="line">        return Plugin.wrap(target, this);</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">    public static Object wrap(Object target, Interceptor interceptor) &#123;</div><div class="line">        Map&lt;Class&lt;?&gt;, Set&lt;Method&gt;&gt; signatureMap = getSignatureMap(interceptor);</div><div class="line">        Class&lt;?&gt; type = target.getClass();</div><div class="line">        Class&lt;?&gt;[] interfaces = getAllInterfaces(type, signatureMap);</div><div class="line"></div><div class="line">	//返回jdk代理类，代理类增强目标</div><div class="line">        return interfaces.length &gt; 0 ? Proxy.newProxyInstance(type.getClassLoader(), interfaces, new Plugin(target, interceptor, signatureMap)) : target;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">public Object invoke(Object proxy, Method method, Object[] args) throws Throwable &#123;</div><div class="line">  try &#123;</div><div class="line">    Set&lt;Method&gt; methods = signatureMap.get(method.getDeclaringClass());</div><div class="line">    // 如果是定义的拦截的方法 就执行intercept方法</div><div class="line">    if (methods != null &amp;&amp; methods.contains(method)) &#123;</div><div class="line">      // 进入查看 该方法增强</div><div class="line">      return interceptor.intercept(new Invocation(target, method, args));</div><div class="line">    &#125;</div><div class="line">    // 不是需要拦截的方法 直接执行</div><div class="line">    return method.invoke(target, args);</div><div class="line">  &#125; catch (Exception e) &#123;</div><div class="line">    throw ExceptionUtil.unwrapThrowable(e);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="selectList"><a href="#selectList" class="headerlink" title="selectList"></a>selectList</h4><p>sqlSession 查看selectList方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">public &lt;E&gt; List&lt;E&gt; selectList(String statement, Object parameter, RowBounds rowBounds) &#123;</div><div class="line">    List var5;</div><div class="line">    try &#123;</div><div class="line">        MappedStatement ms = this.configuration.getMappedStatement(statement);</div><div class="line"> // executor执行query 触发invoke方法	</div><div class="line">        var5 = this.executor.query(ms, this.wrapCollection(parameter), rowBounds, Executor.NO_RESULT_HANDLER);</div><div class="line">    &#125; catch (Exception var9) &#123;</div><div class="line">        throw ExceptionFactory.wrapException(&quot;Error querying database.  Cause: &quot; + var9, var9);</div><div class="line">    &#125; finally &#123;</div><div class="line">        ErrorContext.instance().reset();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    return var5;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2020年03月23日 23:57</p>
+        <p>原始链接： <a class="post-url" href="/2020/03/22/mybatis分页/" title="mybatis分页">https://lukeyli.github.io/2020/03/22/mybatis分页/</a></p>
+        <footer>
+            <a href="https://lukeyli.github.io">
+                <img src="/images/logo.png" alt="LukeyLi">
+                LukeyLi
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lukeyli.github.io/2020/03/22/mybatis分页/&title=《mybatis分页》 — LukeyLi's Blog&pic=https://lukeyli.github.ioimages/logo.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lukeyli.github.io/2020/03/22/mybatis分页/&title=《mybatis分页》 — LukeyLi's Blog&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lukeyli.github.io/2020/03/22/mybatis分页/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《mybatis分页》 — LukeyLi's Blog&url=https://lukeyli.github.io/2020/03/22/mybatis分页/&via=https://lukeyli.github.io" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lukeyli.github.io/2020/03/22/mybatis分页/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://lukeyli.github.io/2020/03/22/mybatis分页/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/分页机制/" class="color5">分页机制</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#获取分页信息"><span class="post-toc-text">获取分页信息</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#plugin加载"><span class="post-toc-text">plugin加载</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Executor"><span class="post-toc-text">Executor</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#selectList"><span class="post-toc-text">selectList</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+  
+    <a href="/2020/03/22/分布式会话/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">分布式会话</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+          <div id="uyan_frame"></div>
+  <script src="http://v2.uyan.cc/code/uyan.js?uid=2147648"></script>
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+
+  <div class="outer">
+
+    <div id="footer-info" class="inner">
+      
+    <script type="text/javascript" src="/live2d/script.js"></script>
+    <canvas id="live2dcanvas" width="300" height="600" class="live2d"></canvas>
+    <style>
+      #live2dcanvas {
+        position: fixed;
+        right: 0px;
+        z-index: 999;
+        pointer-events: none;
+        bottom: 3px;
+      }
+    </style>
+    <script>loadlive2d("live2dcanvas" ,"/live2d/assets/haru/haru.model.json",0.5)</script>
+  
+      
+
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2020 LukeyLi<br>
+      </p>
+    </div>
+
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://lukeyli.github.io",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Java基础/">Java基础</a><a class="category-link" href="/categories/Json详解/">Json详解</a><a class="category-link" href="/categories/diary/">diary</a><a class="category-link" href="/categories/git/">git</a><a class="category-link" href="/categories/java/">java</a><a class="category-link" href="/categories/rabbitMQ/">rabbitMQ</a><a class="category-link" href="/categories/sql/">sql</a><a class="category-link" href="/categories/代码/">代码</a><a class="category-link" href="/categories/会话/">会话</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/后端框架/">后端框架</a><a class="category-link" href="/categories/并发/">并发</a><a class="category-link" href="/categories/支付与对账/">支付与对账</a><a class="category-link" href="/categories/生产环境/">生产环境</a><a class="category-link" href="/categories/缓存/">缓存</a><a class="category-link" href="/categories/设计模式/">设计模式</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/Mark-Word/" style="font-size: 10px;">Mark Word</a> <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/java8/" style="font-size: 10px;">java8</a> <a href="/tags/java对象头/" style="font-size: 10px;">java对象头</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/servlet/" style="font-size: 15px;">servlet</a> <a href="/tags/业务/" style="font-size: 10px;">业务</a> <a href="/tags/乐观锁/" style="font-size: 10px;">乐观锁</a> <a href="/tags/分页机制/" style="font-size: 10px;">分页机制</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/对账/" style="font-size: 10px;">对账</a> <a href="/tags/悲观锁/" style="font-size: 10px;">悲观锁</a> <a href="/tags/支付/" style="font-size: 10px;">支付</a> <a href="/tags/热更新/" style="font-size: 10px;">热更新</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a> <a href="/tags/规范/" style="font-size: 10px;">规范</a> <a href="/tags/设计模式/" style="font-size: 20px;">设计模式</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/home">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/categories/diary">
+                    <i class="fa fa-coffee"></i><span>diary</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/Mark-Word/" style="font-size: 10px;">Mark Word</a> <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/java8/" style="font-size: 10px;">java8</a> <a href="/tags/java对象头/" style="font-size: 10px;">java对象头</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/servlet/" style="font-size: 15px;">servlet</a> <a href="/tags/业务/" style="font-size: 10px;">业务</a> <a href="/tags/乐观锁/" style="font-size: 10px;">乐观锁</a> <a href="/tags/分页机制/" style="font-size: 10px;">分页机制</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/对账/" style="font-size: 10px;">对账</a> <a href="/tags/悲观锁/" style="font-size: 10px;">悲观锁</a> <a href="/tags/支付/" style="font-size: 10px;">支付</a> <a href="/tags/热更新/" style="font-size: 10px;">热更新</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a> <a href="/tags/规范/" style="font-size: 10px;">规范</a> <a href="/tags/设计模式/" style="font-size: 20px;">设计模式</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+
+  </div>
+</body>
+</html>

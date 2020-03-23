@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>分布式会话 | LukeyLi&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="Lukeyli,Lukeyli's Blog" />
+  
+  <meta name="description" content="会话 会话Session代表的是客户端与服务器的一次交互过程，这个过程可以是连续也可以是时断时续的。 曾经的Servlet时代（jsp），一旦用户与服务端交互，服务器用户创建一个session, 同时前端会有一个jsessionid, 每次交互都会携带。 服务器只要在接到用户请求时候，就可以拿到jsessionid，并根据这个ID在对应的会话session，当拿到session会话后，那么我们可以">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分布式会话">
+<meta property="og:url" content="https://lukeyli.github.io/2020/03/22/分布式会话/index.html">
+<meta property="og:site_name" content="LukeyLi&#39;s Blog">
+<meta property="og:description" content="会话 会话Session代表的是客户端与服务器的一次交互过程，这个过程可以是连续也可以是时断时续的。 曾经的Servlet时代（jsp），一旦用户与服务端交互，服务器用户创建一个session, 同时前端会有一个jsessionid, 每次交互都会携带。 服务器只要在接到用户请求时候，就可以拿到jsessionid，并根据这个ID在对应的会话session，当拿到session会话后，那么我们可以">
+<meta property="og:image" content="https://lukeyli.github.io/2020/03/22/分布式会话/单Tomcat会话.jpg">
+<meta property="og:image" content="https://lukeyli.github.io/2020/03/22/分布式会话/动静分离会话.jpg">
+<meta property="og:image" content="https://lukeyli.github.io/2020/03/22/分布式会话/集群分布式系统会话.jpg">
+<meta property="og:updated_time" content="2020-03-22T09:41:09.597Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="分布式会话">
+<meta name="twitter:description" content="会话 会话Session代表的是客户端与服务器的一次交互过程，这个过程可以是连续也可以是时断时续的。 曾经的Servlet时代（jsp），一旦用户与服务端交互，服务器用户创建一个session, 同时前端会有一个jsessionid, 每次交互都会携带。 服务器只要在接到用户请求时候，就可以拿到jsessionid，并根据这个ID在对应的会话session，当拿到session会话后，那么我们可以">
+<meta name="twitter:image" content="https://lukeyli.github.io/2020/03/22/分布式会话/单Tomcat会话.jpg">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">LukeyLi&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/home">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/categories/diary">
+                        <i class="fa fa-coffee"></i>
+                        <span>diary</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        LukeyLi&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个不断进步的程序猿的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="MinHow" target="_blank" href="/home">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="https://github.com/LukeyLi">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="Mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=f0dLS01PTkZNSj8ODlEcEBI">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-分布式会话" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      分布式会话
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/会话/">会话</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2020-03-22
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h4 id="会话"><a href="#会话" class="headerlink" title="会话"></a>会话</h4><ul>
+<li>会话Session代表的是客户端与服务器的一次交互过程，这个过程可以是连续也可以是时断时续的。</li>
+<li>曾经的Servlet时代（jsp），一旦用户与服务端交互，服务器用户创建一个session, 同时前端会有一个jsessionid, 每次交互都会携带。</li>
+<li>服务器只要在接到用户请求时候，就可以拿到jsessionid，并根据这个ID在对应的会话session，当拿到session会话后，那么我们可以操作会话了。</li>
+<li>在会话存活期间，我们就能认为用户一直处于正在使用着网站的状态，一旦session过期，就可以认为用户已经离开网站，停止交互了。</li>
+<li>用户的身份信息，我们也是通过session来判断的，在session中可以保存不同用户的信息。</li>
+</ul>
+<p>代码中体现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">@GetMapping(&quot;/setSession&quot;)</div><div class="line">public Object setSession(HttpServletRequest request) &#123;</div><div class="line">    HttpSession session = request.getSession();</div><div class="line">    session.setAttribute(&quot;userInfo&quot;, &quot;Micheal&quot;);</div><div class="line">    session.setMaxInactiveInterval(3600);</div><div class="line">    session.getAttribute(&quot;userInfo&quot;);</div><div class="line">    // session.removeAttribute(&quot;userInfo&quot;);</div><div class="line">    return &quot;ok&quot;;	</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h5 id="无状态会话"><a href="#无状态会话" class="headerlink" title="无状态会话"></a>无状态会话</h5><ul>
+<li>HTTP请求是无状态的，用户向服务端发起多个请求，服务端并不会知道这多次请求都是来自同一用户，这个就是无状态的。</li>
+<li>cookie的出现就是为了有状态的记录。常见的，ios与服务端交互，安卓与服务端交互，前后端分离，小程序与服务端交互，他们都是通过发起http来调用接口数据的。</li>
+<li>每次交互服务端都不会拿到客户端的状态，但是我们可以通过手段去处理，比如每次用户发起请求的时候携带一个userid或者user-token,就能让服务端根据用户id或token来获得相应的数据。每个用户的下一次请求都能被服务端识别来自同一个用户。</li>
+</ul>
+<h5 id="有状态会话"><a href="#有状态会话" class="headerlink" title="有状态会话"></a>有状态会话</h5><ul>
+<li>tomcat中的会话，就是有状态的，一旦用户和服务端交互，就有会话，会话保存了用户的信息，这样用户就”有状态”了，服务端会和每个客户端都保持着一层关系，这个由容器来管理（也就是tomcat），这个session会话是保存到内存空间里的。</li>
+<li>当不同的用户访问服务端，那么就能通过会话知道谁是谁了。tomcat会话的出现也是为了让http请求变的有状态。</li>
+<li>如果用户不再和服务端交互，那么会话超时则消失，结束了他的生命周期。如此一来，每个用户其实都会有一个会话被维护，这就是有状态会话。理解Cookie是保存在客户端的有状态，Session是保存在服务器的有状态。<br>注：tomcat会话可以通过手段实现多系统之间的状态同步，但是会损耗一定的时间，一旦发生同步那么用户请求就会等待，这种做法不可取。</li>
+</ul>
+<h4 id="会话架构"><a href="#会话架构" class="headerlink" title="会话架构"></a>会话架构</h4><h5 id="单Tomcat会话"><a href="#单Tomcat会话" class="headerlink" title="单Tomcat会话"></a>单Tomcat会话</h5><p>先来看一下单个tomcat会话，这个就是有状态的，用户首次访问服务端，这个时候会话产生，并且会设置jsessionid放入cookie中，后续每次请求都会携带jsessionid以保持用户状态。<br><img src="//lukeyli.github.io/2020/03/22/分布式会话/单Tomcat会话.jpg" alt=""></p>
+<h5 id="动静分离分话"><a href="#动静分离分话" class="headerlink" title="动静分离分话"></a>动静分离分话</h5><p>用户请求服务端，由于动静分离，前端发起http请求，不会携带任何状态，当用户第一次请求以后，我们手动设置一个token，作为用户会话，放入redis中，如此作为redis-session，并且这个token设置后放入前端cookie中（app或小程序可以放入本地缓存），如此后续交互过程中，前端只需要传递token给后端，后端就能识别这个用户请求来自谁了。<br><img src="//lukeyli.github.io/2020/03/22/分布式会话/动静分离会话.jpg" alt=""></p>
+<h5 id="集群分布式系统会话"><a href="#集群分布式系统会话" class="headerlink" title="集群分布式系统会话"></a>集群分布式系统会话</h5><p>集群或分布式系统本质都是多个系统，假设这个里有两个服务器节点，分别是AB系统，他们可以是集群，也可以是分布式系统。由于Session是保存在服务器的，我们这里用了两个服务器，两个服务器session不是共享的，所以一个服务器无法访问另一个服务器的会话。</p>
+<p>这里我们使用Redis实现分布式的会话：<br>一开始用户和A系统交互，那么这个时候的用户状态，我们可以保存到redis中，作为A系统的会话信息，随后用户的请求进入到了B系统，那么B系统中的会话我也同样和redis关联，如此AB系统的session就统一了。当然cookie是会随着用户的访问携带过来的。那么这个其实就是分布式会话，通过redis来保存用户的状态。<br><img src="//lukeyli.github.io/2020/03/22/分布式会话/集群分布式系统会话.jpg" alt=""></p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2020年03月22日 17:41</p>
+        <p>原始链接： <a class="post-url" href="/2020/03/22/分布式会话/" title="分布式会话">https://lukeyli.github.io/2020/03/22/分布式会话/</a></p>
+        <footer>
+            <a href="https://lukeyli.github.io">
+                <img src="/images/logo.png" alt="LukeyLi">
+                LukeyLi
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://lukeyli.github.io/2020/03/22/分布式会话/&title=《分布式会话》 — LukeyLi's Blog&pic=https://lukeyli.github.ioimages/logo.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lukeyli.github.io/2020/03/22/分布式会话/&title=《分布式会话》 — LukeyLi's Blog&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://lukeyli.github.io/2020/03/22/分布式会话/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《分布式会话》 — LukeyLi's Blog&url=https://lukeyli.github.io/2020/03/22/分布式会话/&via=https://lukeyli.github.io" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://lukeyli.github.io/2020/03/22/分布式会话/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://lukeyli.github.io/2020/03/22/分布式会话/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#会话"><span class="post-toc-text">会话</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#无状态会话"><span class="post-toc-text">无状态会话</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#有状态会话"><span class="post-toc-text">有状态会话</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#会话架构"><span class="post-toc-text">会话架构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#单Tomcat会话"><span class="post-toc-text">单Tomcat会话</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#动静分离分话"><span class="post-toc-text">动静分离分话</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#集群分布式系统会话"><span class="post-toc-text">集群分布式系统会话</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2020/03/22/mybatis分页/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          mybatis分页
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2020/03/22/随记20200321/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">随记20200321</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+          <div id="uyan_frame"></div>
+  <script src="http://v2.uyan.cc/code/uyan.js?uid=2147648"></script>
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+
+  <div class="outer">
+
+    <div id="footer-info" class="inner">
+      
+    <script type="text/javascript" src="/live2d/script.js"></script>
+    <canvas id="live2dcanvas" width="300" height="600" class="live2d"></canvas>
+    <style>
+      #live2dcanvas {
+        position: fixed;
+        right: 0px;
+        z-index: 999;
+        pointer-events: none;
+        bottom: 3px;
+      }
+    </style>
+    <script>loadlive2d("live2dcanvas" ,"/live2d/assets/haru/haru.model.json",0.5)</script>
+  
+      
+
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2020 LukeyLi<br>
+      </p>
+    </div>
+
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://lukeyli.github.io",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Java基础/">Java基础</a><a class="category-link" href="/categories/Json详解/">Json详解</a><a class="category-link" href="/categories/diary/">diary</a><a class="category-link" href="/categories/git/">git</a><a class="category-link" href="/categories/java/">java</a><a class="category-link" href="/categories/rabbitMQ/">rabbitMQ</a><a class="category-link" href="/categories/sql/">sql</a><a class="category-link" href="/categories/代码/">代码</a><a class="category-link" href="/categories/会话/">会话</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/后端框架/">后端框架</a><a class="category-link" href="/categories/并发/">并发</a><a class="category-link" href="/categories/支付与对账/">支付与对账</a><a class="category-link" href="/categories/生产环境/">生产环境</a><a class="category-link" href="/categories/缓存/">缓存</a><a class="category-link" href="/categories/设计模式/">设计模式</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/Mark-Word/" style="font-size: 10px;">Mark Word</a> <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/java8/" style="font-size: 10px;">java8</a> <a href="/tags/java对象头/" style="font-size: 10px;">java对象头</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/servlet/" style="font-size: 15px;">servlet</a> <a href="/tags/业务/" style="font-size: 10px;">业务</a> <a href="/tags/乐观锁/" style="font-size: 10px;">乐观锁</a> <a href="/tags/分页机制/" style="font-size: 10px;">分页机制</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/对账/" style="font-size: 10px;">对账</a> <a href="/tags/悲观锁/" style="font-size: 10px;">悲观锁</a> <a href="/tags/支付/" style="font-size: 10px;">支付</a> <a href="/tags/热更新/" style="font-size: 10px;">热更新</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a> <a href="/tags/规范/" style="font-size: 10px;">规范</a> <a href="/tags/设计模式/" style="font-size: 20px;">设计模式</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/home">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/categories/diary">
+                    <i class="fa fa-coffee"></i><span>diary</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/Mark-Word/" style="font-size: 10px;">Mark Word</a> <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/java8/" style="font-size: 10px;">java8</a> <a href="/tags/java对象头/" style="font-size: 10px;">java对象头</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/servlet/" style="font-size: 15px;">servlet</a> <a href="/tags/业务/" style="font-size: 10px;">业务</a> <a href="/tags/乐观锁/" style="font-size: 10px;">乐观锁</a> <a href="/tags/分页机制/" style="font-size: 10px;">分页机制</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/对账/" style="font-size: 10px;">对账</a> <a href="/tags/悲观锁/" style="font-size: 10px;">悲观锁</a> <a href="/tags/支付/" style="font-size: 10px;">支付</a> <a href="/tags/热更新/" style="font-size: 10px;">热更新</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a> <a href="/tags/规范/" style="font-size: 10px;">规范</a> <a href="/tags/设计模式/" style="font-size: 20px;">设计模式</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+
+  </div>
+</body>
+</html>
