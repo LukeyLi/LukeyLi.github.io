@@ -189,6 +189,8 @@
                   
                   <a href="/categories/会话/">会话</a>
                   
+                  <a href="/categories/redis/">redis</a>
+                  
               </span>
           
       </header>
@@ -222,60 +224,6 @@
         </ul>
         
             <a href="/2020/03/22/分布式会话/#more" class="article-more-link"  target="_blank" >more&gt;&gt;</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article id="post-随记20200321" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/22/随记20200321/"  target="_blank"  >随记20200321</a>
-    </h1>
-  
-
-          
-              <span class="header-cate">
-                <i class="fa fa-map-marker"></i>
-                  
-                  <a href="/categories/diary/">diary</a>
-                  
-              </span>
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/2020/03/22/随记20200321/"  target="_blank" >
-                
-                <img src="https://lukeyli.github.io/images/banner.jpg" alt="随记20200321" title="随记20200321">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                2020-0321&emsp;&emsp;最近的感受，就是百感交集。产品小哥哥去意已决，先行一步。原本以为我会先按耐不住先提的。最近呢，新来的一个一年多经验的IOS开发，原本以为会接老IOS开发的班，然后之前的IOS走人，结果一个礼拜不到，在某次下班开会后，第二天就走了。大概是直接看透了，没有晋升方式，没有奖励机制，没有福利。测试一个人瞎划水，没有版本时间规划，一两天发一...
-            </p>
-        </div>
-      
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2020-03-22</li>
-            
-            
-        </ul>
-        
-            <a href="/2020/03/22/随记20200321/#more" class="article-more-link"  target="_blank" >more&gt;&gt;</a>
         
     </footer>
   </div>
@@ -624,7 +572,7 @@ enum我们程序员是专业的，要研发属于中国的开发语言，看下�
         <div class="article-feed">
             <p>
                 工作感受&emsp;&emsp;人还是需要不断去记录，发现自己的不足，吾日三省吾身，为人谋而不忠乎？与朋友交而不信乎？传不习乎？
-第一家&emsp;&emsp;自从毕业后，意义上第一家公司干了8个月离职，按月来算的工作经历跟大多数人相比，刚毕业不久的我，工作时长显得短。那是一家初创型公司，这家小团队是从福州的一家大公司跳出来的管理层，业务的话，主要为江苏农商行服务(当初面...
+第一家&emsp;&emsp;自从毕业后，意义上第一家公司干了9个月左右离职，按月来算的工作经历跟大多数人相比，刚毕业不久的我，工作时长显得短。那是一家初创型公司，这家小团队是从福州的一家大公司跳出来的管理层，业务的话，主要为江苏农商行服务(当...
             </p>
         </div>
       
@@ -712,6 +660,72 @@ Mark WordMark Word记录了对象和锁有关的信息。当这个对象被sync.
 
 
   
+    <article id="post-java的各种锁" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/03/java的各种锁/"  target="_blank"  >java的各种锁</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/java/">java</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2020/02/03/java的各种锁/"  target="_blank" >
+                
+                <img src="https://lukeyli.github.io/images/banner.jpg" alt="java的各种锁" title="java的各种锁">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                Java按照是否对资源加锁分为乐观锁和悲观锁，不是真实的锁，而是一种设计思想。
+悲观锁悲观锁的思想是，它总认为最坏的情况可能会出现，它认为数据可能会被其他人所修改，所以悲观锁在持有数据的时候总会把 资源 或者 数据 锁住，这样其他线程想要请求这个资源的时候就会阻塞，直到等到悲观锁把资源释放为止。传统的关系型数据库里边就用到了很多这种锁机制，比如行锁，表锁等，读锁，写锁等，...
+            </p>
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2020-02-03</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/悲观锁/" class="color4">悲观锁</a>
+      
+    <a href="/tags/多线程/" class="color4">多线程</a>
+      
+    <a href="/tags/乐观锁/" class="color4">乐观锁</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2020/02/03/java的各种锁/#more" class="article-more-link"  target="_blank" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
 
 
   <nav id="page-nav">
@@ -787,7 +801,7 @@ Mark WordMark Word记录了对象和锁有关的信息。当这个对象被sync.
 <div class="sidebar-menu-box" id="sidebar-menu-box">
     <div class="sidebar-menu-box-container">
         <div id="sidebar-menu-box-categories">
-            <a class="category-link" href="/categories/Java基础/">Java基础</a><a class="category-link" href="/categories/Json详解/">Json详解</a><a class="category-link" href="/categories/diary/">diary</a><a class="category-link" href="/categories/git/">git</a><a class="category-link" href="/categories/java/">java</a><a class="category-link" href="/categories/rabbitMQ/">rabbitMQ</a><a class="category-link" href="/categories/sql/">sql</a><a class="category-link" href="/categories/代码/">代码</a><a class="category-link" href="/categories/会话/">会话</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/后端框架/">后端框架</a><a class="category-link" href="/categories/并发/">并发</a><a class="category-link" href="/categories/支付与对账/">支付与对账</a><a class="category-link" href="/categories/生产环境/">生产环境</a><a class="category-link" href="/categories/缓存/">缓存</a><a class="category-link" href="/categories/设计模式/">设计模式</a>
+            <a class="category-link" href="/categories/Java基础/">Java基础</a><a class="category-link" href="/categories/Json详解/">Json详解</a><a class="category-link" href="/categories/diary/">diary</a><a class="category-link" href="/categories/git/">git</a><a class="category-link" href="/categories/java/">java</a><a class="category-link" href="/categories/rabbitMQ/">rabbitMQ</a><a class="category-link" href="/categories/sql/">sql</a><a class="category-link" href="/categories/代码/">代码</a><a class="category-link" href="/categories/会话/">会话</a><a class="category-link" href="/categories/会话/redis/">redis</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/后端框架/">后端框架</a><a class="category-link" href="/categories/并发/">并发</a><a class="category-link" href="/categories/支付与对账/">支付与对账</a><a class="category-link" href="/categories/生产环境/">生产环境</a><a class="category-link" href="/categories/缓存/">缓存</a><a class="category-link" href="/categories/设计模式/">设计模式</a>
         </div>
         <div id="sidebar-menu-box-tags">
             <a href="/tags/Mark-Word/" style="font-size: 10px;">Mark Word</a> <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/java8/" style="font-size: 10px;">java8</a> <a href="/tags/java对象头/" style="font-size: 10px;">java对象头</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/servlet/" style="font-size: 15px;">servlet</a> <a href="/tags/业务/" style="font-size: 10px;">业务</a> <a href="/tags/乐观锁/" style="font-size: 10px;">乐观锁</a> <a href="/tags/分页机制/" style="font-size: 10px;">分页机制</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/对账/" style="font-size: 10px;">对账</a> <a href="/tags/悲观锁/" style="font-size: 10px;">悲观锁</a> <a href="/tags/支付/" style="font-size: 10px;">支付</a> <a href="/tags/热更新/" style="font-size: 10px;">热更新</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a> <a href="/tags/规范/" style="font-size: 10px;">规范</a> <a href="/tags/设计模式/" style="font-size: 20px;">设计模式</a>

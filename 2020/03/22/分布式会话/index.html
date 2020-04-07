@@ -17,7 +17,7 @@
 <meta property="og:image" content="https://lukeyli.github.io/2020/03/22/分布式会话/单Tomcat会话.jpg">
 <meta property="og:image" content="https://lukeyli.github.io/2020/03/22/分布式会话/动静分离会话.jpg">
 <meta property="og:image" content="https://lukeyli.github.io/2020/03/22/分布式会话/集群分布式系统会话.jpg">
-<meta property="og:updated_time" content="2020-03-22T09:41:09.597Z">
+<meta property="og:updated_time" content="2020-03-27T12:43:48.720Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="分布式会话">
 <meta name="twitter:description" content="会话 会话Session代表的是客户端与服务器的一次交互过程，这个过程可以是连续也可以是时断时续的。 曾经的Servlet时代（jsp），一旦用户与服务端交互，服务器用户创建一个session, 同时前端会有一个jsessionid, 每次交互都会携带。 服务器只要在接到用户请求时候，就可以拿到jsessionid，并根据这个ID在对应的会话session，当拿到session会话后，那么我们可以">
@@ -132,6 +132,8 @@
                   
                       <a href="/categories/会话/">会话</a>
                   
+                      <a href="/categories/redis/">redis</a>
+                  
               </li>
           
         <li>
@@ -173,10 +175,11 @@
 <h5 id="动静分离分话"><a href="#动静分离分话" class="headerlink" title="动静分离分话"></a>动静分离分话</h5><p>用户请求服务端，由于动静分离，前端发起http请求，不会携带任何状态，当用户第一次请求以后，我们手动设置一个token，作为用户会话，放入redis中，如此作为redis-session，并且这个token设置后放入前端cookie中（app或小程序可以放入本地缓存），如此后续交互过程中，前端只需要传递token给后端，后端就能识别这个用户请求来自谁了。<br><img src="//lukeyli.github.io/2020/03/22/分布式会话/动静分离会话.jpg" alt=""></p>
 <h5 id="集群分布式系统会话"><a href="#集群分布式系统会话" class="headerlink" title="集群分布式系统会话"></a>集群分布式系统会话</h5><p>集群或分布式系统本质都是多个系统，假设这个里有两个服务器节点，分别是AB系统，他们可以是集群，也可以是分布式系统。由于Session是保存在服务器的，我们这里用了两个服务器，两个服务器session不是共享的，所以一个服务器无法访问另一个服务器的会话。</p>
 <p>这里我们使用Redis实现分布式的会话：<br>一开始用户和A系统交互，那么这个时候的用户状态，我们可以保存到redis中，作为A系统的会话信息，随后用户的请求进入到了B系统，那么B系统中的会话我也同样和redis关联，如此AB系统的session就统一了。当然cookie是会随着用户的访问携带过来的。那么这个其实就是分布式会话，通过redis来保存用户的状态。<br><img src="//lukeyli.github.io/2020/03/22/分布式会话/集群分布式系统会话.jpg" alt=""></p>
+<h4 id="redis实现会话"><a href="#redis实现会话" class="headerlink" title="redis实现会话"></a>redis实现会话</h4><p>再登录注册的时候 ，记录用户信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">//实现注册（在数据库里保存用户信息）</div><div class="line">Users userResult = userService.createUser(userBO);</div><div class="line">//创建用户token，存入redis缓存</div><div class="line">UsersVO usersVO = convertUsersVO(userResult);</div><div class="line">//用户token放入cookie</div><div class="line">CookieUtils.setCookie(request, response, &quot;user&quot;,</div><div class="line">		JsonUtils.objectToJson(usersVO), true);</div><div class="line"></div><div class="line">  ...</div><div class="line"></div><div class="line"></div><div class="line">   public UsersVO convertUsersVO(Users userResult) &#123;</div><div class="line">   	//产生唯一的token</div><div class="line">       String uniqueToken = UUID.randomUUID().toString().trim();</div><div class="line">       //将token放入redis缓存</div><div class="line">       redisOperator.set(REDIS_USER_TOKEN + &quot;:&quot; + userResult.getId(), uniqueToken);</div><div class="line">       UsersVO usersVO = new UsersVO();</div><div class="line">       BeanUtils.copyProperties(userResult, usersVO);</div><div class="line">       usersVO.setUserUniqueToken(uniqueToken);</div><div class="line">       return usersVO;</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2020年03月22日 17:41</p>
+        <p>最后更新： 2020年03月27日 20:43</p>
         <p>原始链接： <a class="post-url" href="/2020/03/22/分布式会话/" title="分布式会话">https://lukeyli.github.io/2020/03/22/分布式会话/</a></p>
         <footer>
             <a href="https://lukeyli.github.io">
@@ -252,7 +255,7 @@
 
     <aside class="post-toc-pos post-toc-top" id="post-toc">
         <nav class="post-toc-wrap">
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#会话"><span class="post-toc-text">会话</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#无状态会话"><span class="post-toc-text">无状态会话</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#有状态会话"><span class="post-toc-text">有状态会话</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#会话架构"><span class="post-toc-text">会话架构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#单Tomcat会话"><span class="post-toc-text">单Tomcat会话</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#动静分离分话"><span class="post-toc-text">动静分离分话</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#集群分布式系统会话"><span class="post-toc-text">集群分布式系统会话</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#会话"><span class="post-toc-text">会话</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#无状态会话"><span class="post-toc-text">无状态会话</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#有状态会话"><span class="post-toc-text">有状态会话</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#会话架构"><span class="post-toc-text">会话架构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#单Tomcat会话"><span class="post-toc-text">单Tomcat会话</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#动静分离分话"><span class="post-toc-text">动静分离分话</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#集群分布式系统会话"><span class="post-toc-text">集群分布式系统会话</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#redis实现会话"><span class="post-toc-text">redis实现会话</span></a></li></ol>
         </nav>
     </aside>
     
@@ -270,8 +273,8 @@
     </a>
   
   
-    <a href="/2020/03/22/随记20200321/" id="article-nav-older" class="article-nav-link-wrap">
-      <span class="article-nav-title">随记20200321</span>
+    <a href="/2020/03/19/生产环境的热更新/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">生产环境的热更新</span>
       <i class="fa fa-hand-o-right" aria-hidden="true"></i>
     </a>
   
@@ -354,7 +357,7 @@
 <div class="sidebar-menu-box" id="sidebar-menu-box">
     <div class="sidebar-menu-box-container">
         <div id="sidebar-menu-box-categories">
-            <a class="category-link" href="/categories/Java基础/">Java基础</a><a class="category-link" href="/categories/Json详解/">Json详解</a><a class="category-link" href="/categories/diary/">diary</a><a class="category-link" href="/categories/git/">git</a><a class="category-link" href="/categories/java/">java</a><a class="category-link" href="/categories/rabbitMQ/">rabbitMQ</a><a class="category-link" href="/categories/sql/">sql</a><a class="category-link" href="/categories/代码/">代码</a><a class="category-link" href="/categories/会话/">会话</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/后端框架/">后端框架</a><a class="category-link" href="/categories/并发/">并发</a><a class="category-link" href="/categories/支付与对账/">支付与对账</a><a class="category-link" href="/categories/生产环境/">生产环境</a><a class="category-link" href="/categories/缓存/">缓存</a><a class="category-link" href="/categories/设计模式/">设计模式</a>
+            <a class="category-link" href="/categories/Java基础/">Java基础</a><a class="category-link" href="/categories/Json详解/">Json详解</a><a class="category-link" href="/categories/diary/">diary</a><a class="category-link" href="/categories/git/">git</a><a class="category-link" href="/categories/java/">java</a><a class="category-link" href="/categories/rabbitMQ/">rabbitMQ</a><a class="category-link" href="/categories/sql/">sql</a><a class="category-link" href="/categories/代码/">代码</a><a class="category-link" href="/categories/会话/">会话</a><a class="category-link" href="/categories/会话/redis/">redis</a><a class="category-link" href="/categories/前端/">前端</a><a class="category-link" href="/categories/后端框架/">后端框架</a><a class="category-link" href="/categories/并发/">并发</a><a class="category-link" href="/categories/支付与对账/">支付与对账</a><a class="category-link" href="/categories/生产环境/">生产环境</a><a class="category-link" href="/categories/缓存/">缓存</a><a class="category-link" href="/categories/设计模式/">设计模式</a>
         </div>
         <div id="sidebar-menu-box-tags">
             <a href="/tags/Mark-Word/" style="font-size: 10px;">Mark Word</a> <a href="/tags/Servlet/" style="font-size: 15px;">Servlet</a> <a href="/tags/gc/" style="font-size: 10px;">gc</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/java8/" style="font-size: 10px;">java8</a> <a href="/tags/java对象头/" style="font-size: 10px;">java对象头</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/servlet/" style="font-size: 15px;">servlet</a> <a href="/tags/业务/" style="font-size: 10px;">业务</a> <a href="/tags/乐观锁/" style="font-size: 10px;">乐观锁</a> <a href="/tags/分页机制/" style="font-size: 10px;">分页机制</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/对账/" style="font-size: 10px;">对账</a> <a href="/tags/悲观锁/" style="font-size: 10px;">悲观锁</a> <a href="/tags/支付/" style="font-size: 10px;">支付</a> <a href="/tags/热更新/" style="font-size: 10px;">热更新</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a> <a href="/tags/规范/" style="font-size: 10px;">规范</a> <a href="/tags/设计模式/" style="font-size: 20px;">设计模式</a>

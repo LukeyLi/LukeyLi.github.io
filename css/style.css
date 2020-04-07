@@ -1445,14 +1445,19 @@ body {
 }
 .post-toc-pos {
   z-index: 999;
-  bottom: 77%;
+  bottom: 90%;
   left: calc(50% - 660px);
   position: fixed;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
 }
 .post-toc-pos .post-article {
   float: left;
   width: 80%;
-  padding-right: 30px;
+  padding-right: 15px;
 }
 .post-toc-not-top {
   -webkit-transition: opacity 0.5s ease-in-out;
@@ -1470,7 +1475,7 @@ body {
   position: fixed;
   border-radius: 3px;
   width: 200px;
-  max-height: 400px;
+  max-height: 200px;
   color: #313131;
 }
 .post-toc-wrap.fixed {
